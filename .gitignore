@@ -5,4 +5,7 @@
 *.nav
 *.out
 *.snm
+*.bbl
+*.blg
+*.synctex.gz
 *.Rhistory
