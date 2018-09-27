@@ -1,0 +1,107 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{MLT Homework 3}
+\author{Ana Borovac \\ Jonas Haslbeck \\ Bas Haver}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{mathtools}
+
+\usepackage{url}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcounter{counterquestion}
+\newenvironment{question}[1]
+{
+\stepcounter{counterquestion}
+\section*{Question \thecounterquestion}
+\textit{#1} 
+} 
+{
+}
+
+\newcounter{countersubquestion}[counterquestion]
+\newenvironment{subquestion}[1]
+{
+\stepcounter{countersubquestion}
+\subsection*{Subquestion \thecounterquestion .\thecountersubquestion}
+\textit{#1} 
+} 
+{
+}
+
+\newenvironment{solution}
+{
+\subsubsection*{Solution}
+} 
+{
+}
+
+
+\begin{document}
+
+\maketitle
+
+% 1st question
+\begin{question}{Show the following monotonicity property of VC-dimension: For every two hypothesis classes if $\mathcal{H}' \subset \mathcal{H}$ then $\text{VCdim}(\mathcal{H}') \leq \text{VCdim}(\mathcal{H})$.}
+\begin{solution}
+Let assume:
+\[
+C' \subseteq \mathcal{H}':\ \text{VCdim}(\mathcal{H}') = |C'|
+\]
+We also know:
+\[
+C' \subseteq \mathcal{H}' \subset \mathcal{H} \quad \implies \quad C' \subset \mathcal{H}
+\]
+From that we can conclude:
+\[
+\text{VCdim}(\mathcal{H}) \geq |C'| = \text{VCdim}(\mathcal{H}') \quad \implies \quad \text{VCdim}(\mathcal{H}') \leq \text{VCdim}(\mathcal{H})
+\]
+\end{solution}
+\end{question}
+
+
+% 2nd question
+\begin{question}{Given some finite domain set, $\mathcal{X}$, and a number $k \leq |\mathcal{X}|$, figure out the VC-dimension of each of the following classes (and prove your claims).}
+\begin{subquestion}{$\mathcal{H}_{= k}^{\mathcal{X}} = \{h \in \{0, 1\}^{\mathcal{X}} : |\{x: h(x) = 1\}| = k\}$. That is, the set of all functions that assign the value $1$ to exactly $k$ elements of $\mathcal{X}.$}
+\begin{solution}
+Claim: $\text{VCdim}(\mathcal{H}_{= k}^{\mathcal{X}}) = |\mathcal{X}| - k$.
+
+\noindent
+Proof: Let $C$ denote subset of $\mathcal{X}$ such that $|C| = |\mathcal{X}| - k$. 
+
+In the “worst” case we want to label all elements of $C$ with $0$. In order to do that we need at least $k$ elements in a set $\mathcal{X} \setminus C$. From there we can conclude that the biggest subset of $\mathcal{X}$ which can be shattered by $\mathcal{H}_{= k}^{\mathcal{X}}$ is of size $|\mathcal{X}| - k$.
+\end{solution}
+\end{subquestion}
+
+\begin{subquestion}{$\mathcal{H}_{at-most-k} = \{h \in \{0, 1\}^{\mathcal{X}} : |\{x : h(x) = 1\}| \leq k \text{ or }  |\{x : h(x) = 0\}| \leq k\}$}.
+\end{subquestion}
+\end{question}
+
+
+% 3rd question
+\begin{question}{}
+\begin{solution}
+
+\end{solution}
+\end{question}
+
+
+% 4th question
+\begin{question}{}
+\begin{solution}
+
+\end{solution}
+\end{question}
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
