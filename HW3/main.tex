@@ -76,7 +76,7 @@ From that we can conclude:
 Claim: $\text{VCdim}(\mathcal{H}_{= k}^{\mathcal{X}}) = \min\{k, |\mathcal{X}| - k\}$.
 
 \noindent
-Proof: Let $C$ denote subset of $\mathcal{X}$ such that $|C| = \min\{k, |\mathcal{X}| - k\}$. 
+Proof: Let $C$ denote a subset of $\mathcal{X}$ such that $|C| = \min\{k, |\mathcal{X}| - k\}$. 
 
 In the “worst” case we want to label all elements of $C$ with $0$. In order to do that we need at least $k$ elements in a set $\mathcal{X} \setminus C$. From there we can conclude that the biggest subset of $\mathcal{X}$ which can be shattered by $\mathcal{H}_{= k}^{\mathcal{X}}$ is of size $|\mathcal{X}| - k$.
 
@@ -94,7 +94,7 @@ If we combine both explanations above, we get:
 Claim: $\text{VCdim}(\mathcal{H}_{at-most-k}) = \min\{2k, |\mathcal{X}|\}$
 
 \noindent
-Proof: Let's analyse the case that we do not want to happen. We do not want to have a subset $C$ where on of labelings contains $> k$ elements that are labeled $0$ and $> k$ elements labeled $1$. So, subsets bigger that $2k$ can not be shattered by  $\mathcal{H}_{at-most-k}$. From this and the fact that VC-dimension can not bi bigger than $|\mathcal{X}|$ we conclude:
+Proof: Let's analyse the case that we do not want to happen. We do not want to have a subset $C$ where one of labelings contains $> k$ elements that are labeled $0$ and $> k$ elements labeled $1$. So, subsets bigger that $2k$ can not be shattered by  $\mathcal{H}_{at-most-k}$. From this and the fact that VC-dimension can not be bigger than $|\mathcal{X}|$ we conclude:
 \[
 \text{VCdim}(\mathcal{H}_{at-most-k}) = \min\{2k, |\mathcal{X}|\}
 \]
@@ -104,17 +104,39 @@ Proof: Let's analyse the case that we do not want to happen. We do not want to h
 
 
 % 3rd question
-\begin{question}{}
+\begin{question}{Let $\mathcal{X}$ be the Boolean hypercube $\{0 , 1 \} ^n$. For a set $\mathcal{I} \subseteq \{ 1,2,\dots , n \}$ we define a \textit{parity function} $h_I$ as follows. On a binary vector $\textbf{x}=(x_1, x_2, \dots , x_n )\in \{ 0,1\} ^n$,
+$$h_I (\textbf{x}) = (\sum _{i\in I} x_i) \text{mod 2}.$$
+(That is, $h_I$ computes parity of bits in $I$.) What is the VC-dimension of the class of all such parity functions, $\mathcal{H} _{n-\text{parity}}=\{ h_I : I\subseteq \{ 1,2,\dots , n\} \}$?}
 \begin{solution}
-
+By both proving that the VC-dimension of the parity functions is both bounded from above and from below by $n$, we will get to the conclusion that the VC-dimension is equal to $n$.\\
+First note that the Boolean hypercube is a finite set and therefore, as is stated in section 6.3.4 in the book, $$\text{VC-dim}(\mathcal{H}_{n-parity})\leq \log _2 (| \mathcal{H}_{n-parity}|)= \log _2 (2^n)=n.$$
+So we now have VCdim$(\mathcal{H}_{n-parity}) \leq n$.\\
+We also know that in $\{ 0,1 \}^n$ there are $n$ different unit vectors $e_i$ which have a one at the $i$-th spot and a zero everywhere else. For any collection of these unit vectors, excluding the one containing all the unit vectors, we can choose $I$ to be corresponding with one of the unit vectors (for example $I=1$ when the unit vector $e_1$ is in the collection), to obtain 1 and choose $I$ corresponding to a unit vector which is not in the collection to obtain 0. Now when all unit vectors are in our collection, we can choose an $I=\{1 \} $ to obtain a 1 and $I=\{ 1,2 \} $ to obtain a zero. So for every collection of unit vectors we can obtain bot a 0 and a 1. Since there are $n$ of these unit vectors we have VC-dim$(\mathcal{H} _{n-parity}) \geq n$ and so VC-dim$(\mathcal{H} _{n-parity}) = n$
 \end{solution}
 \end{question}
 
 
 % 4th question
-\begin{question}{}
+\begin{question}{\textbf{VC-dimension of Boolean conjunctions:} Let $\mathcal{H} ^d _{con}$ be the class of Boolean conjunctions over the variables $x_1, \dots , x_d$ $(d\geq 2)$. We already know that this class is finite and thus (agnostic) PAC learnable. In this question we calculate VCdim$(\mathcal{H}^d _{con} )$.}
+\begin{enumerate}
+\item Show that $| \mathcal{H}^d _{con} | \leq 3^d +1$.\\
+Since having a literal twice in a product give's $1$ for every $x_i$, it does not contribute anything when multiplying this with other literals. So first consider the possibilities where there is no literal used twice. Then for any $i\in [d]$ we have the possibilities of using a literal giving $x_i$, one giving $\bar{x}_i$, and of course the possibility of not using any literal of $x_i$ in your product. Having these three options for every $i\in [d]$ results in a maximal amount of $3^d$ functions. Combined with the possibility of having a literal twice only, so not multiplied by any other product (of course multiplying it with twice any literal can be done, still not contributing anything to our final value), will result in a label $1$ and is in the class as well. This concludes the task and gives us $|\mathcal{H} ^d _{con} | \leq 3^d +1$.
+\item Conclude that VCdim$(\mathcal{H} ) \leq d \log 3$.\\
+Now since the all-positive function does only give us $1$ as a result, it can not be in our set determining the VC-dimension. So the problem is equivalent to finding teh VC-dimension of a set of size $3^d$, which is finite. So the VC-dimension is smaller than the log over the size, and thus we can conclude VCdim$(\mathcal{H} ) \leq d \log 3$ immediately.
+\item Show that $\mathcal{H}^d _{con}$ shatters the set of unit vectors $\{ \textbf{e}_i : i\leq d \}$.\\
+For every collection of unit vectors, we can choose an $i$ such that $e_i$ is in the collection. Then $f(\textbf{x})=x_i$ gives our value $1$ and $f(\textbf{x})=\bar{x}_i$ gives us $0$. Since this is available for all combinations of the unit vectors, we have that the set of unit vectors can be shattered.
+\item \textbf{(**)} Show that VCdim$(\mathcal{H}^d _{con} )\leq d$.\\
+Hint: Assume by contradiction that there exists a set $C= \{ c_1, \dots , c_{d+1} \}$ that is shattered by $\mathcal{H} ^d _{con}$. Let $h_1, \dots , h_{d+1}$ by hypotheses in $\mathcal{H} ^d _{con}$ that satisfy
+$$\forall i,j \in [d+1], h_i (c_j) = 
+\begin{cases} 
+ 0\text{   }i=j\\
+ 1\text{   otherwise}
+   \end{cases}
+$$
+For each $i \in [d+1]$, $h_i$ (or more accurately, the conjunction that corresponds to $h_i$) contains some literal $l_i$ which is false on $c_i$ and true on $c_j$ for each $j \neq i$. Use the Pigeonhole principle to show that there must be a pair $i<j\leq d+1$ such that $l_i$ and $l_j$ use the same $x_k$ and use that fact to derive a contradiction to the requirements from the conjunctions $h_i, h_j$.
+\item Consider the class $\mathcal{H}^d _{mcon}$ of monotone Boolean conjunctions over $\{0.1 \} ^d$. Monotonicity here means that the conjunctions do not contain negations. As in $\mathcal{H}^d _{con}$, the empty conjunction is interpreted as the all-positive hypothesis. We augment $\mathcal{H} ^d _{mcon}$ with the all-negative hypothesis $h^-$. Show that VCdim$(\mathcal{H} ^d _{mcon} )=d$.
+\end{enumerate}
 \begin{solution}
-
 \end{solution}
 \end{question}
 
