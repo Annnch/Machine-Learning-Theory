@@ -23,7 +23,7 @@
 {
 \stepcounter{counterquestion}
 \section*{Question \thecounterquestion}
-\textit{#1} 
+\emph{#1} 
 } 
 {
 }
@@ -33,7 +33,7 @@
 {
 \stepcounter{countersubquestion}
 \subsection*{Subquestion \thecounterquestion .\thecountersubquestion}
-\textit{#1} 
+\emph{#1} 
 } 
 {
 }
@@ -55,15 +55,11 @@
 \begin{solution}
 Let assume:
 \[
-C' \subseteq \mathcal{H}':\ \text{VCdim}(\mathcal{H}') = |C'|
+\text{VCdim}(\mathcal{H}') = |C'|
 \]
-We also know:
+So, the restriction of $\mathcal{H}'$ to $C'$ is the set of all functions from $C'$ to $\{0, 1\}$ (let's denote it with $F$). Since $\mathcal{H}' \subset \mathcal{H}$, we know that $F  \subset \mathcal{H}$. From this we can conclude, that $\mathcal{H}$ also shatters $C'$, but there may exist a larger subset of $\mathcal{H}$ that can be shattered, so:
 \[
-C' \subseteq \mathcal{H}' \subset \mathcal{H} \quad \implies \quad C' \subset \mathcal{H}
-\]
-From that we can conclude:
-\[
-\text{VCdim}(\mathcal{H}) \geq |C'| = \text{VCdim}(\mathcal{H}') \quad \implies \quad \text{VCdim}(\mathcal{H}') \leq \text{VCdim}(\mathcal{H})
+\text{VCdim}(\mathcal{H}') \leq \text{VCdim}(\mathcal{H})
 \]
 \end{solution}
 \end{question}
@@ -105,7 +101,7 @@ Proof: Let's analyse the case that we do not want to happen. We do not want to h
 
 % 3rd question
 \begin{question}{Let $\mathcal{X}$ be the Boolean hypercube $\{0 , 1 \} ^n$. For a set $\mathcal{I} \subseteq \{ 1,2,\dots , n \}$ we define a \textit{parity function} $h_I$ as follows. On a binary vector $\textbf{x}=(x_1, x_2, \dots , x_n )\in \{ 0,1\} ^n$,
-$$h_I (\textbf{x}) = (\sum _{i\in I} x_i) \text{mod 2}.$$
+$$h_I (\textbf{x}) = \left(\sum _{i\in I} x_i \right) \text{mod 2}.$$
 (That is, $h_I$ computes parity of bits in $I$.) What is the VC-dimension of the class of all such parity functions, $\mathcal{H} _{n-\text{parity}}=\{ h_I : I\subseteq \{ 1,2,\dots , n\} \}$?}
 \begin{solution}
 By both proving that the VC-dimension of the parity functions is both bounded from above and from below by $n$, we will get to the conclusion that the VC-dimension is equal to $n$.\\
@@ -117,26 +113,68 @@ We also know that in $\{ 0,1 \}^n$ there are $n$ different unit vectors $e_i$ wh
 
 
 % 4th question
-\begin{question}{\textbf{VC-dimension of Boolean conjunctions:} Let $\mathcal{H} ^d _{con}$ be the class of Boolean conjunctions over the variables $x_1, \dots , x_d$ $(d\geq 2)$. We already know that this class is finite and thus (agnostic) PAC learnable. In this question we calculate VCdim$(\mathcal{H}^d _{con} )$.}
+\begin{question}{\textbf{VC-dimension of Boolean conjunctions:} Let $\mathcal{H} ^d _{con}$ be the class of Boolean conjunctions over the variables $x_1, \dots , x_d$ $(d\geq 2)$. We already know that this class is finite and thus (agnostic) PAC learnable. In this question we calculate VCdim$(\mathcal{H}^d _{con} )$.
 \begin{enumerate}
-\item Show that $| \mathcal{H}^d _{con} | \leq 3^d +1$.\\
-Since having a literal twice in a product give's $1$ for every $x_i$, it does not contribute anything when multiplying this with other literals. So first consider the possibilities where there is no literal used twice. Then for any $i\in [d]$ we have the possibilities of using a literal giving $x_i$, one giving $\bar{x}_i$, and of course the possibility of not using any literal of $x_i$ in your product. Having these three options for every $i\in [d]$ results in a maximal amount of $3^d$ functions. Combined with the possibility of having a literal twice only, so not multiplied by any other product (of course multiplying it with twice any literal can be done, still not contributing anything to our final value), will result in a label $1$ and is in the class as well. This concludes the task and gives us $|\mathcal{H} ^d _{con} | \leq 3^d +1$.
-\item Conclude that VCdim$(\mathcal{H} ) \leq d \log 3$.\\
-Now since the all-positive function does only give us $1$ as a result, it can not be in our set determining the VC-dimension. So the problem is equivalent to finding teh VC-dimension of a set of size $3^d$, which is finite. So the VC-dimension is smaller than the log over the size, and thus we can conclude VCdim$(\mathcal{H} ) \leq d \log 3$ immediately.
-\item Show that $\mathcal{H}^d _{con}$ shatters the set of unit vectors $\{ \textbf{e}_i : i\leq d \}$.\\
-For every collection of unit vectors, we can choose an $i$ such that $e_i$ is in the collection. Then $f(\textbf{x})=x_i$ gives our value $1$ and $f(\textbf{x})=\bar{x}_i$ gives us $0$. Since this is available for all combinations of the unit vectors, we have that the set of unit vectors can be shattered.
+\item Show that $| \mathcal{H}^d _{con} | \leq 3^d +1$.
+\item Conclude that VCdim$(\mathcal{H} ) \leq d \log 3$.
+\item Show that $\mathcal{H}^d _{con}$ shatters the set of unit vectors $\{ \textbf{e}_i : i\leq d \}$.
 \item \textbf{(**)} Show that VCdim$(\mathcal{H}^d _{con} )\leq d$.\\
-Hint: Assume by contradiction that there exists a set $C= \{ c_1, \dots , c_{d+1} \}$ that is shattered by $\mathcal{H} ^d _{con}$. Let $h_1, \dots , h_{d+1}$ by hypotheses in $\mathcal{H} ^d _{con}$ that satisfy
-$$\forall i,j \in [d+1], h_i (c_j) = 
+Hint: Assume by contradiction that there exists a set $C= \{ c_1, \dots , c_{d+1} \}$ that is shattered by $\mathcal{H} ^d _{con}$. Let $h_1, \dots , h_{d+1}$ be hypotheses in $\mathcal{H} ^d _{con}$ that satisfy
+$$\forall i,j \in [d+1],\ h_i (c_j) = 
 \begin{cases} 
- 0\text{   }i=j\\
- 1\text{   otherwise}
-   \end{cases}
+ 0 & i = j\\
+ 1 & otherwise
+ \end{cases}
 $$
 For each $i \in [d+1]$, $h_i$ (or more accurately, the conjunction that corresponds to $h_i$) contains some literal $l_i$ which is false on $c_i$ and true on $c_j$ for each $j \neq i$. Use the Pigeonhole principle to show that there must be a pair $i<j\leq d+1$ such that $l_i$ and $l_j$ use the same $x_k$ and use that fact to derive a contradiction to the requirements from the conjunctions $h_i, h_j$.
-\item Consider the class $\mathcal{H}^d _{mcon}$ of monotone Boolean conjunctions over $\{0.1 \} ^d$. Monotonicity here means that the conjunctions do not contain negations. As in $\mathcal{H}^d _{con}$, the empty conjunction is interpreted as the all-positive hypothesis. We augment $\mathcal{H} ^d _{mcon}$ with the all-negative hypothesis $h^-$. Show that VCdim$(\mathcal{H} ^d _{mcon} )=d$.
+\item Consider the class $\mathcal{H}^d _{mcon}$ of monotone Boolean conjunctions over $\{0,1 \} ^d$. Monotonicity here means that the conjunctions do not contain negations. As in $\mathcal{H}^d _{con}$, the empty conjunction is interpreted as the all-positive hypothesis. We augment $\mathcal{H} ^d _{mcon}$ with the all-negative hypothesis $h^-$. Show that VCdim$(\mathcal{H} ^d _{mcon} )=d$.
 \end{enumerate}
+}
 \begin{solution}
+\begin{enumerate}
+\item Since having a literal twice in a product give's $1$ for every $x_i$, it does not contribute anything when multiplying this with other literals. So first consider the possibilities where there is no literal used twice. Then for any $i\in [d]$ we have the possibilities of using a literal giving $x_i$, one giving $\bar{x}_i$, and of course the possibility of not using any literal of $x_i$ in your product. Having these three options for every $i\in [d]$ results in a maximal amount of $3^d$ functions. Combined with the possibility of having a literal twice only, so not multiplied by any other product (of course multiplying it with twice any literal can be done, still not contributing anything to our final value), will result in a label $1$ and is in the class as well. This concludes the task and gives us $|\mathcal{H} ^d _{con} | \leq 3^d +1$.
+\item Now since the all-positive function does only give us $1$ as a result, it can not be in our set determining the VC-dimension. So the problem is equivalent to finding teh VC-dimension of a set of size $3^d$, which is finite. So the VC-dimension is smaller than the log over the size, and thus we can conclude VCdim$(\mathcal{H} ) \leq d \log 3$ immediately.
+\item If all of the unit vectors are labeled 0, we can use all-negative hypothesis. If all of the unit vectors are labeled 1, we can use all-positive hypothesis. Now, let's assume that $e_1,\dots, e_k$ ($1 \leq k < d$) are labeled 1 and others are labeled 0. Corresponding hypothesis would be:
+\[
+h(\textbf{x}) = \overline{x_{k+1}} \cdots \overline{x_{d}}
+\]
+We can find such hypothesis for every labeling. From this we conclude that $\mathcal{H}^d _{con}$ shatters the set of unit vectors.
+\item Assume  that there exists a set $C= \{ c_1, \dots , c_{d+1} \}$ that is shattered by $\mathcal{H} ^d _{con}$. Let $h_1, \dots , h_{d+1}$ be hypotheses in $\mathcal{H} ^d _{con}$ that satisfy
+\[
+\forall i,j \in [d+1],\ h_i (c_j) = 
+\begin{cases} 
+ 0 & i = j \\
+ 1 & \text{otherwise}
+ \end{cases}
+\]
+In every conjunction that corresponds to $h_i\ (i \in \{1,\dots, d+1\})$ there exists a literal $l_i$ which is false on $c_i$ and true on $c_j$ for each $j \neq i$. Since we only have $d$ variables, there exists a pair of literals  that uses the same $x_k$. Without loss of generality we can assume that the literals $l_1$, $l_2$ use $x_k$. Now we have to possibilities:
+\begin{itemize}
+\item $l_1 = l_2$: From definition if follows that conjunction that corresponds to $h_1$ contains a literal $l_1$ which is false on $c_1$ and true otherwise. Analogously holds for corresponding conjunction to $h_2$. Since $l_1 = l_2$ we come to a contradiction with definition; conjunction that corresponds to $h_1$ is also false on $c_2$.
+\item $l_1 = \bar{l_2}$: Let say that $c_3$ is true on $l_1$, so then it is false on $l_2$. We again come to a contradiction with our definition, corresponding conjunction to $h_2$ is false on $c_2$ and also on $c_3$.
+\end{itemize}
+From that we can conclude:
+\[
+\text{VCdim}(\mathcal{H}^d _{con} )\leq d
+\]
+\item We would like to show that it holds $\text{VCdim}(\mathcal{H} ^d _{mcon} ) \leq d$  and $\text{VCdim}(\mathcal{H} ^d _{mcon} ) \geq d$.
+\begin{itemize}
+\item $\text{VCdim}(\mathcal{H} ^d _{mcon} ) \geq d$: We would like to find a set of $d$ points which can be shattered. We define points $a^1,\dots, a^d$ as:
+\[
+a_j^i = 
+\begin{cases}
+0 & i = j \\
+1 & \text{otherwise}
+\end{cases}
+\]
+If all the points are labeled 1, we can use all-positive hypothesis. If just the $i$-th point is labeled 0, we use $h(\textbf{x}) = x_i$. We continue the same way. Let say that points $a^1,\dots, a^k$ ($1 \leq k \leq d$) are labeled 0 and others are labeled 1. Corresponding hypothesis would be:
+\[
+h(\textbf{x}) = x_1 \cdots x_k
+\] 
+We can find hypothesis for every labeling, that means that $\mathcal{H} ^d _{mcon}$ shatters the set $\{a^1,\dots,a^d\}$ and therefore $\text{VCdim}(\mathcal{H} ^d _{mcon} ) \geq d$.
+\item  $\text{VCdim}(\mathcal{H} ^d _{mcon} ) \leq d$: We can repeat the proof from the 4th point above, just that we do not have a case where $l_1 = \bar{l_2}$.
+\end{itemize}
+Now we can conclude $\text{VCdim}(\mathcal{H} ^d _{mcon} ) = d$.
+\end{enumerate}
 \end{solution}
 \end{question}
 
