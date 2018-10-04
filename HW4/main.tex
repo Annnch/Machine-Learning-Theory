@@ -125,8 +125,57 @@ We can conclude that $\text{VCdim}(\mathcal{H}) = 1$.
 
 
 % 3rd question
-\begin{question}{6.9}
+\begin{question}{Let $\mathcal{H}$ be the class of signed intervals, that is, $\mathcal{H} = \{h_{a, b, s} : a \leq b, s \in \{-1, 1\}\}$ where
+\[
+h_{a, b, s}(x) =
+\begin{cases}
+s & \text{if}\ x \in [a, b] \\
+-s & \text{if}\ x \notin [a, b] 
+\end{cases}
+\]
+Calculate $\text{VCdim}(\mathcal{H})$.}
 \begin{solution}
+Claim: $\text{VCdim}(\mathcal{H}) = 3$.
+
+\begin{itemize}
+\item $\text{VCdim}(\mathcal{H}) \geq 3$: On figure \ref{fig: question31} it is seen that set of three points can be shattered. Furthermore $\text{VCdim}(\mathcal{H}) \geq 3$.
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[t]{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{Question31.png}
+        \caption{}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{Question32.png}
+        \caption{}
+    \end{subfigure}
+     \begin{subfigure}[t]{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{Question33.png}
+        \caption{}
+    \end{subfigure}
+     \begin{subfigure}[t]{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{Question34.png}
+        \caption{}
+    \end{subfigure}
+    \caption{Proof that $\text{VCdim}(\mathcal{H}) \geq 3$.}
+    \label{fig: question31}
+\end{figure}
+
+\item $\text{VCdim}(\mathcal{H}) \leq 3$: There does not exist a hypothesis $h \in \mathcal{H}$ that lables the situation on figure \ref{fig: question32}. From here we can conclude $\text{VCdim}(\mathcal{H}) \leq 3$.
+
+\begin{figure}[h!]
+    \centering
+        \includegraphics[width=0.9\textwidth]{Question35.png}
+    \caption{Proof that $\text{VCdim}(\mathcal{H}) \leq 3$.}
+    \label{fig: question32}
+\end{figure}
+
+\end{itemize}
 
 \end{solution}
 \end{question}
