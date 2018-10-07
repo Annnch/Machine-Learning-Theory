@@ -233,11 +233,37 @@ We got into a contradiction with \eqref{eq: quation41}, this means that our assu
 
 \begin{subquestion}{Prove that for $r = 2$ it holds that
 \[
-\text{VCdim}(\mathcal{H}_1 \cup \mathcal{H}_2 \leq 2d + 1)
+\text{VCdim}(\mathcal{H}_1 \cup \mathcal{H}_2) \leq 2d + 1
 \]
 }
 \begin{solution}
 % https://cs.nyu.edu/~mohri/ml/ml10/sol2.pdf
+As same as before:
+\[
+\Pi_{\mathcal{H}_1 \cup \mathcal{H}_2}(m) \leq \Pi_{\mathcal{H}_1}(m) + \Pi_{\mathcal{H}_2}(m)
+\]
+Now we use Sauer's lemma:
+\[
+\Pi_{\mathcal{H}_1 \cup \mathcal{H}_2}(m) \leq \Pi_{\mathcal{H}_1}(m) + \Pi_{\mathcal{H}_2}(m) \leq \sum_{i = 0}^d \binom{m}{i} +  \sum_{i = 0}^d \binom{m}{i}
+\]
+If we use the fect $\binom{m}{i} = \binom{m}{m - i}$, we get:
+\begin{align*}
+\sum_{i = 0}^d \binom{m}{i} +  \sum_{i = 0}^d \binom{m}{i} & = \sum_{i = 0}^d \binom{m}{i} +  \sum_{i = 0}^d \binom{m}{m - i} \\
+& = \sum_{i = 0}^d \binom{m}{i} +  \sum_{i = m - d}^d \binom{m}{i} \\
+& = \underbrace{\binom{m}{0} + \cdots + \binom{m}{d}}_{d + 1} + \underbrace{\binom{m}{m - d} + \cdots + \binom{m}{m}}_{d + 1}
+\end{align*}
+If $m > 2d + 1$:
+\[
+\binom{m}{0} + \cdots + \binom{m}{d} + \binom{m}{m - d} + \cdots + \binom{m}{m} \leq \sum_{i = 0}^m \binom{m}{i} - \binom{m}{d+1} < 2^m
+\]
+Let's sum up what we just calculated:
+\[
+\Pi_{\mathcal{H}_1 \cup \mathcal{H}_2}(m) < 2^m
+\]
+So, if $m > 2d + 1$ the set with $m$ elements can not be shattered, therefore:
+\[
+\text{VCdim}(\mathcal{H}_1 \cup \mathcal{H}_2) \leq 2d + 1
+\]
 \end{solution}
 \end{subquestion}
 \end{question}
