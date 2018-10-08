@@ -118,9 +118,13 @@ We can conclude that $\text{VCdim}(\mathcal{H}) = 1$.
 
 
 % 2nd question
-\begin{question}{6.8}
+\begin{question}{It is often the case that the VC-dimension of a hypothesis class equals (or can be bounded above by) the number of parameters one needs to set in order to define each hypothesis in the class. For instance, if $\mathcal{H}$ is the class of axis aligned rectangles in $\mathbb{R}^d$, then VCdim$(\mathcal{H})=2d$, which is equal to the number of parameters used to define a rectangle in $\mathbb{R}^d$. Here is an example that shows that this is not always the case. We will see that a hypothesis class might be very complex and even not learneble, although it has a small number of parameters.\\
+Consider the domain $\mathcal{X}=\mathbb{R}$, and the hypothesis class $$\mathcal{H}= \{ x\mapsto \ceil{\sin (\theta x) }:\theta \in \mathbb{R} \}$$
+(here, we take $\ceil{-1}=0$). Prove that VCdim$(\mathcal{H})=\infty$.\\
+\textit{Hint:} There is more than one way to prove the required result. One option is by applying the following lemma: If $-.x_1x_2x_3\dots ,$ is the binary expansion of $x\in (0,1)$, then for any natural number $m$, $\ceil{\sin (2^m \pi x)}=(1-x_m)$, provided thath $\exists k \geq m$ s.t. $x_k=1$.}
 \begin{solution}
-
+Assume VCdim$(\mathcal{H})=k<\infty$. We will reach towards a contradiction by finding $k+1$ elements which are shattered by $\mathcal{H}$, from which we can conclude that VCdim$(\mathcal{H})=\infty$. All these $k+1$ elements will be found in the interval $(0,1)$, such that they can be written as a binary expansion. We choose our elements to have all different combinations of zeros and ones for every entry of the $x_m$. This can of course be done in multiple way, we just choose one. For example $x_1$ can be chosen to be one for all elements, $x_2$ one for all elements except for the first element, where we choose $x_2$ to be zero, $x_3$ one for all elements except for the second one, where we choose $x_3$ zero. We proceed this way until we have $x_{2^{k+1}}$ all zero. Now place a one for $x_{2^{k+1}+1}$ in order to always be able to apply the lemma as stated in the hint. Note now that all these elements are different, so that we really have contructed $k+1$ elements. Now the lemma as in the hint gives us, when we choose $\theta=2^m\pi$, that we label $\ceil{\sin (\theta x)}=1-x_m$. So if $x_m=1$ we label it zero and if $x_m=0$ we label it one. Now for any combination of the $k+1$ elements we can fix an arbitrarily chosen labeling. This labeling can then be constructed by choosing $m$ such that $x_m$ would give the 'opposite' labeling (which is such that $1-x_m$ is the admired labeling). This $m$ exists by construction. Since our labeling was fixed arbitrarily, we can construct any labeling. Therefore our $k+1$ elements are shattered by $\mathcal{H}$.\\
+Since we assumed VCdim$(\mathcal{H})=k<\infty$ and found $k+1$ shattered elements, we have a contradiction and conclude VCdim$(\mathcal{H})=\infty$.
 \end{solution}
 \end{question}
 
