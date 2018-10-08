@@ -208,21 +208,21 @@ Now, we can use Sauer's lemma on each summand:
 \[
 2^k = \Pi_{\mathcal{H}_{\cup}}(k) \leq \Pi_{\mathcal{H}_{1}}(k) + \cdots + \Pi_{\mathcal{H}_{r}}(k) \leq \underbrace{k^d + \cdots k^d}_r = rk^d
 \]
-If we use logarithm on the inequality, we get:
+If we use $\log_2$ on the inequality, we get:
 \begin{equation}
-k \leq d\log k + \log r
+k \leq d\log_2 k + \log_2 r
 \label{eq: quation41}
 \end{equation}
 
-In the next step we are going to use Lemma A.2 from the book, which says: Let $a \geq 1$ and $b > 0$. Then $x \geq 4a \log(2a) + 2b \implies x \geq a \log(x) + b$.
+In the next step we are going to use Lemma A.2 from the book, which says: Let $a \geq 1$ and $b > 0$. Then $x \geq 4a \log_2\left(\frac{2a}{\ln 2}\right) + 2b \implies x \geq a \log_2(x) + b$.
 
-Let's assume that $\text{VCdim}(\mathcal{H}_{\cup}) > 4d \log (2d) + 2 \log (r)$. From our first assumption we get:
+Let's assume that $\text{VCdim}(\mathcal{H}_{\cup}) > 4d \log_2 \left(\frac{2d}{\ln 2}\right) + 2 \log_2 (r)$. From our first assumption we get:
 \[
-k > 4d \log (2d) + 2 \log (r)
+k > 4d \log_2 \left(\frac{2d}{\ln 2}\right) + 2 \log_2 (r)
 \]
 Now, we can use Lemma A.2 (where $a = d \geq 3$, $b = \log r > 0$):
 \[
-k > d\log k + \log r
+k > d\log_2 k + \log_2 r
 \]
 We got into a contradiction with \eqref{eq: quation41}, this means that our assumption was not correct and it holds:
 \[
