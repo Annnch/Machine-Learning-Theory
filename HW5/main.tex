@@ -20,6 +20,8 @@
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
+\newcommand{\Hy}{\mathcal{H}}
+
 \newcounter{counterquestion}
 \newenvironment{question}[1]
 {
@@ -53,15 +55,19 @@
 \maketitle
 
 % 1st question
-\begin{question}{}
+\begin{question}{ ($w(h)$ does not have to depend on $n(h)$ and $|\Hy_{n(h)}|$ only.)}
+
+\begin{subquestion}{Consider a hypothesis class $\Hy = \cup_{n = 1}^{\infty} \Hy_n$, where for every $n \in \mathbb{N}$, $\Hy_n$ is finite. Find a weighting function $w: \Hy \to [0, 1]$ such that $\sum_{h \in \Hy} w(h) \leq 1$ and so that for all $h \in \Hy$, $w(h)$ is determined by $|\Hy_{n(h)}|$}
 \begin{solution}
 
 \end{solution}
+\end{subquestion}
+
 \end{question}
 
 
 % 2nd question
-\begin{question}{}
+\begin{question}{7.5}
 \begin{solution}
 
 \end{solution}
