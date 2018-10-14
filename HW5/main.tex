@@ -55,11 +55,28 @@
 \maketitle
 
 % 1st question
-\begin{question}{ ($w(h)$ does not have to depend on $n(h)$ and $|\Hy_{n(h)}|$ only.)}
+\begin{question}{}
 
-\begin{subquestion}{Consider a hypothesis class $\Hy = \cup_{n = 1}^{\infty} \Hy_n$, where for every $n \in \mathbb{N}$, $\Hy_n$ is finite. Find a weighting function $w: \Hy \to [0, 1]$ such that $\sum_{h \in \Hy} w(h) \leq 1$ and so that for all $h \in \Hy$, $w(h)$ is determined by $|\Hy_{n(h)}|$}
+\begin{subquestion}{Consider a hypothesis class $\Hy = \cup_{n = 1}^{\infty} \Hy_n$, where for every $n \in \mathbb{N}$, $\Hy_n$ is finite. Find a weighting function $w: \Hy \to [0, 1]$ such that $\sum_{h \in \Hy} w(h) \leq 1$ and so that for all $h \in \Hy$, $w(h)$ is determined by $|\Hy_{n(h)}|$.}
 \begin{solution}
+Since we have a countably infinite union of finite sets, we know that the number of elements is countably infinite. Therefore, we can number them as:
+\[
+h_1, h_2, \dots
+\]
+If we pick weights as:
+\[
+w(h_i) = \left(\frac{1}{2^{|H_{n(h_i)}|}}\right)^i; \quad i = 1, 2, \dots
+\]
+the sum of the weights in the worst case would be, when $|H_{n(h_i)}| = 1$ ($\forall i$):
+\[
+\sum_{i = 1}^{\infty} w(h_i) = \sum_{i = 1}^{\infty} \left(\frac{1}{2}\right)^i = 1
+\]
+\end{solution}
+\end{subquestion}
 
+\begin{subquestion}{Define such a function $w$ when for all $n$ $\Hy_n$ is countable (possibly infinite).}
+\begin{solution}
+Countably infinite union of countable sets is again a countable set, so we can choose the same weighted function as before.
 \end{solution}
 \end{subquestion}
 
