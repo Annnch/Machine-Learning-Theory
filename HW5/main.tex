@@ -68,7 +68,7 @@ If we pick weights as:
 \[
 w(h_i) = \left(\frac{1}{2^{|H_{n(h_i)}|}}\right)^i; \quad i = 1, 2, \dots
 \]
-the sum of the weights in the worst case would be, when $|H_{n(h_i)}| = 1$ ($\forall i$):
+the sum of the weights in the worst case would be, when $|H_{n(h_i)}| = 1$ ($\forall i$) and we have infinity number of different hypothesis:
 \[
 \sum_{i = 1}^{\infty} w(h_i) = \sum_{i = 1}^{\infty} \left(\frac{1}{2}\right)^i = 1
 \]
@@ -97,7 +97,8 @@ Because $\Hy$ is nonuniform learnable, it is a union of agnostic PAC learnable h
 
 \begin{subquestion}{Prove that if class $\Hy$ in nonuniformly learnable then there are classes $\Hy_n$ so that $\Hy = \cup_{n \in \mathbb{N}} \Hy_n$ and, for every $n \in \mathbb{N}$, $\VC(\Hy_n)$ is finite.}
 \begin{solution}
-% https://www.cs.huji.ac.il/~shais/Lectures2014/lecture5.pdf
+This question was solved with the help of \cite{question24}.
+
 Let define:
 \[
 \Hy_n = \{ h \in \Hy : m^{\text{NUL}} (0.1, 0.1, h) \leq n \}
@@ -107,14 +108,38 @@ It is obvious that $\Hy = \cup_{n \in \mathbb{N}} \Hy_n$. From previous point we
 \end{subquestion}
 
 \begin{subquestion}{Let $\Hy$ be a class that shatters some infinite set. Then for every sequence of classes ($\Hy_n : n \in \mathbb{N}$) such that $\Hy = \cup_{n \in \mathbb{N}} \Hy_n$, there exists some $n$ for which $\VC(\Hy_n) = \infty$.}
-\begin{solution}
 
+\begin{solution}
+By assumption the hypothesis class $\Hy$ shatters some infinite set $K$. Let ($\Hy_n : n \in \mathbb{N}$) be a set of hypothesis classes, each having a finite VC-dimension. We define subsets $K_n \subseteq K$ such that, for all $n$, $|K_n| > \VC(H_n)$, and all subsets are nonoverlapping, so $K_n \cap K_m = \emptyset$.
+
+Now, for each $K_n$ we pick a function $f_n : K_n \rightarrow \{0, 1\}$ so that no $h \in H_n$ agrees with $f_n$ on the domain $K_n$. Such a function exists for all $K_n$, because $H_n$ does not shatter $K_n$, since $|K_n| > \VC(H_n)$.
+
+Next, we define the function $f: K \rightarrow \{0, 1\}$ by combining all $f_n$'s
+
+$$
+f(k)=
+\begin{cases}
+f_1(k) & \text{if} \;\; k \in K_1    \\
+\vdots \\
+f_n(k) & \text{if} \;\; k \in K_n
+\end{cases}
+$$
+
+\noindent
+where $k \in K$ are singletons in $K$.
+
+We define $H_0 = \cup_{n \in \mathbb{N}} \Hy_n$. By the construction of all $f_n$'s it follows that $f$ is not contained in $H_0$. However, $f \in H$, because $H$ shatters $K$ by assumption. Put differently, $f \in (\Hy \setminus H_0)$.
+
+This implies that $(\Hy \setminus H_0) \neq \emptyset$. And since we did not put any restrictions on $H_n$'s except $\VC(H_n) < \infty$, $(\Hy \setminus H_0)$ must contain at least one hypothesis class that has infinite VC-dimension, wich concludes the proof.
 \end{solution}
+
+
 \end{subquestion}
 
 \begin{subquestion}{Construct a class $\Hy_1$ of functions from the unit interval $[0, 1]$ to $\{0, 1\}$ that is nonuniformly learnable but not PAC learnable.}
 \begin{solution}
-% http://www.cs.technion.ac.il/~itai/publications/Learning/nonuniform.pdf
+This question was solved with the help of \cite{question24}.
+
 Let denote:
 \[
 \Hy_n = \{ h_{a_1, \dots, a_n, b_1, \dots, b_n}; 0 \leq a_1 < b_1 \leq 1, \dots, 0 \leq a_n < b_n \leq 1 \}
@@ -141,8 +166,9 @@ Denote $\Hy = \bigcup_{i = 1}^{\infty} \Hy_n$. From previous points we can concl
 
 \begin{subquestion}{Construct a class $\Hy_2$ of functions from the unit interval $[0, 1]$ to $\{0, 1\}$ that is not nonuniformly learnable.}
 \begin{solution}
-% http://www.cs.technion.ac.il/~itai/publications/Learning/nonuniform.pdf
-Define $\Hy$ as a set of all intervals over $[0, 1]$. If is obvious that $\Hy$ shatters a set $S = \{\frac{1}{n};\ n \in \mathbb{N}\}$. We also know that $S$ is infinite. Therefore $\Hy$ is not nonuniformly learnable (from previous points).
+This question was solved with the help of \cite{question24}.
+
+Define $\Hy$ as a set of all intervals over $[0, 1]$ (hypothesis labels an element with 1 if it is inside of at least one interval, otherwise it labels it with 0). If is obvious that $\Hy$ shatters a set $S = \{\frac{1}{n};\ n \in \mathbb{N}\}$. We also know that $S$ is infinite. Therefore $\Hy$ is not nonuniformly learnable (from previous points).
 \end{solution}
 \end{subquestion}
 
@@ -158,6 +184,7 @@ For any $\epsilon > 0$ such that $n\epsilon^2 \geq 2$,
 where $R$ is the risk, $R_n$ empirical risk for the sample $Z_1, \dots, Z_n$ and $R_n'$ empirical risk for ghost sample $Z_1', \dots, Z_n'$.}
 \begin{solution}
 This question was solved with the help of \cite{question3}.
+
 % http://www.stat.cmu.edu/~larry/=sml/Concentration.pdf
 Denote $f^*$ a function that maximize $(R(f) - R_n(f))$. First, we would like to prove: If $(R(f^*) - R_n(f^*) \geq \epsilon)$ and $(R(f^*) - R_n'(f^*) \leq \frac{\epsilon}{2})$ then $(R_n'(f^*) - R_n(f^*) \geq \frac{\epsilon}{2})$.
 \begin{align*}
@@ -173,17 +200,17 @@ Now, we are going to compute expected value over $Z_1', \dots, Z_n'$:
 \[
 I \left[ R(f^*) - R_n(f^*) > \epsilon \right] P_n \left[ R(f^*) - R_n'(f^*) \leq \frac{\epsilon}{2} \right] \leq P_n \left[ R_n'(f^*) - R_n(f^*) \geq \frac{\epsilon}{2} \right]
 \]
-With Chebishyev inequality we get:
+With Chebishyev inequality we get and $Var(f^*) \leq \frac{1}{4}$ (due to $f^* \in [0, 1]$) :
 \[
 P_n \left[ R(f^*) - R_n'(f^*) \leq \frac{\epsilon}{2} \right] \geq 1- \frac{4 Var(f^*)}{n\epsilon^2} \geq 1 - \frac{1}{n\epsilon^2} \geq \frac{1}{2}
 \]
 Therefore:
 \[
-I \left[ R(f^*) - R_n(f^*) \geq \epsilon \right]  \leq 2 P_n \left[ R_n'(f^*) - R_n(f^*) \geq \frac{\epsilon}{2} \right]
+\sup_{f \in \mathcal{F}} I \left[ R(f) - R_n(f) \geq \epsilon \right]  \leq 2 P_n \left[ \sup_{f \in \mathcal{F}}(R_n'(f) - R_n(f)) \geq \frac{\epsilon}{2} \right]
 \]
 Last, we again compute expectation but this time over $Z_1, \dots, Z_n$:
 \[
-P_n \left[ R(f^*) - R_n(f^*) \geq \epsilon \right]  \leq 2 P_{2n} \left[ R_n'(f^*) - R_n(f^*) \geq \frac{\epsilon}{2} \right]
+\sup_{f \in \mathcal{F}} P_n \left[ R(f) - R_n(f) \geq \epsilon \right]  \leq 2 P_{2n} \left[ \sup_{f \in \mathcal{F}}(R_n'(f) - R_n(f)) \geq \frac{\epsilon}{2} \right]
 \]
 \end{solution}
 \end{question}
