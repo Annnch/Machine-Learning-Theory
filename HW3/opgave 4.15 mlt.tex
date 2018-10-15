@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{MLT Homework 3}
+\author{Bas Haver}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{mathtools}
+
+\usepackage{url}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcounter{counterquestion}
+\newenvironment{question}[1]
+{
+\stepcounter{counterquestion}
+\section*{Question \thecounterquestion}
+\emph{#1} 
+} 
+{
+}
+
+\newcounter{countersubquestion}[counterquestion]
+\newenvironment{subquestion}[1]
+{
+\stepcounter{countersubquestion}
+\subsection*{Subquestion \thecounterquestion .\thecountersubquestion}
+\emph{#1} 
+} 
+{
+}
+
+\newenvironment{solution}
+{
+\subsubsection*{Solution}
+} 
+{
+}
+
+
+\begin{document}
+We will construct a sequence in $\Sigma ^+$ to be able to apply Fatou's Lemma. Since we know $|f_n| \leq g_n$ for all $n\in \mathbb{N}$ and $f_n \to f$ and $g_n \to g$, we have $$|f_n-f|\leq g_n +g$$Therefore we can conclude $g_n + g -|f_n-f| \geq 0$ and in $\Sigma ^+$. Applying fatou's lemma now gives us $$\liminf _{n \to \infty } \mu (g_n+g-|f_n-f|) \geq \mu (\liminf _{n \to \infty } (g_n + g - |f_n - f| )).$$
+The RHS equals 2$\mu (g)$, since both $f$ and $g$ converge pointwise. The LHS is equal to $2\mu (g) - \limsup _{n\to \infty }\mu (|f_n-f|)$. By assumption we have $\lim _{n \to \infty} \mu (g_n)=\mu (g)$. Putting it together we obtain $$0\geq \limsup _{n \to \infty } \mu (|f_n - f|)$$
+\maketitle
+
+
+\end{document}

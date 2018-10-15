@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{MLT Homework 4}
+%\author{Ana Borovac \\ Jonas Haslbeck \\ Bas Haver} % I'll be coming back :-)
+\author{Ana Borovac  \\ Bas Haver}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{mathtools}
+
+\usepackage{url}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcounter{counterquestion}
+\newenvironment{question}[1]
+{
+\stepcounter{counterquestion}
+\section*{Question \thecounterquestion}
+\emph{#1} 
+} 
+{
+}
+
+\newcounter{countersubquestion}[counterquestion]
+\newenvironment{subquestion}[1]
+{
+\stepcounter{countersubquestion}
+\subsection*{Subquestion \thecounterquestion .\thecountersubquestion}
+\emph{#1} 
+} 
+{
+}
+
+\newenvironment{solution}
+{
+\subsubsection*{Solution}
+} 
+{
+}
+
+
+\begin{document}
+
+\maketitle
+
+% 1st question
+\begin{question}{Verify the following lemma: If $0.x_1x_2x_3\dots $ is the binary expansion of $x\in (0,1)$, then for any natural number $m$, $\ceil{\sin (2^m \pi ) }$, provided that $\exists k \geq m$ s.t. $x_k=1$}
+\begin{solution}
+First we will see that the first $m-1$ zeros and ones do not contribute in the value of $\ceil{ \sin (2^m \pi x)}$. This is because $$2^m \sum _{i=1} ^{m-1} \frac{x_i}{2^i}=\sum _{i=1} ^{m-1} 2^{m-i} x_i \equiv 0 \mod 2.$$
+By the periodicity of the sine now makes that it gives no contribution to the outcome of $\sin (2^m \pi x)$. Furthermore we have $$2^m \sum _{i=m+1} ^{\infty } =\sum _{i=m+1} ^{\infty} 2^{m-i}x_i=\sum {i=1} ^{\infty } 2^{-i} x_i,$$ which is in $(0,1)$ if any of the $x_i$ equals $1$ for $i>m$. Now we combine this to get 
+\begin{align*}
+2^m \sum _{i=1} ^{\infty} \frac{x_i}{2^i}&=2^m (\sum _{i=1} ^{m-1} \frac{x_i}{2^i}+ \frac{x_m}{2^m} + \sum _{i=m+1} ^{\infty} \frac{x_i}{2^i})\\
+&= 2^m \sum _{i=1} ^{m-1} \frac{x_i}{2^i} +x_m + 2^m\sum _{i=m+1} ^{\infty} \frac{x_i}{2^i}
+\end{align*}
+Where the first term does not contribute in the sine and the last term will be in $(0,1)$, with the exception that $x_m=1$ and $x_i=0$ for all $i>m$. But then $\ceil{ \sin (2^m \pi x) }= \ceil {\sin (\pi ) }=0-1-x_m$, so the lemma still holds.\\
+Thus, suppose $\sum _{i=m+1} ^{\infty } \frac{x_i}{2^i}\in (0,1)$. Now for $x_m=0$ we have that $$2^m \sum _{i=1} ^{m-1} \frac{x_i}{2^i} +x_m + 2^m\sum _{i=m+1} ^{\infty} \frac{x_i}{2^i} \in ((0,1) \mod 2),$$
+so that $$\ceil{ \sin (2^m \pi x ) } = 1=1-x_m.$$
+Now for $x_m=1$ we have that $$2^m \sum _{i=1} ^{m-1} \frac{x_i}{2^i} +x_m + 2^m\sum _{i=m+1} ^{\infty} \frac{x_i}{2^i} \in ((0,1) \mod 2),$$
+so that $$\ceil{ \sin (2^m \pi x ) } = 0=1-x_m.$$
+Therefore we can conclude that the lemma holds.
+\end{solution}
+\end{question}
+
+\end{document}
