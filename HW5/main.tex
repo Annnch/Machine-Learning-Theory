@@ -114,13 +114,35 @@ It is obvious that $\Hy = \cup_{n \in \mathbb{N}} \Hy_n$. From previous point we
 
 \begin{subquestion}{Construct a class $\Hy_1$ of functions from the unit interval $[0, 1]$ to $\{0, 1\}$ that is nonuniformly learnable but not PAC learnable.}
 \begin{solution}
+% http://www.cs.technion.ac.il/~itai/publications/Learning/nonuniform.pdf
+Let denote:
+\[
+\Hy_n = \{ h_{a_1, \dots, a_n, b_1, \dots, b_n}; 0 \leq a_1 < b_1 \leq 1, \dots, 0 \leq a_n < b_n \leq 1 \}
+\]
+where:
+\[
+h_{a_1, \dots, a_n, b_1, \dots, b_n} (x) = 
+\begin{cases}
+1; & a_1 \leq x \leq b_1\ \text{or}\ \cdots\ \text{or}\ a_n \leq x \leq b_n \\
+0; & \text{otherwise}
+\end{cases}
+\]
+We claim that $\VC(\Hy_n) = 2n$. 
+
+\begin{itemize}
+	\item $\VC(\Hy_n) \geq 2n$: We would like to show that $\Hy_n$ shatters a set of $2n$ points. Assume that $0 \leq x_1 < \cdots < x_{2n} \leq 1$. Labeling for which we need the largest number of disjoint intervals is when $x$-es with even indexes are labeled 0 and others are labeled 1 (or vice versa). This is exactly $n$ intervals that we need, so $\Hy_n$ shatters $\{x_1, \dots, x_{2n}\}$.
+	\item $\VC(\Hy_n) \leq 2n$: Now, we are going to take a set of $2n + 1$ elements; $0 \leq x_1 < \cdots < x_{2n + 1} \leq 1$. If we want that $\Hy_n$ shatters our set, there must exist a labeling function which can label the situation where $x$-es with odd indexes are labeled 1 and others are labeled 0. In order to do that we would need at least $n + 1$ intervals, which we do not have. So, $\Hy_n$ does not shatter a set of $2n + 1$ elements.
+\end{itemize}
+
+Denote $\Hy = \bigcup_{i = 1}^{\infty} \Hy_n$. From previous points we can conclude that $\Hy$ is nonuniformly learnable. It is not PAC learnable due to $\VC(\Hy) = \infty$.
 
 \end{solution}
 \end{subquestion}
 
 \begin{subquestion}{Construct a class $\Hy_2$ of functions from the unit interval $[0, 1]$ to $\{0, 1\}$ that is not nonuniformly learnable.}
 \begin{solution}
-
+% http://www.cs.technion.ac.il/~itai/publications/Learning/nonuniform.pdf
+Define $\Hy$ as a set of all intervals over $[0, 1]$. If is obvious that $\Hy$ shatters a set $S = \{\frac{1}{n};\ n \in \mathbb{N}\}$. We also know that $S$ is infinite. Therefore $\Hy$ is not nonuniformly learnable (from previous points).
 \end{solution}
 \end{subquestion}
 
@@ -131,7 +153,7 @@ It is obvious that $\Hy = \cup_{n \in \mathbb{N}} \Hy_n$. From previous point we
 \begin{question}{Prove the Symmetrization Lemma (= double sample trick): \\
 For any $\epsilon > 0$ such that $n\epsilon^2 \geq 2$, 
 \[
-P_n \left[ \sup_{f \in \mathcal{F}} (R(f) - R_n(f)) \geq \epsilon \right] \leq P_{2n} \left[ \sup_{f \in \mathcal{F}} (R'_n(f) - R_n(f)) \geq \frac{\epsilon}{2} \right]
+\sup_{f \in \mathcal{F}} P_n \left[  (R(f) - R_n(f)) \geq \epsilon \right] \leq P_{2n} \left[ \sup_{f \in \mathcal{F}} (R'_n(f) - R_n(f)) \geq \frac{\epsilon}{2} \right]
 \]
 where $R$ is the risk, $R_n$ empirical risk for the sample $Z_1, \dots, Z_n$ and $R_n'$ empirical risk for ghost sample $Z_1', \dots, Z_n'$.}
 \begin{solution}
