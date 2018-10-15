@@ -56,7 +56,7 @@
 \begin{question}{Verify the following lemma: If $0.x_1x_2x_3\dots $ is the binary expansion of $x\in (0,1)$, then for any natural number $m$, $\ceil{\sin (2^m \pi ) }$, provided that $\exists k \geq m$ s.t. $x_k=1$}
 \begin{solution}
 First we will see that the first $m-1$ zeros and ones do not contribute in the value of $\ceil{ \sin (2^m \pi x)}$. This is because $$2^m \sum _{i=1} ^{m-1} \frac{x_i}{2^i}=\sum _{i=1} ^{m-1} 2^{m-i} x_i \equiv 0 \mod 2.$$
-By the periodicity of the sine now makes that it gives no contribution to the outcome of $\sin (2^m \pi x)$. Furthermore we have $$2^m \sum _{i=m+1} ^{\infty } =\sum _{i=m+1} ^{\infty} 2^{m-i}x_i=\sum {i=1} ^{\infty } 2^{-i} x_i,$$ which is in $(0,1)$ if any of the $x_i$ equals $1$ for $i>m$. Now we combine this to get 
+By the periodicity of the sine now makes that it gives no contribution to the outcome of $\sin (2^m \pi x)$. Furthermore we have $$2^m \sum _{i=m+1} ^{\infty } =\sum _{i=m+1} ^{\infty} 2^{m-i}x_i=\sum _{i=1} ^{\infty } 2^{-i} x_i,$$ which is in $(0,1)$ if any of the $x_i$ equals $1$ for $i>m$. Now we combine this to get 
 \begin{align*}
 2^m \sum _{i=1} ^{\infty} \frac{x_i}{2^i}&=2^m (\sum _{i=1} ^{m-1} \frac{x_i}{2^i}+ \frac{x_m}{2^m} + \sum _{i=m+1} ^{\infty} \frac{x_i}{2^i})\\
 &= 2^m \sum _{i=1} ^{m-1} \frac{x_i}{2^i} +x_m + 2^m\sum _{i=m+1} ^{\infty} \frac{x_i}{2^i}
