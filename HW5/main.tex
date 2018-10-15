@@ -2,8 +2,8 @@
 \usepackage[utf8]{inputenc}
 
 \title{MLT Homework 5}
-%\author{Ana Borovac \\ Jonas Haslbeck \\ Bas Haver} % I'll be coming back :-)
-\author{Ana Borovac  \\ Bas Haver}
+\author{Ana Borovac \\ Jonas Haslbeck \\ Bas Haver} % I'll be coming back :-)
+%\author{Ana Borovac  \\ Bas Haver}
 
 \usepackage{natbib}
 \usepackage{graphicx}
@@ -89,6 +89,8 @@ Countably infinite union of countable sets is again a countable set, so we can c
 
 \begin{subquestion}{Let $A$ be a nonuniform learner for class $\Hy$. For each $n \in \mathbb{N}$ define $\Hy_n^A = \{ h \in \Hy : m^{\text{NUL}} (0.1, 0.1, h) \leq n \}$. Prove that each such class $\Hy_n$ has a finite VC-dimension.}
 \begin{solution}
+	
+Because $\Hy$ is nonuniform learnable, it is a union of agnostic PAC learnable hypothesis classes (Theorem 7.2). That is, $\Hy = \bigcup_{n \in \mathbb{N}} \Hy_n^A$, and $\Hy_n^A$ is agnostic PAC learnable for all $n \in \mathbb{N}$. Because each $\Hy_n^A$ is agnostic PAC learnable, it also has a finite VC-dimension, by the Fundamental Theorem of Statistical Learning (Theorem 6.7).
 
 \end{solution}
 \end{subquestion}
