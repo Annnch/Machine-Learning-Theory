@@ -21,6 +21,7 @@
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
 \newcommand{\Hy}{\mathcal{H}}
+\newcommand{\VC}{\text{VCdim}}
 
 \newcounter{counterquestion}
 \newenvironment{question}[1]
@@ -84,17 +85,82 @@ Countably infinite union of countable sets is again a countable set, so we can c
 
 
 % 2nd question
-\begin{question}{7.5}
+\begin{question}{In this question we wish to show a No-Free-Lunch result for nonuniform learnability.}
+
+\begin{subquestion}{Let $A$ be a nonuniform learner for class $\Hy$. For each $n \in \mathbb{N}$ define $\Hy_n^A = \{ h \in \Hy : m^{\text{NUL}} (0.1, 0.1, h) \leq n \}$. Prove that each such class $\Hy_n$ has a finite VC-dimension.}
 \begin{solution}
 
 \end{solution}
+\end{subquestion}
+
+\begin{subquestion}{Prove that if class $\Hy$ in nonuniformly learnable then there are classes $\Hy_n$ so that $\Hy = \cup_{n \in \mathbb{N}} \Hy_n$ and, for every $n \in \mathbb{N}$, $\VC(\Hy_n)$ is finite.}
+\begin{solution}
+% https://www.cs.huji.ac.il/~shais/Lectures2014/lecture5.pdf
+Let define:
+\[
+\Hy_n = \{ h \in \Hy : m^{\text{NUL}} (0.1, 0.1, h) \leq n \}
+\]
+It is obvious that $\Hy = \cup_{n \in \mathbb{N}} \Hy_n$. From previous point we also know that $\VC(\Hy_n)$ is finite.
+\end{solution}
+\end{subquestion}
+
+\begin{subquestion}{Let $\Hy$ be a class that shatters some infinite set. Then for every sequence of classes ($\Hy_n : n \in \mathbb{N}$) such that $\Hy = \cup_{n \in \mathbb{N}} \Hy_n$, there exists some $n$ for which $\VC(\Hy_n) = \infty$.}
+\begin{solution}
+
+\end{solution}
+\end{subquestion}
+
+\begin{subquestion}{Construct a class $\Hy_1$ of functions from the unit interval $[0, 1]$ to $\{0, 1\}$ that is nonuniformly learnable but not PAC learnable.}
+\begin{solution}
+
+\end{solution}
+\end{subquestion}
+
+\begin{subquestion}{Construct a class $\Hy_2$ of functions from the unit interval $[0, 1]$ to $\{0, 1\}$ that is not nonuniformly learnable.}
+\begin{solution}
+
+\end{solution}
+\end{subquestion}
+
 \end{question}
 
 
 % 3rd question
-\begin{question}{}
+\begin{question}{Prove the Symmetrization Lemma (= double sample trick): \\
+For any $\epsilon > 0$ such that $n\epsilon^2 \geq 2$, 
+\[
+P_n \left[ \sup_{f \in \mathcal{F}} (R(f) - R_n(f)) \geq \epsilon \right] \leq P_{2n} \left[ \sup_{f \in \mathcal{F}} (R'_n(f) - R_n(f)) \geq \frac{\epsilon}{2} \right]
+\]
+where $R$ is the risk, $R_n$ empirical risk for the sample $Z_1, \dots, Z_n$ and $R_n'$ empirical risk for ghost sample $Z_1', \dots, Z_n'$.}
 \begin{solution}
-
+This question was solved with the help of \cite{question3}.
+% http://www.stat.cmu.edu/~larry/=sml/Concentration.pdf
+Denote $f^*$ a function that maximize $(R(f) - R_n(f))$. First, we would like to prove: If $(R(f^*) - R_n(f^*) \geq \epsilon)$ and $(R(f^*) - R_n'(f^*) \leq \frac{\epsilon}{2})$ then $(R_n'(f^*) - R_n(f^*) \geq \frac{\epsilon}{2})$.
+\begin{align*}
+\epsilon & < R(f^*) - R_n(f^*) \\
+& = R(f^*) - R_n'(f^*) + R_n'(f^*) - R_n(f^*) \\
+& \leq R_n'(f^*) - R_n(f^*) + \frac{\epsilon}{2}
+\end{align*}
+So, $(R_n'(f^*) - R_n(f^*)) \geq \frac{\epsilon}{2}$. If we write that with indicators:
+\[
+I \left[ R(f^*) - R_n(f^*) > \epsilon, R(f^*) - R_n'(f^*) \leq \frac{\epsilon}{2} \right] \leq I \left[ R_n'(f^*) - R_n(f^*) \geq \frac{\epsilon}{2} \right]
+\]
+Now, we are going to compute expected value over $Z_1', \dots, Z_n'$:
+\[
+I \left[ R(f^*) - R_n(f^*) > \epsilon \right] P_n \left[ R(f^*) - R_n'(f^*) \leq \frac{\epsilon}{2} \right] \leq P_n \left[ R_n'(f^*) - R_n(f^*) \geq \frac{\epsilon}{2} \right]
+\]
+With Chebishyev inequality we get:
+\[
+P_n \left[ R(f^*) - R_n'(f^*) \leq \frac{\epsilon}{2} \right] \geq 1- \frac{4 Var(f^*)}{n\epsilon^2} \geq 1 - \frac{1}{n\epsilon^2} \geq \frac{1}{2}
+\]
+Therefore:
+\[
+I \left[ R(f^*) - R_n(f^*) \geq \epsilon \right]  \leq 2 P_n \left[ R_n'(f^*) - R_n(f^*) \geq \frac{\epsilon}{2} \right]
+\]
+Last, we again compute expectation but this time over $Z_1, \dots, Z_n$:
+\[
+P_n \left[ R(f^*) - R_n(f^*) \geq \epsilon \right]  \leq 2 P_{2n} \left[ R_n'(f^*) - R_n(f^*) \geq \frac{\epsilon}{2} \right]
+\]
 \end{solution}
 \end{question}
 
@@ -102,3 +168,22 @@ Countably infinite union of countable sets is again a countable set, so we can c
 \bibliographystyle{plain}
 \bibliography{references}
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
