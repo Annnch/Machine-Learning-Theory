@@ -100,10 +100,10 @@ and explain why it follows that Rademacher complexity is always nonnegative.}
 \begin{solution}
 First we are going to write what is $R(l \circ \Hy \cup \{h'\} \circ S)$:
 \[
-R(l \circ \Hy \circ S) = \frac{1}{m} \mathbb{E}_{(y_1, \dots, y_m) \in \{-1, 1\}^m} \left[ \sup_{h \in \Hy \cup \{h'\}} \sum_{y_i} y_i\,l(h, x_i) \right]
+R(l \circ \Hy \cup \{h'\} \circ S) = \frac{1}{m} \mathbb{E}_{(y_1, \dots, y_m) \in \{-1, 1\}^m} \left[ \sup_{h \in \Hy \cup \{h'\}} \sum_{y_i} y_i\,l(h, x_i) \right]
 \]
 % https://cstheory.stackexchange.com/questions/27821/are-empirical-rademacher-complexity-always-positive
-
+When comparing this with the rademacher complexity without the added $h'$, we now take a supremum over a set containing the original class $\mathcal{H}$, so this rademacher complexity of the set with $h'$ must be at least as big as the one without $h'$.\\
 In the previous subquestion we proved that Rademacher complexity of hypothesis class with one hypothesis equals 0, now we proved that if we add a hypothesis to a hypothesis class we get at least as much as we did before. So, Rademacher complexity is nonnegative.
 \end{solution}
 \end{subquestion}
@@ -117,6 +117,10 @@ satisfies
 \]
 where the supremum is over all probability distributions $D$ that can be defined on $Z = X \times Y$.}
 \begin{solution}
+We use the third statement of Theorem 26.5, which says that for any $h^*$, with probability of at least $1-\delta$,
+$$L_{\mathcal{D}}(\text{ERM} _{\mathcal{H}} (S))-L_{\mathcal{D}}(h^*)\leq 2 R(l\circ \mathcal{H} \circ S )+5c \sqrt{ \frac{2 \ln (8/\delta )}{m}}.$$
+Now since we assume $$\lim _{m \to \infty} \sup _{\mathcal{D}} \mathbb{E} _{\S \sim \mathcal{D}^m} [R(l\circ \mathcal{H} \circ S)]=0,$$ we also can pick, by the non-negativity as proved by the second subquestion, an $m_1 (\epsilon , \delta)$ such that for all $m\geq m_1 (\epsilon , \delta )$ we have $R(l \circ \mathcal{H} \circ S) \leq \epsilon /3$. Furthermore we can also pick an $m_2 (\epsilon , \delta)$ such that for every $m\geq m_2 (\epsilon , \delta )$ we have $5c\sqrt{\frac{2\ln (8/\delta )}{m}}\leq \epsilon /3$. Now when we choose $m(\epsilon , \delta )= \max (m_1(\epsilon , \delta ), m_2 (\epsilon , \delta ))$ we have for choosing ERM, by lemma 26.5.3 $$L_{\mathcal{D}}(\text{ERM} _{\mathcal{H}} (S))-L_{\mathcal{D}}(h^*)\leq 2 \epsilon /3+\epsilon /3= \epsilon,$$ which is what we need to have agnostic PAC-learnability.
+
 \end{solution}
 \end{subquestion}
 
@@ -242,12 +246,21 @@ No. If it was, we should be able to bound with a constant $< \infty$:
 \[
 \sup_{y \in Y} |a + b - 2y|
 \]
-which we can no, since $Y$ is not bounded.
+which we can not, since $Y$ is not bounded.
 \end{solution}
 \end{subquestion}
 
 \end{question}
 
+%3rd Question
+\begin{question}{(Simplifying Rademacher) To make Rademacher complexity analysis \textit{easier} and a bit less abstract, it would be very convenient to work directly with the hypotheses $h(x)$ rather than the derived functions $f_h(x,y):=l(h,(x,y))=l'(y,h(x))$, as is done in the book. If we can do this we can completely ignore the $Y$-values in our analyss, thus making things simpler (this is illustrated in the next exercise). Show that we can indeed work with $h$ instead of $f_h$ whenever the loss is Lipschitz. To be precise, show that, if $l(h,(x,y))=l'(y,h(x))$ as above and $l'$ is Lipschitz, then there exists a constant $0<c<\infty $ such that for every $x_1,\dots , x_m \in \mathcal{X}^m$, every $y_1,\dots , y_m \in \mathcal{Y}^m$ : $R(l \circ \mathcal{H} \circ S) \leq c \cdot R(\mathcal{H} \circ S_{\mathcal{X}}$, where $S=((x_1,y_1), \dots , (x_m, y_m))$ and $S_{\mathcal{X}}:=(x_1 , \dots , x_m)$.\\
+HINT: this is straightforward based on one of the results in the chapter on Rademacher complexity in the book.}\\
+\begin{solution}As the hint reveals, we can make use of one of the results from the book. In our case we will use Lemma 26.9, the Contraction Lemma, which actually gives us the desired result once we show that our situaton is from the form as demanded from the Lemma.\\
+First, we can choose the $A$ from the lemma to be $\mathcal{H} \circ S_{\mathcal{X}}$. When we choose $\phi _i$ to be $l'(y_i , h(x))$ than it is as in the lemma (assuming that there was made a typo in the book such that $(\phi _1 (a_1), \dots , \phi _m (y_m))$ should be $(\phi _1 (a_1), \dots , \phi _m (a_m))$ in order to make sence as no $y$ is defined in that lemma, but in our case it actually is a $y$), and Lipschitz by assumption. Because $l(h,(x,y))=l'(y,h(x))$, we can also conclude that $R(l\circ \mathcal{H} \circ S)= R(l' \circ \mathcal{H} \circ S_{\mathcal{X}})$ and the result follows from the lemma when we choose $c$ to be equal to any value for which $l'$ is $c$-Lipschitz.
+\end{solution}
+
+
+\end{question}
 \bibliographystyle{plain}
 \bibliography{references}
 \end{document}
