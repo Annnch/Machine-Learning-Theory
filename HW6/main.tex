@@ -159,27 +159,47 @@ It follows:
 If $a = b$ we get $\sup_{y \in Y} |l'(y, a) - l'(y, b)| = 0$, so it is bounded with $\rho |a - b|$.
 
 Without loss of generality we can say $a < b$. Now, we have three possible situations:
-% TODO correct
 \begin{itemize}
 	\item $y \leq a < b$: If follows $(y - a) \leq 0$ and $(y - b) < 0$, so:
-	\[
+	\begin{align*}
 	\sup_{y \in Y} ||y - a| - |y - b|| = \sup_{y \in Y} |-y + a + y - b| \leq \underbrace{1}_{\rho} \cdot |a - b| 
-	\]
+	\end{align*}
 	\item $a < y \leq b$: If follows $(y - a) > 0$ and $(y - b) \leq 0$, so:
-	\[
-	\sup_{y \in Y} ||y - a| - |y - b|| = \sup_{y \in Y} |y - a + y - b|
-	\]
+	\begin{align*}
+	\sup_{y \in Y} ||y - a| - |y - b|| & = \sup_{y \in Y} |y - a + y - b| \\
+	& = \sup_{y \in Y} \left| (a - b) \left( \frac{y - a}{a - b} + \frac{y - b}{a - b} \right) \right| \\
+	& = |a - b| \sup_{y \in Y} \left| \left( \frac{y - a}{a - b} + \frac{y - b}{a - b} \right) \right| \\
+	& \leq |a - b| \sup_{y \in Y} \left( \left| \frac{y - a}{a - b} \right| + \left| \frac{y - b}{a - b} \right| \right) \\
+	& = |a - b| \sup_{y \in Y} \left( \frac{|y - a|}{|a - b|} + \frac{|y - b|}{|a - b|} \right) \\
+	\end{align*}
+	From $a < y \leq b$ we know:
+	\begin{align*}
+	|y - a| & < |a - b|  \quad \Rightarrow \quad \frac{|y - a|}{|a - b|}  < 1 \\
+	|y - b| & \leq |a - b|  \quad \Rightarrow \quad \frac{|y - b|}{|a - b|}  \leq 1
+	\end{align*}
+	So:
+	\begin{align*}
+	\sup_{y \in Y} ||y - a| - |y - b|| & = |a - b| \sup_{y \in Y} \left( \frac{|y - a|}{|a - b|} + \frac{|y - b|}{|a - b|} \right) \\
+	& \leq |a-b| \left( \sup_{y \in Y}\frac{|y - a|}{|a - b|} + \sup_{y \in Y}\frac{|y - b|}{|a - b|} \right) \\
+	& \leq |a - b| (1 + 1)  \\
+	& = \underbrace{2}_{\rho} \cdot |a - b| 
+	\end{align*}
 	\item $a < b < y$: If follows $(y - a) > 0$ and $(y - b) > 0$, so:
 	\[
 	\sup_{y \in Y} ||y - a| - |y - b|| = \sup_{y \in Y} |y - a - y + b| \leq \underbrace{1}_{\rho} \cdot |a - b| 
 	\]
 \end{itemize} 
+To sum up, we can conclude that:
+\[
+\sup_{y \in Y} |l'(y, a) - l'(y, b)| \leq \underbrace{2}_{\rho} \cdot |a - b| 
+\]
+So, yes, the absolute loss is Lipschitz.
 \end{solution}
 \end{subquestion}
 
 \begin{subquestion}{Is the unbounded absolute loss on unbounded domain $Y = \hat{Y} = \mathbb{R}$ Lipschitz?}
 \begin{solution}
-
+Yes, we can repeat the proof from bounded domain.
 \end{solution}
 \end{subquestion}
 
