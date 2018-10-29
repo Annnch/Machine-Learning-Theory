@@ -143,6 +143,19 @@ l'(y, \hat{y}) = \frac{1-\text{sign}(y \cdot \hat{y})}{2}, \quad \text{sign}(u) 
 -1 & \text{if}\ u < 0
 \end{cases}
 \]
+It follows:
+\begin{align*}
+\sup_{y \in Y} |l'(y, a) - l'(y, b)| & = \sup_{y \in Y} \left| \frac{1 - \text{sign}(y \cdot a)}{2} - \frac{1 - \text{sign}(y \cdot b)}{2} \right| \\
+& = \frac{1}{2} \sup_{y \in Y} |- \text{sign}(y \cdot a) + \text{sign}(y \cdot b)| \\
+& = \frac{1}{2} \sup_{y \in Y} \left| (a - b) \frac{\text{sign}(y \cdot a) - \text{sign}(y \cdot b)}{a-b} \right| \\
+& = \frac{1}{2}|a - b| \sup_{y \in Y} \left| \frac{\text{sign}(y \cdot a) - \text{sign}(y \cdot b)}{a-b} \right| \\
+& = \frac{1}{2}|a - b| \frac{ \sup_{y \in Y} |\text{sign}(y \cdot a) - \text{sign}(y \cdot b)|}{|a-b|} \\
+\end{align*}
+If 0/1-loos would be Lipschitz, we would be able to bound:
+\[
+\frac{ \sup_{y \in Y} |\text{sign}(y \cdot a) - \text{sign}(y \cdot b)|}{2 |a-b|}
+\]
+We know that the value of numerator is between 0 and 2. If $a$ and $b$ are close together, the whole fraction becomes very large. From that we can conclude that 0/1-loss is not Lipschitz.
 \end{solution}
 \end{subquestion}
 
