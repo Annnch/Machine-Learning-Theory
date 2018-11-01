@@ -1,0 +1,158 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{MLT Homework 8}
+\author{Ana Borovac \\ Jonas Haslbeck \\ Bas Haver} % I'll be coming back :-)
+%\author{Ana Borovac  \\ Bas Haver}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{mathtools}
+
+\usepackage{url}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand{\Hy}{\mathcal{H}}
+\newcommand{\VC}{\text{VCdim}}
+
+\newcounter{counterquestion}
+\newenvironment{question}[1]
+{
+\stepcounter{counterquestion}
+\section*{Question \thecounterquestion}
+\emph{#1} 
+} 
+{
+}
+
+\newcounter{countersubquestion}[counterquestion]
+\newenvironment{subquestion}[1]
+{
+\stepcounter{countersubquestion}
+\subsection*{Subquestion \thecounterquestion .\thecountersubquestion}
+\emph{#1} 
+} 
+{
+}
+
+\newenvironment{solution}
+{
+\subsubsection*{Solution}
+} 
+{
+}
+
+
+\begin{document}
+
+\maketitle
+
+% 1st question
+\begin{question}{The Aggregating Algorithm plays $w_1^k = 1/K$ and updates as
+\[
+w_{k+1}^k = \frac{w_t^k e^{-l_t^k}}{\sum_{j = 1}^K w_t^j e^{-l_t^j}}
+\]
+Let us define the \emph{Kullback-Leibler divergence} aka \emph{relative entropy} (notion of distance between probability distributions) from $p \in \Delta_K$ to $q \in \Delta_K$ by
+\[
+\text{KL}(p. q) = \sum_{k = 1}^K p_k \ln \frac{p_k}{q_k}
+\]
+Fix $w_t \in \Delta_K$ and $l_t \in \mathbb{R}^K$. Consider the minimisation problem
+\begin{equation}
+\min_{w \in \Delta_K} w^T l_t + \text{KL}(w, w_t)
+\label{eq: 1}
+\end{equation}
+}
+
+\begin{subquestion}{Show that the minimiser of problem \eqref{eq: 1} is $w_{t + 1}$.}
+
+\begin{solution}
+\end{solution}
+
+\end{subquestion}
+
+\begin{subquestion}{Show that the value of problem \eqref{eq: 1} is the mix loss.}
+
+\begin{solution}
+\end{solution}
+
+\end{subquestion}
+
+\end{question}
+
+% 2nd question
+\begin{question}{We saw in the lecture that the Hedge algorithm (for the dot-loss game)
+with learning rate $\eta = \sqrt{\frac{8 \ln K}{T}}$ has regret after $T$ rounds bounded by $\sqrt{T/2 \ln K}$. In practice, we may not know $T$ in advance, or we may even desire an algorithm that has good guarantees for all $T$ simultaneously, i.e.\ that keeps on operating forever. \\ Prove that the overall accumulated regret of Hedge with this scheme is
+bounded above by a universal constant times $\sqrt{T \ln K}$.  (Your argument should work for $T$ that are not a power of 3).}
+
+\begin{solution}
+\end{solution}
+
+\end{question}
+
+% 3nd question
+\begin{question}{Consider the $K = 2$ expert version of the $T$-round dot loss game (Definition 2). In this exercise we will prove that the worst-case expected regret is at least of order $\sqrt{T}$. Consider an adversary that for each $t = 1, \dots, T$ assigns loss vector $l_t = (0, 1)$ or $l_t = (1, 0)$ i.i.d\ uniformly at random.}
+
+\begin{subquestion}{ Show that the expected loss of any learner is $T/2$.}
+
+\begin{solution}
+\end{solution}
+
+\end{subquestion}
+
+\begin{subquestion}{Show that $2(1/2 - l_t^k)$  is Rademacher for each $k \in \{1,2\}$.}
+
+\begin{solution}
+\end{solution}
+
+\end{subquestion}
+
+\begin{subquestion}{ Show that $\sum_{t = 1}^T (1/2 - l_t^2) = - \sum_{t = 1}^T (1/2 - l_t^1)$.}
+
+\begin{solution}
+\end{solution}
+
+\end{subquestion}
+
+\begin{subquestion}{Argue that the expected loss of the best expert is bounded above by $\mathbb{E}[\min_k \sum_{t = 1}^T l_t^k] \leq T/2 - c\sqrt{T}$ for some $c > 0$. You can use the following fact. Let $X_1, \dots, X_T$ be i.i.d\ Rademacher random variables. Then 
+\[
+\mathbb{E} \left[ \sum_{t = 1}^T X_t \right] \in \left[ \sqrt{\frac{2(T - 1)}{\pi}}, \sqrt{\frac{2(T + 1)}{\pi}} \right].
+\]
+}
+
+\begin{solution}
+\end{solution}
+
+\end{subquestion}
+
+\end{question}
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
