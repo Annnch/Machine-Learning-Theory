@@ -58,7 +58,7 @@
 % 1st question
 \begin{question}{The Aggregating Algorithm plays $w_1^k = 1/K$ and updates as
 \[
-w_{k+1}^k = \frac{w_t^k e^{-l_t^k}}{\sum_{j = 1}^K w_t^j e^{-l_t^j}}
+w_{t+1}^k = \frac{w_t^k e^{-l_t^k}}{\sum_{j = 1}^K w_t^j e^{-l_t^j}}
 \]
 Let us define the \emph{Kullback-Leibler divergence} aka \emph{relative entropy} (notion of distance between probability distributions) from $p \in \Delta_K$ to $q \in \Delta_K$ by
 \[
@@ -74,6 +74,35 @@ Fix $w_t \in \Delta_K$ and $l_t \in \mathbb{R}^K$. Consider the minimisation pro
 \begin{subquestion}{Show that the minimiser of problem \eqref{eq: 1} is $w_{t + 1}$.}
 
 \begin{solution}
+We would like to show:
+\[
+\min_{w \in \Delta_K} w^T l_t + \text{KL}(w, w_t) = w_{t + 1}; \quad w_{t+1}^k = \frac{w_t^k e^{-l_t^k}}{\sum_{j = 1}^K w_t^j e^{-l_t^j}}
+\]
+
+\begin{align*}
+w_2^k & = \frac{w_1^k e^{- l_1^k}}{\sum_{j = 1}^K w_1^j e^{-l_1^j}} \\
+& = \frac{\frac{1}{K} e^{- l_1^k}}{\sum_{j = 1}^K \frac{1}{K} e^{-l_1^j}} \\
+& = \frac{e^{- l_1^k}}{K \sum_{j = 1}^K e^{-l_1^j}} 
+\end{align*}
+
+\begin{align*}
+\min_{w \in \Delta_K} w^T l_1 + \text{KL}(w, w_1) & = \min_{w \in \Delta_K} \sum_{k = 1}^K w^k l_1^k + \sum_{k = 1}^K w^k \ln \frac{w^k}{w_1^k} \\
+& = \min_{w \in \Delta_K} \sum_{k = 1}^K w^k \left( l_1^k + \ln K w^k \right) \\
+& = \min_{w \in \Delta_K} e^{\sum_{k = 1}^K w^k \left( l_1^k + \ln K w^k \right)} \\
+& = \min_{w \in \Delta_K} \prod_{k = 1}^K e^{w^k \left( l_1^k + \ln K w^k \right)} \\
+& = \min_{w \in \Delta_K} \prod_{k = 1}^K e^{w^k l_1^k}  e^{\ln K w^k} \\
+& = \min_{w \in \Delta_K} \prod_{k = 1}^K K w^k e^{w^k l_1^k} \\
+& = \max_{w \in \Delta_K} \prod_{k = 1}^K \frac{1}{K} w^{-k} e^{- w^k l_1^k} \\
+\end{align*}
+
+Let's calculate what we have on the left side:
+\begin{align*}
+w^T l_t + \text{KL}(w, w_t) & = w^Tl_t + \sum_{k = 1}^K w^k \ln \frac{w^k}{w_t^k} \\
+& = \sum_{k = 1}^K w^k l_t^k + \sum_{k = 1}^K w^k \ln \frac{w^k}{w_t^k} \\
+& = \sum_{k = 1}^K w^k l_t^k + \sum_{k = 1}^K w^k \ln \frac{w^k}{\frac{w_{t-1}^k e^{-l_{t-1}^k}}{\sum_{j = 1}^K w_{t-1}^j e^{-l_{t-1}^j}}} \\
+& = \sum_{k = 1}^K w^k l_t^k + \sum_{k = 1}^K w^k \ln \frac{w^k \sum_{j = 1}^K w_{t-1}^j e^{-l_{t-1}^j}}{w_{t-1}^k e^{-l_{t-1}^k}} \\
+& = \sum_{k = 1}^K w^k \left( l_t^k + \ln \frac{w^k \sum_{j = 1}^K w_{t-1}^j e^{-l_{t-1}^j}}{w_{t-1}^k e^{-l_{t-1}^k}} \right) \\
+\end{align*}
 \end{solution}
 
 \end{subquestion}
@@ -89,10 +118,12 @@ Fix $w_t \in \Delta_K$ and $l_t \in \mathbb{R}^K$. Consider the minimisation pro
 
 % 2nd question
 \begin{question}{We saw in the lecture that the Hedge algorithm (for the dot-loss game)
-with learning rate $\eta = \sqrt{\frac{8 \ln K}{T}}$ has regret after $T$ rounds bounded by $\sqrt{T/2 \ln K}$. In practice, we may not know $T$ in advance, or we may even desire an algorithm that has good guarantees for all $T$ simultaneously, i.e.\ that keeps on operating forever. \\ Prove that the overall accumulated regret of Hedge with this scheme is
-bounded above by a universal constant times $\sqrt{T \ln K}$.  (Your argument should work for $T$ that are not a power of 3).}
+with learning rate $\eta = \sqrt{\frac{8 \ln K}{T}}$ has regret after $T$ rounds bounded by $\sqrt{T/2 \ln K}$. In practice, we may not know $T$ in advance, or we may even desire an algorithm that has good guarantees for all $T$ simultaneously, i.e.\ that keeps on operating forever. \\ Consider the following exponential (base 3) restarting schedule to accomplish
+this. We run Hedge for 1 round, with $\eta$ tuned for 1 round. After that, we restart Hedge, and run it for 3 rounds with $\eta$ tuned for 3 rounds. After that, we restart Hedge again for 9 rounds with $\eta$ tuned for 9 rounds, and so on. \\ Prove that the overall accumulated regret of Hedge with this scheme is bounded above by a universal constant times $\sqrt{T \ln K}$.  (Your argument should work for $T$ that are not a power of 3).}
 
 \begin{solution}
+% http://www.cs.princeton.edu/~rlivni/cos511/lectures/lect18.pdf
+% http://people.csail.mit.edu/costis/6896sp10/lec4.pdf
 \end{solution}
 
 \end{question}
@@ -103,6 +134,34 @@ bounded above by a universal constant times $\sqrt{T \ln K}$.  (Your argument sh
 \begin{subquestion}{ Show that the expected loss of any learner is $T/2$.}
 
 \begin{solution}
+We calculate the dot loss as:
+\[
+\sum_{k = 1}^K w_t^k l_t^k
+\]
+Where, in our case:
+\[
+w_t \in \{ (0, 0), (0, 1), (1, 0), (1, 1) \} \text{ and } l_t \in \{ (0, 1), (1, 0) \}
+\]
+In the table below we can see all the possible values of $L_t = \sum_{k = 1}^2 w_t^k l_t^k$:
+\[
+\begin{array}{ c || c | c }
+\displaystyle \sum_{k = 1}^2 w_t^k l_t^k & (0, 1) & (1, 0) \\ \hline \hline
+(0, 0) & 0 & 0 \\ \hline
+(0, 1) & 1 & 0 \\ \hline
+(0, 1) & 0 & 1 \\ \hline
+(1, 1) & 1 & 1
+\end{array}
+\]
+From that it follows:
+\[
+P(L = 0) = P(L = 1) = \frac{1}{2}
+\]
+And we can conclude:
+\begin{align*}
+\mathbb{E} \left[ \sum_{t = 1}^T L_t \right] & = \sum_{t = 1}^T \mathbb{E}[L_t] \\
+& = \sum_{t = 1}^T \frac{1}{2} \cdot 0 + \frac{1}{2} \cdot 1 \\
+& = \frac{T}{2}
+\end{align*}
 \end{solution}
 
 \end{subquestion}
@@ -117,6 +176,14 @@ bounded above by a universal constant times $\sqrt{T \ln K}$.  (Your argument sh
 \begin{subquestion}{ Show that $\sum_{t = 1}^T (1/2 - l_t^2) = - \sum_{t = 1}^T (1/2 - l_t^1)$.}
 
 \begin{solution}
+\begin{align*}
+\sum_{t = 1}^T (1/2 - l_t^2) = - \sum_{t = 1}^T (1/2 - l_t^1) \\
+\sum_{t = 1}^T (1/2 - l_t^2) + \sum_{t = 1}^T (1/2 - l_t^1) = 0 \\
+\sum_{t = 1}^T (1/2 - l_t^2 + 1/2 - l_t^1) = 0 \\
+\sum_{t = 1}^T (1/2 + 1/2 - (l_t^1 + l_t^2)) = 0 \\
+\sum_{t = 1}^T (1 - 1) = 0 \\
+0 = 0
+\end{align*}
 \end{solution}
 
 \end{subquestion}
