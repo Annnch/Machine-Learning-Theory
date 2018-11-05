@@ -74,7 +74,22 @@ Fix $w_t \in \Delta_K$ and $l_t \in \mathbb{R}^K$. Consider the minimisation pro
 \begin{subquestion}{Show that the minimiser of problem \eqref{eq: 1} is $w_{t + 1}$.}
 
 \begin{solution}
-
+We start of by writing down our Lagrangian, where the only constraint on the $k$-dimensional vector $w$ is that they sum up to be one, or written otherwise $\sum_{k=1} ^K w^k-1=0$. Therefore the Lagrangian is:
+$$L(w,\lambda ) = w^Tj_t + \sum _{k=1} ^K w^k \ln \frac{w^k}{w_t^k} + \lambda (\sum _{k=1} ^K w^k - 1)$$
+We find an optimal solution when both $\frac{\partial L}{\partial w^k}=0$ for all $k\in [K]$ and $\frac{\partial L}{\partial \lambda}=0$. The first one gives the equation
+\begin{align*}
+&l_t^k+ \ln \frac{w^k}{w_t^k}+1-\lambda =0\\
+&\implies \frac{w^k}{w_t^k}=e^{\lambda -1-l_t^k}\\
+&\implies w^k=w_t^k e^{\lambda -1-l_t^k}
+\end{align*}
+The second of the partial derivatives give $\frac{\partial L}{\partial \lambda}=\sum _{k=1} ^K w^k-1=0$. Substitution of the expression of $w^k$ we just found now gives $$\sum_{k=1}^Kw_t^ke^{\lambda-1-l+t^k}=1.$$
+But this means that our first expression of $w_k$ can be written as
+\begin{align*}
+w^k&=\frac{w_t^ke^{\lambda-1l_t^k}}{1}\\
+&=\frac{w_t^ke^{\lambda-1l_t^k}}{\sum_{k=1}^Kw_t^ke^{\lambda-1-l+t^k}}\\
+&=\frac{w_t^ke^{-l_t^k}}{\sum _{k=1} ^K w_t^ke^{-l_t^k}}\\
+&=w_{t+1}^k
+\end{align*}
 \end{solution}
 
 \end{subquestion}
@@ -82,6 +97,15 @@ Fix $w_t \in \Delta_K$ and $l_t \in \mathbb{R}^K$. Consider the minimisation pro
 \begin{subquestion}{Show that the value of problem \eqref{eq: 1} is the mix loss.}
 
 \begin{solution}
+Now we only need to check that when we plug in the solution as found in 1a in the function we were ought to minimize, we obtain the mix loss. We have:
+\begin{align*}
+w_{t+1}^Tl_t+\text{KL}(w_{t+1},w_t)&=\sum _{k=1} ^K w_{t+1}^k l_t^k + \sum _{k=1}^K w_{t+1}^k \ln \frac{w^k_{t+1}}{w_t^k}\\
+&=\sum _{k=1} ^K (w_{t+1}^k (l_t^k + \ln \frac{w_{t+1}^k}{w^k_t}))\\
+&=\sum _{k=1} ^K \frac{w_t^ke^{-l_t^k}}{\sum _{k=1} ^K w_t^j e^{-l_t^j}}(l_t^k+\ln \frac{e^{-l_t^k}}{\sum _{k=1} ^K w_t^je^{-l_t^j}})\\
+&=\sum _{k=1} ^K \frac{w_t^ke^{-l_t^k}}{\sum _{k=1} ^K w_t^j e^{-l_t^j}}(l_t^k- l_t^k - \ln (\sum _{j=1}^K w_t^je^{-l_t^j}))\\
+&=-\ln (\sum _{j=1}^K w_t^je^{-l_t^j})
+\end{align*}
+which is exactly the mix loss.
 \end{solution}
 
 \end{subquestion}
@@ -94,6 +118,14 @@ with learning rate $\eta = \sqrt{\frac{8 \ln K}{T}}$ has regret after $T$ rounds
 this. We run Hedge for 1 round, with $\eta$ tuned for 1 round. After that, we restart Hedge, and run it for 3 rounds with $\eta$ tuned for 3 rounds. After that, we restart Hedge again for 9 rounds with $\eta$ tuned for 9 rounds, and so on. \\ Prove that the overall accumulated regret of Hedge with this scheme is bounded above by a universal constant times $\sqrt{T \ln K}$.  (Your argument should work for $T$ that are not a power of 3).}
 
 \begin{solution}
+Any choice of $T$ is bounded by powers of 3 i nthe following way: $3^p\leq T < 3^{p+1}$. So by the result from the lecture, we have for the restarting schedule as stated in the exercise: 
+\begin{align*}
+R^T&\leq \sum _{i=1} ^{p+1} \sqrt{3^i/2\ln K}\\
+&=\sum _{i=0} ^{p} \sqrt{3^{i+1}/2\ln K}\\
+&=\sqrt{\frac{1}{2}}\sqrt{3^p \ln K } \sum _{i=0}^p \sqrt{3^{i+1-p}}\\
+&=\sqrt{\frac{3}{2}}\sqrt{3^p \ln K } \sum _{i=0}^p \sqrt{3^{i-p}}\\
+&=\sqrt{\frac{3}{2}}\sqrt{3^p \ln K } \sum _{i=0}^p \sqrt{3^{-i}}
+\end{align*}
 % http://www.cs.princeton.edu/~rlivni/cos511/lectures/lect18.pdf
 % http://people.csail.mit.edu/costis/6896sp10/lec4.pdf
 \end{solution}
