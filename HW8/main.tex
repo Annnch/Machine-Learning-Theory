@@ -74,35 +74,7 @@ Fix $w_t \in \Delta_K$ and $l_t \in \mathbb{R}^K$. Consider the minimisation pro
 \begin{subquestion}{Show that the minimiser of problem \eqref{eq: 1} is $w_{t + 1}$.}
 
 \begin{solution}
-We would like to show:
-\[
-\min_{w \in \Delta_K} w^T l_t + \text{KL}(w, w_t) = w_{t + 1}; \quad w_{t+1}^k = \frac{w_t^k e^{-l_t^k}}{\sum_{j = 1}^K w_t^j e^{-l_t^j}}
-\]
 
-\begin{align*}
-w_2^k & = \frac{w_1^k e^{- l_1^k}}{\sum_{j = 1}^K w_1^j e^{-l_1^j}} \\
-& = \frac{\frac{1}{K} e^{- l_1^k}}{\sum_{j = 1}^K \frac{1}{K} e^{-l_1^j}} \\
-& = \frac{e^{- l_1^k}}{K \sum_{j = 1}^K e^{-l_1^j}} 
-\end{align*}
-
-\begin{align*}
-\min_{w \in \Delta_K} w^T l_1 + \text{KL}(w, w_1) & = \min_{w \in \Delta_K} \sum_{k = 1}^K w^k l_1^k + \sum_{k = 1}^K w^k \ln \frac{w^k}{w_1^k} \\
-& = \min_{w \in \Delta_K} \sum_{k = 1}^K w^k \left( l_1^k + \ln K w^k \right) \\
-& = \min_{w \in \Delta_K} e^{\sum_{k = 1}^K w^k \left( l_1^k + \ln K w^k \right)} \\
-& = \min_{w \in \Delta_K} \prod_{k = 1}^K e^{w^k \left( l_1^k + \ln K w^k \right)} \\
-& = \min_{w \in \Delta_K} \prod_{k = 1}^K e^{w^k l_1^k}  e^{\ln K w^k} \\
-& = \min_{w \in \Delta_K} \prod_{k = 1}^K K w^k e^{w^k l_1^k} \\
-& = \max_{w \in \Delta_K} \prod_{k = 1}^K \frac{1}{K} w^{-k} e^{- w^k l_1^k} \\
-\end{align*}
-
-Let's calculate what we have on the left side:
-\begin{align*}
-w^T l_t + \text{KL}(w, w_t) & = w^Tl_t + \sum_{k = 1}^K w^k \ln \frac{w^k}{w_t^k} \\
-& = \sum_{k = 1}^K w^k l_t^k + \sum_{k = 1}^K w^k \ln \frac{w^k}{w_t^k} \\
-& = \sum_{k = 1}^K w^k l_t^k + \sum_{k = 1}^K w^k \ln \frac{w^k}{\frac{w_{t-1}^k e^{-l_{t-1}^k}}{\sum_{j = 1}^K w_{t-1}^j e^{-l_{t-1}^j}}} \\
-& = \sum_{k = 1}^K w^k l_t^k + \sum_{k = 1}^K w^k \ln \frac{w^k \sum_{j = 1}^K w_{t-1}^j e^{-l_{t-1}^j}}{w_{t-1}^k e^{-l_{t-1}^k}} \\
-& = \sum_{k = 1}^K w^k \left( l_t^k + \ln \frac{w^k \sum_{j = 1}^K w_{t-1}^j e^{-l_{t-1}^j}}{w_{t-1}^k e^{-l_{t-1}^k}} \right) \\
-\end{align*}
 \end{solution}
 
 \end{subquestion}
@@ -169,6 +141,12 @@ And we can conclude:
 \begin{subquestion}{Show that $2(1/2 - l_t^k)$  is Rademacher for each $k \in \{1,2\}$.}
 
 \begin{solution}
+We know that $l_t^k$ can take two values: 0 or 1. So:
+\begin{align*}
+2(1/2 - l_t^k) & = 2(1/2 - 1) = -1 \\
+2(1/2 - l_t^k) & = 2(1/2 - 0) = 1
+\end{align*}
+From that follows that $2(1/2 - l_t^k)$ takes values -1 or 1, therefore it is Rademacher.
 \end{solution}
 
 \end{subquestion}
@@ -195,8 +173,36 @@ And we can conclude:
 }
 
 \begin{solution}
+We know, that $2(1/2 - l_t^k)$ is Rademacher, so it holds:
+\begin{align*}
+\mathbb{E} \left[ \sum_{t = 1}^T 2(1/2 - l_t^2) \right] & \in \left[ \sqrt{\frac{2(T - 1)}{\pi}}, \sqrt{\frac{2(T + 1)}{\pi}} \right] \\
+\mathbb{E} \left[ \sum_{t = 1}^T 1/2 - l_t^2 \right] & \in \left[ \sqrt{\frac{(T - 1)}{2\pi}}, \sqrt{\frac{(T + 1)}{2\pi}} \right] \\
+\end{align*}
+From the previous point:
+\begin{align*}
+\mathbb{E} \left[ - \sum_{t = 1}^T 1/2 - l_t^1 \right] & \in \left[ \sqrt{\frac{(T - 1)}{2\pi}}, \sqrt{\frac{(T + 1)}{2\pi}} \right] \\
+\mathbb{E} \left[ \sum_{t = 1}^T 1/2 - l_t^1 \right] & \in \left[ - \sqrt{\frac{(T + 1)}{2\pi}}, - \sqrt{\frac{(T - 1)}{2\pi}} \right] \\
+\end{align*}
+It follows:
+\begin{align*}
+\mathbb{E} \left[ T/2 - \sum_{t = 1}^T l_t^1 \right] & \in \left[ - \sqrt{\frac{(T + 1)}{2\pi}}, - \sqrt{\frac{(T - 1)}{2\pi}} \right] \\
+\mathbb{E} \left[ T/2 - \sum_{t = 1}^T l_t^2 \right] & \in \left[ \sqrt{\frac{(T - 1)}{2\pi}}, \sqrt{\frac{(T + 1)}{2\pi}} \right] \\
+\end{align*}
+$\Rightarrow$
+\begin{align*}
+\mathbb{E} \left[ - \sum_{t = 1}^T l_t^1 \right] & \in \left[ - \sqrt{\frac{(T + 1)}{2\pi}} - T/2, - \sqrt{\frac{(T - 1)}{2\pi}} -T/2 \right] \\
+\mathbb{E} \left[ - \sum_{t = 1}^T l_t^2 \right] & \in \left[ \sqrt{\frac{(T - 1)}{2\pi}}  - T/2, \sqrt{\frac{(T + 1)}{2\pi}}  - T/2 \right] \\
+\end{align*}
+$\Rightarrow$
+\begin{align*}
+\mathbb{E} \left[ \sum_{t = 1}^T l_t^1 \right] & \in \left[ \sqrt{\frac{(T - 1)}{2\pi}} + T/2, \sqrt{\frac{(T + 1)}{2\pi}} + T/2 \right] \\
+\mathbb{E} \left[ \sum_{t = 1}^T l_t^2 \right] & \in \left[ -\sqrt{\frac{(T + 1)}{2\pi}}  + T/2, -\sqrt{\frac{(T - 1)}{2\pi}}  + T/2 \right] \\
+\end{align*}
+From above we conclude $\mathbb{E}[\min_k \sum_{t = 1}^T l_t^k] = \mathbb{E}[\sum_{t = 1}^T l_t^2]$ and finally:
+\[
+\mathbb{E}[\min_k \sum_{t = 1}^T l_t^k] \leq T/2 - c\sqrt{T}
+\]
 \end{solution}
-
 \end{subquestion}
 
 \end{question}
