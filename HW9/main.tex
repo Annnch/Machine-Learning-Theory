@@ -120,20 +120,18 @@ loss range $[0, 2]$). Show that the expected pseudo-regret compared to the best 
 \bar{R}_n \leq 2 \sqrt{2nK^2 \ln(K^2)}
 \]}
 \begin{solution}
-\[
-\bar{R}_n = \mathbb{E} \sum_{t=1}^T l_{t, I_t, J_t} - \min_{k_1, k_2} \sum_{t=1}^T l_{t, k_1, k_2}
-\]
-\[
-\widetilde{l}_{t, i, j} = \frac{l_{t, i, j}}{p_{t, i, j}} \mathbbm{1}_{I_t = i, J_t = j} \quad \Rightarrow \quad \mathbb{E} \left[ \widetilde{l}_{t, i, j} \right] = l_{t, i, j}
-\]
-EXP3 algorithm:\\
-learning rate $\eta$\\
-set $p_{t, i, j} = \displaystyle \frac{exp(\eta \sum_{s = 1}^{t -1} \widetilde{l}_{t, i, j} )}{norm}$ \\
-sample $I_t \sim p_t, J_t \sim p_t$ \\
-set $\widetilde{l}_{t, i, j} = \frac{l_{t, i, j}}{p_{t, i, j}} \mathbbm{1}_{I_t = i, J_t = j} $\\
-Theorem: $\bar{R}_T \leq \sqrt{2TK^2 \ln K^2}$ \\
-Lemma: $\bar{R}_T \leq \frac{K^2T\eta}{2} + \frac{\log K^2}{\eta}$\\
-Hadge analysis on $\widetilde{l}$
+Below we used the following facts:
+\begin{itemize}
+	\item $\min x + y = \min x + \min y;\ x, y \geq 0$
+	\item Linearity of expected value.
+	\item Theorem from the lectures: $\bar{R}_n \leq \sqrt{2n K \ln K}$, where $K$ in the number of arms.
+\end{itemize}
+\begin{align*}
+\bar{R}_n & = \mathbb{E}_{I_1, \dots, I_n, J_1, \dots, J_n} \left\{ \sum_{t = 1}^n a_t^{I_t} + b_t^{J_t} \right\} - \min_k \sum_{t = 1}^n a_t^k + b_t^k \\
+& = \left( \mathbb{E}_{I_1, \dots, I_n} \left\{ \sum_{t = 1}^n a_t^{I_t} \right\} - \min_k \sum_{t = 1}^n a_t^k \right) + \left( \mathbb{E}_{J_1, \dots, J_n} \left\{ \sum_{t = 1}^n b_t^{J_t} \right\} - \min_k \sum_{t = 1}^n b_t^k \right) \\
+& \leq \sqrt{2n K^2 \ln K^2} + \sqrt{2n K^2 \ln K^2} \\
+& = 2 \sqrt{2n K^2 \ln K^2} 
+\end{align*}
 \end{solution}
 \end{subquestion}
 
