@@ -1,0 +1,155 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{MLT Homework 8}
+% \author{Ana Borovac \\ Jonas Haslbeck \\ Bas Haver} % I'll be coming back :-)
+\author{Ana Borovac  \\ Bas Haver}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{mathtools}
+
+\usepackage{url}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand{\Hy}{\mathcal{H}}
+\newcommand{\VC}{\text{VCdim}}
+
+\newcounter{counterquestion}
+\newenvironment{question}[1]
+{
+\stepcounter{counterquestion}
+\section*{Question \thecounterquestion}
+\emph{#1} 
+} 
+{
+}
+
+\newcounter{countersubquestion}[counterquestion]
+\newenvironment{subquestion}[1]
+{
+\stepcounter{countersubquestion}
+\subsection*{Subquestion \thecounterquestion .\thecountersubquestion}
+\emph{#1} 
+} 
+{
+}
+
+\newenvironment{solution}
+{
+\subsubsection*{Solution}
+} 
+{
+}
+
+
+\begin{document}
+
+\maketitle
+
+% 1st question
+\begin{question}{Let $\psi(\lambda) = \frac{\lambda^2}{2}$. The Legendre-Fenchel transform of $\psi$ is given by
+\[
+\psi^*(\epsilon) = \sup_{\lambda \in \mathbb{R}} \lambda \epsilon - \psi(\lambda).
+\]}
+
+\begin{subquestion}{$\psi^*(\epsilon) = \frac{\epsilon^2}{2}$.}
+\begin{solution}
+Let define $\psi_1(\lambda)$:
+\[
+\psi_1(\lambda) = \lambda \epsilon - \frac{\lambda^2}{2}
+\]
+Furthermore:
+\[
+\psi_1'(\lambda) = \epsilon - \lambda
+\]
+So, the maximum is reached at:
+\[
+\lambda = \epsilon \quad \Rightarrow \quad \psi_1(\epsilon) = \epsilon \cdot \epsilon - \frac{\epsilon^2}{2} = \frac{\epsilon^2}{2}
+\]
+We can conclude:
+\[
+\psi^*(\epsilon) = \psi_1(\epsilon) = \frac{\epsilon^2}{2}
+\]
+\end{solution}
+\end{subquestion}
+
+\begin{subquestion}{$(\psi^*)^{-1}(z) = \pm \sqrt{2z}$.}
+\begin{solution}
+From previous point we know:
+\[
+\psi^*(\epsilon) = \frac{\epsilon^2}{2}
+\]
+It follows:
+\begin{align*}
+z & = \frac{\epsilon^2}{2} \\
+2 z & = \epsilon^2 \\
+\epsilon & = \pm \sqrt{2z} 
+\end{align*}
+So:
+\[
+(\psi^*)^{-1}(z) = \pm \sqrt{2z}
+\]
+\end{solution}
+\end{subquestion}
+
+\end{question}
+
+% 2nd question
+\begin{question}{}
+
+\end{question}
+
+% 3rd question
+\begin{question}{We consider an adversarial bandit model with $K^2$ arms indexed by $i \in [K]$ and $j \in [K]$. For each arm $(i, j)$, the loss at time $t$ is $a_t^i + b_t^i$, where $a_t^i \in [0, 1]$ and $b_t^i \in [0, 1]$ are chosen by the adversary before the start of the interaction. Then each round the learner picks an arm $(I_t, J_t) \in [K]^2$ and observes $a_t^{I_t}$ and $b_t^{J_t}$ separately (and incurs their sum as the loss).}
+
+\begin{subquestion}{Consider running a single instance of EXP3 on all $K^2$ arms (with
+loss range $[0, 2]$). Show that the expected pseudo-regret compared to the best arm $(i^*, j^*)$  is bounded by
+\[
+\bar{R}_n \leq 2 \sqrt{2nK^2 \ln(K^2)}
+\]}
+\begin{solution}
+\end{solution}
+\end{subquestion}
+
+\begin{subquestion}{Now we will use the $a_t^i$ and $b_t^j$ observations separately. Consider
+running two $K$-arm  instances of EXP3, one with $i \to a_t^i$ as the loss and one with $j \to b_t^j$ as the loss. Have the first algorithm control $I_t$ and the second $J_t$. Show that the overall expected pseudo-regret is bounded by
+\[
+\bar{R}_n \leq 2 \sqrt{2n K \ln K}.
+\]}
+\begin{solution}
+\end{solution}
+\end{subquestion}
+
+\end{question}
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

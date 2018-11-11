@@ -152,7 +152,7 @@ In the table below we can see all the possible values of $L_t = \sum_{k = 1}^2 w
 \displaystyle \sum_{k = 1}^2 w_t^k l_t^k & (0, 1) & (1, 0) \\ \hline \hline
 (0, 0) & 0 & 0 \\ \hline
 (0, 1) & 1 & 0 \\ \hline
-(0, 1) & 0 & 1 \\ \hline
+(1, 0) & 0 & 1 \\ \hline
 (1, 1) & 1 & 1
 \end{array}
 \]
@@ -175,10 +175,10 @@ And we can conclude:
 \begin{solution}
 We know that $l_t^k$ can take two values: 0 or 1. So:
 \begin{align*}
-2(1/2 - l_t^k) & = 2(1/2 - 1) = -1 \\
-2(1/2 - l_t^k) & = 2(1/2 - 0) = 1
+2(1/2 - l_t^k) & = 2(1/2 - 1) = -1 & \Rightarrow\  \ & P(2(1/2 - l_t^k) = -1) = P(l_t^k = 1) = \frac{1}{2} \\
+2(1/2 - l_t^k) & = 2(1/2 - 0) = 1 & \Rightarrow\ \ & P(2(1/2 - l_t^k) = 1) = P(l_t^k = 0) = \frac{1}{2}
 \end{align*}
-From that follows that $2(1/2 - l_t^k)$ takes values -1 or 1, therefore it is Rademacher.
+From that follows that $2(1/2 - l_t^k)$ takes values -1 or 1 both with probability $1/2$, therefore it is Rademacher.
 \end{solution}
 
 \end{subquestion}
