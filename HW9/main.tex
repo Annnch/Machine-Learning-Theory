@@ -124,7 +124,25 @@ R_n&=\sum _{t=1} ^n l_{t,I_t}-\min _k \sum _{t=1}^nl_n^k\\
 \end{align*}
 But now for any choice of arm, with at least two arms, $\min _k \sum _{t=1}^nl_n^k$ is at most $\frac{n}{K}$. Therefore the regret is bounded from below by $\frac{n}{2}$ and since the loss function is nonnegative, the regret is also bounded from above by $n$.
 \end{solution}
-
+\begin{subquestion}
+Consider a $K$-armed stochastic bandit model with unit-variance Gaussian rewards with means $\mu _1, \dots , \mu_K$. In round $t$ the learner chooses arm $I_t\in [K]$ and recieves reward $X_t \sim \mathcal{N}(\mu _{I_t} , 1)$, where $\mu _i$ is the (unknown) reward of arm $i$. Now let's fix the following algorithm, which is inspired by Empirical Risk Minimisation:
+\begin{enumerate}
+\item [(a)] First, pull every arm once (that is $T_i=t$ for $t\leq K$).
+\item [(b)] Then after each number $t\geq K$ of rounds, from the empirical estimates $$\hat{\mu}_i(t)=\frac{\sum _{s=1}^t\mathbbm{1}_{\{I_s=i \}}X_s}{\sum _{s=1}^t \mathbbm{1}_{\{I_s=i\}}}$$ and play $I_{t+1}=\text{arg max}_i\hat{\mu}_i(t)$.
+\end{enumerate}
+For $K=2$, show that this algorithm has pseudo-regret $$\bar{R}=n\mu ^* - \mathbb{E}[\sum _{t=1}^n \mu _{I_t}]$$
+that is \textit{linear} in $n$.\\
+Hint: you can use the following outline. Assume $\mu _1 > \mu _2$. Pick some threshold $\epsilon >0$ (which you will optimise in a later step).
+\begin{enumerate}
+\item [-] Argue that with constant probability (independent of $n$) the reward drawn from the best arm in the first phase is below $\mu _2-\epsilon$.
+\item [-] Bound the probability that for a single time step $t$ we have $\hat{\mu}_2(t)<\mu_2-\epsilon$ using Chernoff's bound.
+\item [-] Use the union bound to bound the probaility that $\exists t \geq 2: \hat{\mu} _2(t)<\mu_2 - \epsilon$.
+\item [-] Now pick $\epsilon$ large enough so that the previous probability bound is non-trivial (i.e. is <1).
+\end{enumerate}
+Conclude that with some small probability the sample from the best arm is very low, and the samples from the second-best arm are all typical, so the algorithm keeps pulling arm 2 pnly. Deduce that the pseudo-regret is hence linear in $n$.
+\end{subquestion}
+\begin{solution}
+\end{solution}
 \end{question}
 
 % 3rd question
