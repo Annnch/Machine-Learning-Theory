@@ -71,7 +71,7 @@ Furthermore:
 \[
 \psi_1'(\lambda) = \epsilon - \lambda
 \]
-So, the maximum is reached at:
+Since $\psi_1(\lambda)$ is a parabola it has only one extreme; particularly it has just a maximum (negative sign before $\lambda^2$). So, the maximum is reached at:
 \[
 \lambda = \epsilon \quad \Rightarrow \quad \psi_1(\epsilon) = \epsilon \cdot \epsilon - \frac{\epsilon^2}{2} = \frac{\epsilon^2}{2}
 \]
@@ -124,7 +124,7 @@ Below we used the following facts:
 \begin{itemize}
 	\item $\min x + y = \min x + \min y;\ x, y \geq 0$
 	\item Linearity of expected value.
-	\item Theorem from the lectures: $\bar{R}_n \leq \sqrt{2n K \ln K}$, where $K$ in the number of arms.
+	\item Theorem from the lectures: $\bar{R}_n \leq \sqrt{2n K \ln K}$, where $K$ in the number of arms; in our case we have $K^2$ arms.
 \end{itemize}
 \begin{align*}
 \bar{R}_n & = \mathbb{E}_{I_1, \dots, I_n, J_1, \dots, J_n} \left\{ \sum_{t = 1}^n a_t^{I_t} + b_t^{J_t} \right\} - \min_k \sum_{t = 1}^n a_t^k + b_t^k \\
@@ -141,10 +141,13 @@ running two $K$-arm  instances of EXP3, one with $i \to a_t^i$ as the loss and o
 \bar{R}_n \leq 2 \sqrt{2n K \ln K}.
 \]}
 \begin{solution}
-From the lectures we know that the regret of one $K$-arm EKP3 algorithm is bounded with $\sqrt{2nK \ln K}$. So, in our case:
-\[
-\bar{R}_n = \bar{R}_n^1 + \bar{R}_n^2 \leq \sqrt{2nK \ln K} + \sqrt{2nK \ln K} = 2 \sqrt{2nK \ln K}
-\]
+We do similar as before, just that now we choose arm in the set of $K$ arms and not $K^2$.
+\begin{align*}
+\bar{R}_n & = \mathbb{E}_{I_1, \dots, I_n, J_1, \dots, J_n} \left\{ \sum_{t = 1}^n a_t^{I_t} + b_t^{J_t} \right\} - \min_k \sum_{t = 1}^n a_t^k + b_t^k \\
+& = \left( \mathbb{E}_{I_1, \dots, I_n} \left\{ \sum_{t = 1}^n a_t^{I_t} \right\} - \min_k \sum_{t = 1}^n a_t^k \right) + \left( \mathbb{E}_{J_1, \dots, J_n} \left\{ \sum_{t = 1}^n b_t^{J_t} \right\} - \min_k \sum_{t = 1}^n b_t^k \right) \\
+& \leq \sqrt{2n K \ln K} + \sqrt{2n K \ln K} \\
+& = 2 \sqrt{2n K \ln K} 
+\end{align*}
 \end{solution}
 \end{subquestion}
 
