@@ -108,6 +108,21 @@ So:
 
 \begin{subquestion}{\textbf{Deterministic fails for Adversarial Bandits} Show that any deterministic algorithm (UCB included) has linear regret in the adversarial bandit setting. Hint: you can use the argument on the top of page 23.}
 \end{subquestion}
+\begin{solution}
+We were a bit confused by this question, since it states that we need to find a linear regret, which we did not find. Instead we found that it can be bounded between two linear functions, but it does not necessarily is linear itself.\\
+As a counter-example of the linearity we have that for $n=0$ no regret has been obtained. Therefore linearity only holds when $R_m+R_n=R_{n+m}$ for all $n,m$. But when we choose $n=4$, four arms and choose to play on arms 1,2,3 and 4 succesively, we find $R_1=1$, $R_3=3$, $R_4=3$, so linearity dos not hold. It does however hold that it remains between our bounds $\frac{n}{K}$ and $n$ for $K$ the amount of arms.\\
+We use the hint on the top of page 23, which tells us that for a deterministic forecaster, we can use the following sequence of losses:
+\begin{align*}
+\text{if }I_t=1, \quad \text{then }l_{2,t}=0\quad \text{and}\quad l_{i,t}=1\quad \text{for all }i\neq 2;\\
+\text{if }I_t\neq 1, \quad \text{then }l_{1,t}=0\quad \text{and}\quad l_{i,t}=1\quad \text{for all }i\neq 1
+\end{align*}
+This now implies the following for the regret:
+\begin{align*}
+R_n&=\sum _{t=1} ^n l_{t,I_t}-\min _k \sum _{t=1}^nl_n^k\\
+&=n-\min _k \sum _{t=1}^nl_n^k
+\end{align*}
+But now for any choice of arm, with at least two arms, $\min _k \sum _{t=1}^nl_n^k$ is at most $\frac{n}{K}$. Therefore the regret is bounded from below by $\frac{n}{2}$ and since the loss function is nonnegative, the regret is also bounded from above by $n$. Thus it has a linear behaviour.
+\end{solution}
 
 \end{question}
 
@@ -124,7 +139,7 @@ Below we used the following facts:
 \begin{itemize}
 	\item $\min x + y = \min x + \min y;\ x, y \geq 0$
 	\item Linearity of expected value.
-	\item Theorem from the lectures: $\bar{R}_n \leq \sqrt{2n K \ln K}$, where $K$ in the number of arms; in our case we have $K^2$ arms.
+	\item Theorem from the lectures: $\bar{R}_n \leq \sqrt{2n K \ln K}$, where $K$ is the number of arms; in our case we have $K^2$ arms.
 \end{itemize}
 \begin{align*}
 \bar{R}_n & = \mathbb{E}_{I_1, \dots, I_n, J_1, \dots, J_n} \left\{ \sum_{t = 1}^n a_t^{I_t} + b_t^{J_t} \right\} - \min_k \sum_{t = 1}^n a_t^k + b_t^k \\
