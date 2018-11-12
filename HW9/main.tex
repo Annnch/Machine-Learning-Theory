@@ -139,9 +139,27 @@ Hint: you can use the following outline. Assume $\mu _1 > \mu _2$. Pick some thr
 \item [-] Use the union bound to bound the probaility that $\exists t \geq 2: \hat{\mu} _2(t)<\mu_2 - \epsilon$.
 \item [-] Now pick $\epsilon$ large enough so that the previous probability bound is non-trivial (i.e. is <1).
 \end{enumerate}
-Conclude that with some small probability the sample from the best arm is very low, and the samples from the second-best arm are all typical, so the algorithm keeps pulling arm 2 pnly. Deduce that the pseudo-regret is hence linear in $n$.
+Conclude that with some small probability the sample from the best arm is very low, and the samples from the second-best arm are all typical, so the algorithm keeps pulling arm 2 only. Deduce that the pseudo-regret is hence linear in $n$.
 \end{subquestion}
 \begin{solution}
+We will follow the outline as in the hint. So let's assume $\mu_1>\mu_2$ and let $\epsilon>0$ to be chosen later. The first phase is determined by pulling every arm once, so in our case pull the first arm and then pull the second arm. Now $\mu _1 $ and $\mu _2$ are estimated by setting the estimator equal to the value we have found. The result of this part is not dependend of whatever happens after this, so certainly not the amount of pulls. Thus the probability that the reward from the best arm in the first phase is below $\mu _2 - \epsilon$ is independent of $n$, let us call this constant in $n$ to be $\alpha$, which is positive since we observe a normal distribution.\\
+Next we will find an upper bound for $$\mathbb{P}(\hat{\mu}_2(t)<\mu_2-\epsilon \mid T_2(t)=s),$$
+where $T_2$ is the amount of times that the second arm was pulled. For this we rewrite $\{\hat{\mu}_2(t)<\mu_2-\epsilon\}=\{\hat{\mu}_2(t)-\mu_2<-\epsilon\}$ to be able to use Chernoff's bound:
+\begin{align*}
+\mathbb{P}(\hat{\mu}_2(t)<\mu_2-\epsilon \mid T_2(t)=s)&=\mathbb{P}(\hat{\mu}_2(t)-\mu_2<-\epsilon \mid T_2(t)=s)\\
+&\leq e^{-s\frac{\epsilon ^2}{2}}
+\end{align*}
+which holds for all $t$ and $s$.\\
+Now we find the probability that there is a $t\geq 2$ for which $\hat{\mu}_2(t)<\mu_e - \epsilon$ to be smaller or equal than the probability of finding this after the first phase plus the probability of not finding it after this phase but finding it later. This latter happens with a probability which is bounded as we have seen above by $e^{-s\frac{\epsilon ^2}{2}}$. This gives $$\mathbb{P}(\exists t \geq 2 : \hat{\mu}_2(t)<\mu_2-\epsilon)\leq \alpha + e^{-s\frac{\epsilon ^2}{2}}$$
+Now we will choose our $\epsilon$ appropriately to obtain a non-trivia probability bound. Therefore we notice that $s$ is at least $1$, since we pulled the second machine at the first phase. This gives now for $\epsilon > \sqrt{-2\log (1-\alpha )}$:
+\begin{align*}
+\alpha + e^{-s\frac{\epsilon ^2}{2}} &\leq \alpha + e^{-\frac{\epsilon ^2}{2}} \\
+&< \alpha + e^{-\frac{\sqrt{-2\log (1-\alpha )} ^2}{2}}\\
+&=\alpha + e^{-\frac{-2\log (1-\alpha ) }{2}}\\
+&=\alpha + e^{\log (1-\alpha )}\\
+&=1
+\end{align*}
+Now by the central limit theorem, the probability of finding a very low sample of the best arm is very low on the long run and since the samples of the second-best arm are all typical, the algorithm keeps pulling arm 2 only. Then we also have $\mathbb{E}[\sum _{t=1} ^n \mu _{I_t}]=\mathbb{E}[\sum _{t=1} ^n \mu _{I_t}]$ in behaviour, which gives us that the pseudo-regret is linear in $n$.
 \end{solution}
 \end{question}
 
