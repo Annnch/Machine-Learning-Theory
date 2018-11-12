@@ -116,12 +116,13 @@ We use the hint on the top of page 23, which tells us that for a deterministic f
 \text{if }I_t=1, \quad \text{then }l_{2,t}=0\quad \text{and}\quad l_{i,t}=1\quad \text{for all }i\neq 2;\\
 \text{if }I_t\neq 1, \quad \text{then }l_{1,t}=0\quad \text{and}\quad l_{i,t}=1\quad \text{for all }i\neq 1
 \end{align*}
-This now implies the following for the regret:
+Of course this is just a worst-case feedback. For every choice of arm, we will get a loss of $1$, which result in a regret that is as high as possible. Since it does the trick, we will use it.\\
+This sequence of losses now implies the following for the regret:
 \begin{align*}
 R_n&=\sum _{t=1} ^n l_{t,I_t}-\min _k \sum _{t=1}^nl_n^k\\
 &=n-\min _k \sum _{t=1}^nl_n^k
 \end{align*}
-But now for any choice of arm, with at least two arms, $\min _k \sum _{t=1}^nl_n^k$ is at most $\frac{n}{K}$. Therefore the regret is bounded from below by $\frac{n}{2}$ and since the loss function is nonnegative, the regret is also bounded from above by $n$. Thus it has a linear behaviour.
+But now for any choice of arm, with at least two arms, $\min _k \sum _{t=1}^nl_n^k$ is at most $\frac{n}{K}$. Therefore the regret is bounded from below by $\frac{n}{2}$ and since the loss function is nonnegative, the regret is also bounded from above by $n$.
 \end{solution}
 
 \end{question}
