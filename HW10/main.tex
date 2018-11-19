@@ -153,9 +153,14 @@ First, let us prove the hint. So, we would like to se that the following holds:
 \frac{\alpha}{K -1} \sum_{\xi: \xi_t = j} w_t^\xi; & j \neq k \\
 \end{cases}
 \]
-For any $k \neq j$ it holds:
+For any $k \neq j$ it holds $\left( p(a, b, \xi) = \prod_{t = a}^b 
+\begin{cases}
+1 - \alpha & \text{if } \xi_{t -1} = \xi_t \\ 
+\frac{\alpha}{K - 1} & \text{if } \xi_{t -1} \neq \xi_t 
+\end{cases}
+\right) $:
 \begin{align*}
-\frac{\sum_{\xi: \xi_t = j, \xi_{t + 1} = j} w_t^\xi}{\sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_t^\xi} & = \frac{\sum_{\xi: \xi_t = j, \xi_{t + 1} = j} \frac{1}{K}\prod * (1 - \alpha) \prod * e^{-\sum *}}{\sum_{\xi: \xi_t = j, \xi_{t + 1} = j} \frac{1}{K}\prod * \frac{\alpha}{K - 1} \prod * e^{-\sum *}} \\
+\frac{\sum_{\xi: \xi_t = j, \xi_{t + 1} = j} w_t^\xi}{\sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_t^\xi} & = \frac{\sum_{\xi: \xi_t = j, \xi_{t + 1} = j} \frac{1}{K} p(2, t, \xi) (1 - \alpha) p(t +2, T, \xi) e^{-\sum *}}{\sum_{\xi: \xi_t = j, \xi_{t + 1} = j} \frac{1}{K} p(2, t, \xi) \frac{\alpha}{K - 1}  p(t +2, T, \xi) e^{-\sum *}} \\
 & = \frac{1 - \alpha}{\frac{\alpha}{K - 1}}
 \end{align*}
 We also know:
@@ -176,6 +181,22 @@ And also:
 \sum_{\xi: \xi_t = j, \xi_{t + 1} = j} w_t^\xi & = - (K - 1) \frac{\alpha}{K - 1} \sum_{\xi_t = j} w_t^\xi + \sum_{\xi_t = j} w_t^\xi \\
 \sum_{\xi: \xi_t = j, \xi_{t + 1} = j} w_t^\xi & = (1 - \alpha) \sum_{\xi_t = j} w_t^\xi 
 \end{align*}
+Now, we can finally calculate $w_{t + 1}^k$:
+\begin{align*}
+w_{t+ 1}^k & \propto \sum_{\xi: \xi_{t + 1} = k} w_{t + 1}^\xi \\
+& = \sum_{\xi: \xi_{t + 1} = k} w_{t}^\xi e^{-l_t^\xi} \\
+& = \sum_{j = 1}^K \left( \sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_{t}^\xi \right) e^{-l_t^j} \\
+& = \left( \sum_{\xi: \xi_t = k, \xi_{t + 1} = k} w_{t}^\xi \right) e^{-l_t^k} +  \sum_{j = 1, j \neq k}^K \left( \sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_{t}^\xi \right) e^{-l_t^j} \\
+& = (1 - \alpha) \left( \sum_{\xi: \xi_t = k} w_{t}^\xi \right) e^{-l_t^k} + \frac{\alpha}{K - 1}  \sum_{j = 1, j \neq k}^K  \left( \sum_{\xi: \xi_t = j} w_{t}^\xi \right) e^{-l_t^j} \\
+& = (1 - \alpha) \left( \sum_{\xi: \xi_t = k} w_{t}^\xi \right) e^{-l_t^k} + \frac{\alpha}{K - 1}  \sum_{j = 1, j \neq k}^K  \left( \sum_{\xi: \xi_t = j} w_{t}^\xi \right) e^{-l_t^j} \\
+& \ \quad + \frac{\alpha}{K - 1} \left( \sum_{\xi: \xi_t = k} w_{t}^\xi \right) e^{-l_t^k} - \frac{\alpha}{K - 1} \left( \sum_{\xi: \xi_t = k} w_{t}^\xi \right) e^{-l_t^k} \\
+& = \left( 1 - \alpha - \frac{\alpha}{K - 1} \right) \left( \sum_{\xi: \xi_t = k} w_{t}^\xi \right) e^{-l_t^k} + \frac{\alpha}{K - 1}  \sum_{j = 1}^K  \left( \sum_{\xi: \xi_t = j} w_{t}^\xi \right) e^{-l_t^j} \\
+& = \left( 1 - \alpha \frac{K}{K - 1} \right) \left( \sum_{\xi: \xi_t = k} w_{t}^\xi \right) e^{-l_t^k} + \frac{\alpha}{K - 1}  \sum_{j = 1}^K  \left( \sum_{\xi: \xi_t = j} w_{t}^\xi \right) e^{-l_t^j} \\
+& = \left( 1 - \beta \right) w_t^k e^{-l_t^k} + \frac{\beta}{K}  \sum_{j = 1}^K w_t^j e^{-l_t^j} 
+\end{align*}
+\[
+\Rightarrow \qquad w_{t + 1}^k = \left( 1 - \beta \right) \frac{w_t^k e^{-l_t^k}}{ \sum_{j = 1}^K w_t^j e^{-l_t^j}} + \frac{\beta}{K}  
+\]
 \end{solution}
 \end{subquestion}
 
