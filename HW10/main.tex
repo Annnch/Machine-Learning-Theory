@@ -1,0 +1,223 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{MLT Homework 10}
+% \author{Ana Borovac \\ Jonas Haslbeck \\ Bas Haver} % I'll be coming back :-)
+\author{Ana Borovac  \\ Bas Haver}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{mathtools}
+
+\usepackage{url}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand{\Hy}{\mathcal{H}}
+\newcommand{\VC}{\text{VCdim}}
+
+\newcounter{counterquestion}
+\newenvironment{question}[1]
+{
+\stepcounter{counterquestion}
+\section*{Question \thecounterquestion}
+\emph{#1} 
+} 
+{
+}
+
+\newcounter{countersubquestion}[counterquestion]
+\newenvironment{subquestion}[1]
+{
+\stepcounter{countersubquestion}
+\subsection*{Subquestion \thecounterquestion .\thecountersubquestion}
+\emph{#1} 
+} 
+{
+}
+
+\newenvironment{solution}
+{
+\subsubsection*{Solution}
+} 
+{
+}
+
+
+\begin{document}
+
+\maketitle
+
+% 1st question
+\begin{question}{\textbf{Revisiting the AA}}
+
+\begin{subquestion}{\textbf{Non-uniform regret bound for AA with prior} Fix a prior
+distribution $\pi \in \Delta_K$.  Consider the Aggregating Algorithm with
+prior $\pi$, defined by:
+\begin{equation}
+w_t^k = \frac{\pi^k e^{-\sum_{s = 1}^{t-1} l_s^k}}{\sum_{j = 1}^K \pi^j e^{-\sum_{s = 1}^{t-1} l_s^j}}
+\label{eq: q1}
+\end{equation}
+Show that for the mix-loss game, the regret w.r.t. each expert $k$ is at
+most
+\[
+R_T^k = \sum_{t = 1}^T \left( \hat{l}_t - l_t^k \right) \leq -\ln \pi^k
+\]}
+\begin{solution}
+In the final solution we needed the following fact:
+\begin{align*}
+- \ln  \left( \sum_{k = 1}^K \pi^k e^{-\sum_{s = 1}^{T} l_s^k} \right) & \leq \sum_{s = 1}^{T} l_s^k - \ln \pi^k \\
+\ln  \left( \sum_{k = 1}^K \pi^k e^{-\sum_{s = 1}^{T} l_s^k} \right) & \geq - \sum_{s = 1}^{T} l_s^k + \ln \pi^k \\
+\sum_{k = 1}^K \pi^k e^{-\sum_{s = 1}^{T} l_s^k} & \geq e^{- \sum_{s = 1}^{T} l_s^k + \ln \pi^k} \\
+\sum_{k = 1}^K \pi^k e^{-\sum_{s = 1}^{T} l_s^k} & \geq \pi^k e^{- \sum_{s = 1}^{T} l_s^k}; \quad \forall k 
+\end{align*}
+We also used:
+\[
+\sum_{j = 1}^K \pi^j = 1 \quad \Rightarrow \quad \ln \left( \sum_{j = 1}^K \pi^j \right) = 0
+\]
+So:
+\begin{align*}
+\sum_{t = 1}^T \hat{l}_t & = \sum_{t = 1}^T - \ln \left( \sum_{k = 1}^K w_t^k e^{-l_t^k} \right) \\
+& = \sum_{t = 1}^T - \ln \left( \sum_{k = 1}^K \frac{\pi^k e^{-\sum_{s = 1}^{t-1} l_s^k}}{\sum_{j = 1}^K \pi^j e^{-\sum_{s = 1}^{t-1} l_s^j}} e^{-l_t^k} \right) \\
+& = \sum_{t = 1}^T - \ln \left( \frac{\sum_{k = 1}^K \pi^k e^{-\sum_{s = 1}^{t} l_s^k}}{\sum_{j = 1}^K \pi^j e^{-\sum_{s = 1}^{t - 1} l_s^j}} \right) \\
+& = - \ln  \prod_{t = 1}^T \left( \frac{\sum_{k = 1}^K \pi^k e^{-\sum_{s = 1}^{t} l_s^k}}{\sum_{j = 1}^K \pi^j e^{-\sum_{s = 1}^{t - 1} l_s^j}} \right) \\
+& = - \ln  \left( \frac{\sum_{k = 1}^K \pi^k e^{-\sum_{s = 1}^{T} l_s^k}}{\sum_{j = 1}^K \pi^j} \right) \\
+& = - \ln  \left( \sum_{k = 1}^K \pi^k e^{-\sum_{s = 1}^{T} l_s^k} \right) + \ln \left( \sum_{j = 1}^K \pi^j  \right) \\
+& \leq \sum_{s = 1}^{T} l_s^k - \ln \pi^k \\
+\Rightarrow \quad \sum_{t = 1}^T \hat{l}_t - l_t^k & \leq - \ln \pi^k
+\end{align*}
+\end{solution}
+\end{subquestion}
+
+\begin{subquestion}{\textbf{The AA does not exploit non-stationarity} Consider the Aggregating Algorithm in its incremental representation:
+\[
+w_1^k = \frac{1}{K} \quad \text{and} \quad w_{t+1}^k = w_t^k e^{-l_t^k}.
+\]
+At first sight, the AA adapts its weights sequentially to better fit the instantaneous losses. So maybe it can already compete with sequences of experts! Show that this is not the case, by constructing a sequence of losses such that the regret of the AA compared to the best sequence with one switch is arbitrarily high, even at a fixed horizon $T$.}
+\begin{solution}
+\end{solution}
+\end{subquestion}
+ We are observing sequences of form:
+ \[
+ \xi \in [K]^T:\ \xi = (\underbrace{k, \dots, k}_{m}, \underbrace{j, \dots, j}_{n});\quad \text{for}\ k \neq j
+ \]
+ \begin{itemize}
+ 	\item If 
+ \end{itemize}
+ \end{question}
+
+% 2nd question
+\begin{question}{\textbf{Collapsed Fixed Share Computation} \\ In the Notes, we defined Fixed Share to predict with
+\[
+w_t^k := \sum_{\xi \in [K]^T: \xi_t = k} w_t^{\xi} = \sum_{\xi \in [K]^T: \xi_t = k}  \frac{\pi^\xi e^{-\sum_{s = 1}^{t-1} l_s^\xi}}{\sum_{j \in [K]^T} \pi^j e^{-\sum_{s = 1}^{t-1} l_s^j}} 
+\]
+where $w_t^\xi$ are the weights of the AA \eqref{eq: q1} when run on experts $[K]^T$ with prior
+\[
+\pi^\xi := \frac{1}{K} \prod_{t = 2}^T
+\begin{cases}
+1 - \alpha & \text{if } \xi_{t -1} = \xi_t \\ 
+\frac{\alpha}{K - 1} & \text{if } \xi_{t -1} \neq \xi_t 
+\end{cases}
+\]
+and losses defined by $l_t^\xi = l_t^{\xi_k}$. In this exercise we find a way to maintain $w_t^k$ directly in $O(K)$ time per round.} 
+
+\begin{subquestion}{What is $w_1^k$?}
+\begin{solution}
+\begin{align*}
+w_1^k & = \sum_{\xi \in [K]^T: \xi_1 = k} w_1^{\xi} \\
+& = \sum_{\xi \in [K]^T: \xi_1 = k} \pi^{\xi} \\
+& = \sum_{\xi \in [K]^T: \xi_1 = k} \frac{1}{K} \\
+& = \left| \xi \in [K]^T: \xi_1 = k \right| \frac{1}{K}  
+\end{align*}
+\end{solution}
+\end{subquestion}
+
+\begin{subquestion}{Show that the Fixed Share weights satisfy the recurrence
+\[
+w_{t+1}^k = (1 - \beta) \frac{w_t^k e^{-l_t^k}}{\sum_j w_t^j e^{-l_t^j}} + \frac{\beta}{K}
+\]
+where $\beta = \alpha \frac{K}{K-1}$.}
+\begin{solution}
+First, let us prove the hint. So, we would like to se that the following holds:
+\[
+\sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_t^\xi = 
+\begin{cases}
+(1 - \alpha) \sum_{\xi: \xi_t = j} w_t^\xi; & j = k \\
+\frac{\alpha}{K -1} \sum_{\xi: \xi_t = j} w_t^\xi; & j \neq k \\
+\end{cases}
+\]
+For any $k \neq j$ it holds:
+\begin{align*}
+\frac{\sum_{\xi: \xi_t = j, \xi_{t + 1} = j} w_t^\xi}{\sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_t^\xi} & = \frac{\sum_{\xi: \xi_t = j, \xi_{t + 1} = j} \frac{1}{K}\prod * (1 - \alpha) \prod * e^{-\sum *}}{\sum_{\xi: \xi_t = j, \xi_{t + 1} = j} \frac{1}{K}\prod * \frac{\alpha}{K - 1} \prod * e^{-\sum *}} \\
+& = \frac{1 - \alpha}{\frac{\alpha}{K - 1}}
+\end{align*}
+We also know:
+\[
+\sum_{k = 1}^K\ \sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_t^\xi = \sum_{\xi_t = j} w_t^\xi
+\]
+From that it follows ($k \neq j$):
+\begin{align*}
+\sum_{\xi: \xi_t = j, \xi_{t + 1} = j} w_t^\xi + (K - 1) \sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_t^\xi & = \sum_{\xi_t = j} w_t^\xi \\
+\frac{1 - \alpha}{\frac{\alpha}{K - 1}} \sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_t^\xi  + (K - 1) \sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_t^\xi & = \sum_{\xi_t = j} w_t^\xi \\
+\frac{(1 - \alpha)(K - 1)}{\alpha} \sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_t^\xi  + (K - 1) \sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_t^\xi & = \sum_{\xi_t = j} w_t^\xi \\
+\left (\frac{(1 - \alpha)(K - 1)}{\alpha} + (K - 1) \right) \sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_t^\xi & = \sum_{\xi_t = j} w_t^\xi \\
+\sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_t^\xi & = \frac{\alpha}{K - 1} \sum_{\xi_t = j} w_t^\xi 
+\end{align*}
+And also:
+\begin{align*}
+\sum_{\xi: \xi_t = j, \xi_{t + 1} = j} w_t^\xi & = - (K - 1) \sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_t^\xi + \sum_{\xi_t = j} w_t^\xi \\
+\sum_{\xi: \xi_t = j, \xi_{t + 1} = j} w_t^\xi & = - (K - 1) \frac{\alpha}{K - 1} \sum_{\xi_t = j} w_t^\xi + \sum_{\xi_t = j} w_t^\xi \\
+\sum_{\xi: \xi_t = j, \xi_{t + 1} = j} w_t^\xi & = (1 - \alpha) \sum_{\xi_t = j} w_t^\xi 
+\end{align*}
+\end{solution}
+\end{subquestion}
+
+\end{question}
+
+% 3rd question
+\begin{question}{\textbf{Switching for the Dot-Loss Game} \\ Recall how in Lecture 6 we obtained the Hedge algorithm for the dotloss game with bounded losses $l_t \in [0,1]^K$ by running the Aggregating Algorithm on the scaled losses $\eta_t^k$, where $\eta > 0$ is called the learning rate parameter. \\ In this exercise we apply the same reduction to obtain a non-stationarity algorithm for the dot-loss game, i.e. we apply Fixed Share with switching rate $\alpha$ to the scaled losses $\eta l_t^k$. Let us call this algorithm $(\eta, \alpha)$-Fixed Share.} 
+
+\begin{subquestion}{Show that for any expert sequence $\xi \in [K]^T$ with B blocks, $(\eta, \alpha)$-Fixed Share guarantees
+\[
+R_T^\xi \leq \frac{\ln K + (B - 1) \ln (K - 1) - (B - 1) \ln \alpha - (T - B) \ln (1 - \alpha)}{\eta} + \frac{T \eta}{8}
+\]
+Hint: Use Hoeffding’s Lemma and the Fixed Share mix loss regret bound.}
+\end{subquestion}
+
+\begin{subquestion}{Now fix $B$ up front. Compute the optimal tuning of $\alpha$ and $\eta$ in terms of $B$ and $T$. Show that with this tuning $(\eta, \alpha)$-Fixed Share guarantees for every $\xi$ with $B$ blocks
+\[
+R_T^\xi \leq \sqrt{\frac{T}{2} \left( (B-1) \ln (K - 1) + \ln K + TH \left( \frac{B - 1}{T - 1} \right) \right)}
+\]}
+\end{subquestion}
+
+\end{question}
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
