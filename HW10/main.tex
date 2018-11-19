@@ -183,8 +183,8 @@ And also:
 \end{align*}
 Now, we can finally calculate $w_{t + 1}^k$:
 \begin{align*}
-w_{t+ 1}^k & \propto \sum_{\xi: \xi_{t + 1} = k} w_{t + 1}^\xi \\
-& = \sum_{\xi: \xi_{t + 1} = k} w_{t}^\xi e^{-l_t^\xi} \\
+w_{t+ 1}^k & = \sum_{\xi: \xi_{t + 1} = k} w_{t + 1}^\xi \\
+& \propto \sum_{\xi: \xi_{t + 1} = k} w_{t}^\xi e^{-l_t^\xi} \\
 & = \sum_{j = 1}^K \left( \sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_{t}^\xi \right) e^{-l_t^j} \\
 & = \left( \sum_{\xi: \xi_t = k, \xi_{t + 1} = k} w_{t}^\xi \right) e^{-l_t^k} +  \sum_{j = 1, j \neq k}^K \left( \sum_{\xi: \xi_t = j, \xi_{t + 1} = k} w_{t}^\xi \right) e^{-l_t^j} \\
 & = (1 - \alpha) \left( \sum_{\xi: \xi_t = k} w_{t}^\xi \right) e^{-l_t^k} + \frac{\alpha}{K - 1}  \sum_{j = 1, j \neq k}^K  \left( \sum_{\xi: \xi_t = j} w_{t}^\xi \right) e^{-l_t^j} \\
@@ -210,6 +210,26 @@ w_{t+ 1}^k & \propto \sum_{\xi: \xi_{t + 1} = k} w_{t + 1}^\xi \\
 R_T^\xi \leq \frac{\ln K + (B - 1) \ln (K - 1) - (B - 1) \ln \alpha - (T - B) \ln (1 - \alpha)}{\eta} + \frac{T \eta}{8}
 \]
 Hint: Use Hoeffding’s Lemma and the Fixed Share mix loss regret bound.}
+\begin{solution}
+\begin{align*}
+R_t^\xi & = \sum_{t = 1}^T \hat{l}_t - l_t^{\xi_t} \\
+& =  \sum_{t = 1}^T <w_t, l_t> - l_t^{\xi_t} \\
+\end{align*}
+From lectures 8, we know:
+\begin{align*}
+ \sum_{t = 1}^T <w_t, l_t> & \leq \sum_{t = 1}^T \left( - \frac{1}{\eta} \ln \left( \sum_\xi w_t^\xi e^{-\eta l_t^\xi} \right) + \frac{\eta}{8}  \right)\\
+ & = \sum_{t = 1}^T \left( - \frac{1}{\eta} \ln \left( \sum_\xi w_t^\xi e^{-\eta l_t^\xi} \right) \right) + \frac{T \eta}{8} 
+\end{align*}
+And also (combined with the first question and lectures 10):
+\begin{align*}
+\sum_{t = 1}^T \left( - \frac{1}{\eta} \ln \left( \sum_\xi w_t^\xi e^{-\eta l_t^\xi} \right) \right) &  \leq \sum_{t = 1}^{T} l_t^{\xi_t} - \frac{\ln \pi^\xi}{\eta}  \\
+ \leq \sum_{t = 1}^{T} l_t^{\xi_t}   & + \frac{\ln K + (B - 1) \ln (K - 1) - (B - 1) \ln \alpha - (T - B) \ln (1 - \alpha)}{\eta}
+\end{align*}
+
+\[
+\Rightarrow \quad R_T^\xi \leq \frac{\ln K + (B - 1) \ln (K - 1) - (B - 1) \ln \alpha - (T - B) \ln (1 - \alpha)}{\eta} + \frac{T \eta}{8}
+\]
+\end{solution}
 \end{subquestion}
 
 \begin{subquestion}{Now fix $B$ up front. Compute the optimal tuning of $\alpha$ and $\eta$ in terms of $B$ and $T$. Show that with this tuning $(\eta, \alpha)$-Fixed Share guarantees for every $\xi$ with $B$ blocks
