@@ -102,15 +102,18 @@ w_1^k = \frac{1}{K} \quad \text{and} \quad w_{t+1}^k = w_t^k e^{-l_t^k}.
 \]
 At first sight, the AA adapts its weights sequentially to better fit the instantaneous losses. So maybe it can already compete with sequences of experts! Show that this is not the case, by constructing a sequence of losses such that the regret of the AA compared to the best sequence with one switch is arbitrarily high, even at a fixed horizon $T$.}
 \begin{solution}
+Let $T$ be an even number. We can let $l_t$ be one for every $t\in [T/2]$ except for $l_t^1=0$ and for $t\in [T/2+1, \dots , T]$ be one everywhere again, but now except for $l_t^2=0$. Then the one-switch where we switch from arm 1 to arm 2 after time $T/2$ gives us a loss of zero. But for the mix-loss we have
+\begin{align*}
+\sum _{t=1} ^T \hat{l}_t &= \sum _{t=1} ^T -\ln (\sum _{k=1}^K w_t^k e^{-l_t^k})\\
+&= - \ln (\sum _{k=1} ^K e^{-\sum _{t=1} ^T l_t ^k } ) \ln K\\
+&= - \ln (2e^{-T/2} + (K-2) e^{-T} ) + \ln K\\
+&\geq -\ln (K e ^{-T/2} ) + \ln K\\
+&=-\ln e^{-T/2} = -T/2
+\end{align*}
+Here we used the slides (lecture 8 slide 11) to find the second equality for the AA. So we find linearity and thus we do not learn at all.
 \end{solution}
 \end{subquestion}
- We are observing sequences of form:
- \[
- \xi \in [K]^T:\ \xi = (\underbrace{k, \dots, k}_{m}, \underbrace{j, \dots, j}_{n});\quad \text{for}\ k \neq j
- \]
- \begin{itemize}
- 	\item If 
- \end{itemize}
+
  \end{question}
 
 % 2nd question
