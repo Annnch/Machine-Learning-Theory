@@ -69,18 +69,23 @@ w_{t + 1} = w_t - \eta \nabla f_t (w_t)
 \begin{solution}
 Let's define a function $g: \mathbb{R}^d \to \mathbb{R}$:
 \begin{align*}
-g(w) & = \langle w, \nabla f_t (w) \rangle + \frac{1}{2 \eta} || w - w_t || ^2 \\
-& = w_1 \frac{\partial f_t}{\partial w_1} (w) + \cdots + w_d \frac{\partial f_t}{\partial w_d} (w) + \frac{1}{2 \eta} \left( (w_1 - w_{t1})^2 + \cdots (w_d - w_{td})^2 \right)
+g(w) & = \langle w, \nabla f_t (w_t) \rangle + \frac{1}{2 \eta} || w - w_t || ^2 \\
+& = w_1 \frac{\partial f_t}{\partial w_1} (w_t) + \cdots + w_d \frac{\partial f_t}{\partial w_d} (w_t) + \frac{1}{2 \eta} \left( (w_1 - w_{t1})^2 + \cdots (w_d - w_{td})^2 \right)
 \end{align*}
 We would like to find an extreme point, so $\frac{\partial g}{\partial w_i}(w^*) = 0;\ \forall i \in \{1, \dots, d\}$.
 \[
-\frac{\partial g}{\partial w_i} = \frac{\partial f_t}{\partial w_i} (w) + \frac{1}{\eta} (w_i - w_{ti})
+\frac{\partial g}{\partial w_i} = \frac{\partial f_t}{\partial w_i} (w_t) + \frac{1}{\eta} (w_i - w_{ti})
 \]
 \begin{align*}
-& \Rightarrow \qquad w_i^* = w_{ti} - \eta \frac{\partial f_t}{\partial w_i} (w) \\
-& \Rightarrow \qquad w^* = w_{t} - \eta \nabla f_t (w)
+& \Rightarrow \qquad w_i^* = w_{ti} - \eta \frac{\partial f_t}{\partial w_i} (w_t) \\
+& \Rightarrow \qquad w^* = w_{t} - \eta \nabla f_t (w_t)
 \end{align*}
 To show that calculated extreme is a minimum, we are going to show that $g$ is a convex function.
+\begin{align*}
+\frac{\partial ^2 g}{\partial w_i \partial w_i} & = \frac{1}{\eta} \\
+\frac{\partial ^2 g}{\partial w_i \partial w_j} & = 0; \quad i \neq j 
+\end{align*}
+The second derivative of $g$ is non-negative for every $w \in \mathbb{R}^d$, therefore it is convex.
 \end{solution}
 \end{subquestion}
 
