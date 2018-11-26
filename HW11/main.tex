@@ -183,7 +183,42 @@ u_2^2 - 2u_2 y_t + y_t^2 & \geq u_1^2 - 2 u_1 y_t + y_t^2 + 2 u_1 u_2 - 2u_2 y_t
 \mathbb{E}_{y_1, \dots, y_T, y} \left[ \frac{1}{2} \left( \hat{w}_T(y_1, \dots, y_T) - y \right) ^2  - \frac{1}{2} (u^* - y)^2 \right] \leq \frac{1 + \ln T}{2T}
 \]}
 \end{subquestion}
+\begin{solution}
+Theorem 4 of the lecture notes gives us that for a learning rate $\eta = \frac{1}{t}$ we have $R_T \leq \frac{G^2}{2}(1+\ln T $, so lets first calculate $G$:
+$$G= \max _{u,y_t \in [ -1 , 1 ] } || \nabla f_t(u)||=\max _{u,y_t \in [-1,1] }||u-y||=2$$
+So if we obtain a learning rate $\eta = \frac{1}{t}$ then we have $R_T \leq 2(1+\ln T)$. When we now pick $\hat{\omega}$ to be the average iterate estimator, then we have our desired learning rate. Theorem 3 from the lecture notes now gives us 
+\[
+\mathbb{E}_{y_1, \dots, y_T, y} \left[ \frac{1}{2} \left( \hat{w}_T(y_1, \dots, y_T) - y \right) ^2  - \frac{1}{2} (u^* - y)^2 \right] \leq \frac{1 + \ln T}{2T}
+\]
 
+\end{solution}
+\begin{subquestion}
+Show that Online Gradient Descent for 1-strongly convex losses results in iterates $$w_{t+1}=\frac{\sum _{s=1}^t y_s}{t}.$$
+\end{subquestion}
+\begin{solution}
+We have
+\begin{align*}
+\omega_{t+1}&= \Pi _{\mathcal{U}} (\omega_t - \eta _t \nabla f_t (\omega _t)\\
+&=\Pi _{\mathcal{U}} (\omega_t - \frac{1}{t} (\omega _t - y_t))
+\end{align*}
+Now for $\omega _1=0$ we have $\omega _2 = \Pi _{\mathcal{U}} (  \frac{1}{t} y_t)=\Pi _{\mathcal{U}} (  y_1)=y_1$, so it holds for at least one case. Now suppose that $$\omega_t=\frac{\sum _{s=1} ^{t-1}}{t-1}$$ now we would like to show that also $$\omega_{t+1}=\frac{\sum _{s=1} ^{t}}{t}.$$
+We obtain
+\begin{align*}
+\omega_{t+1}&= \Pi _{\mathcal{U}} (\omega _t - \frac{1}{t}(\omega _t - y_t))\\
+&= \Pi _{\mathcal{U}} ( \frac{\sum _{s=1} ^{t-1} y_s}{t-1}-\frac{1}{t}(\frac{\sum _{s=1} ^{t-1} y_s}{t-1}-y_t))\\
+&=\Pi _{\mathcal{U}} ((1-\frac{1}{t}) \frac{\sum _{s=1}^{t-1} y_s}{t-1}+\frac{1}{t}y_t)\\
+&= \Pi _{\mathcal{U}} (\frac{t-1}{t}\frac{\sum _{s=1} ^{t=1} y_s}{t-1}+ \frac{1}{t}y_t)\\
+&=\Pi _{\mathcal{U}}(\frac{\sum _{s=1}^{t-1}y_s}{t}+ \frac{1}{t}y_t)\\
+&=\Pi _{\mathcal{U}} (\frac{\sum _{s=1}^{t} y_s}{t})
+\end{align*}
+So we find $\omega _{t+1}= \frac{\sum _{s=1}^t}{t}$, which is what we wanted to prove.
+\end{solution}
+\begin{subquestion}
+Show that, in this case, the \textit{final iterate} estimator $\hat{\omega}_T(y_1, \dots, y_T)= \omega _{T+1}$, results in excess risk at most $$\mathbb{E}_{y_1,\dots , y_T , y} [\frac{1}{2}(\hat{\omega}_T ( y_1, \dots , y_T)-y)^2-\frac{1}{2}(u^*-y)^2]\leq \frac{Var (y)}{2T}.$$
+\end{subquestion}
+\begin{solution}
+$$\mathbb{E}_{y_1,\dots , y_T , y} [\frac{1}{2}(\hat{\omega}_T ( y_1, \dots , y_T)-y)^2-\frac{1}{2}(u^*-y)^2]=\mathbb{E}_{y_1,\dots , y_T , y} [\frac{1}{2}(\frac{\sum _{s=1}^T y_s}{T}-y)^2-\frac{1}{2}(u^*-y)^2]$$
+\end{solution}
 \end{question}
 
 \bibliographystyle{plain}
