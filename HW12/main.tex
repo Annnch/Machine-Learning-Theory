@@ -1,0 +1,191 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{MLT Homework 11}
+% \author{Ana Borovac \\ Jonas Haslbeck \\ Bas Haver} % I'll be coming back :-)
+\author{Ana Borovac  \\ Bas Haver}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{mathtools}
+
+\usepackage{url}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand{\Hy}{\mathcal{H}}
+\newcommand{\VC}{\text{VCdim}}
+
+\newcounter{counterquestion}
+\newenvironment{question}[1]
+{
+\stepcounter{counterquestion}
+\section*{Question \thecounterquestion}
+\emph{#1} 
+} 
+{
+}
+
+\newcounter{countersubquestion}[counterquestion]
+\newenvironment{subquestion}[1]
+{
+\stepcounter{countersubquestion}
+\subsection*{Subquestion \thecounterquestion .\thecountersubquestion}
+\emph{#1} 
+} 
+{
+}
+
+\newenvironment{solution}
+{
+\subsubsection*{Solution}
+} 
+{
+}
+
+
+\begin{document}
+
+\maketitle
+
+% 1st question
+\begin{question}{}
+\end{question}
+
+% 2nd question
+\begin{question}{}
+\end{question}
+
+% 3rd question
+\begin{question}{Determine whether the following functions are exp-concave, and to what degree.}
+
+\begin{subquestion}{$x \mapsto (x - y)^2$ on $x, y \in [-Y, Y]$ First consider a fixed $y$ and then determine the worst-case over all $y \in [-Y, Y]$.}
+\begin{solution}
+Let's recall the definition of $\alpha$-exp-concave function: A function $f$ is $\alpha$-exp-concave if $x \mapsto e^{-\alpha f(x)}$ is concave.
+
+In our case we get:
+\begin{align*}
+x \mapsto e^{-\alpha (x - y)^2} \quad & \Rightarrow \quad g(x) = e^{-\alpha (x - y)^2} \\
+& \Rightarrow \quad g'(x) = -2 \alpha (x - y)e^{-\alpha (x - y)^2} \\
+& \Rightarrow \quad g''(x) = -2 \alpha e^{-\alpha (x - y)^2} + 4 \alpha^2 (x - y)^2 e^{-\alpha (x - y)^2} \\
+\end{align*}
+%
+If $g$ is concave then $g''(x) \leq 0$ for $\forall x$.
+\begin{align*}
+-2 \alpha e^{-\alpha (x - y)^2} + 4 \alpha^2 (x - y)^2 e^{-\alpha (x - y)^2} & \leq 0 \\
+\underbrace{e^{-\alpha (x - y)^2}}_{\geq 0} (-2 \alpha + 4 \alpha^2 (x - y)^2) & \leq 0 \\
+2  \alpha ( - 1+ 2 \alpha (x - y)^2) & \leq 0 \\
+ - 1+ 2 \alpha (x - y)^2 & \leq 0 \\
+\alpha & \leq \frac{1}{2 (x - y)^2} \\
+\end{align*}
+
+If we want to inequality to hold for $\forall x$ we need to observe when the fraction on the right is the smallest. So, when does $(x - y)^2$ reach maximum? It depands on $y$, but it is obvious that it is reached when $x$ is $Y$ or $-Y$, so:
+\[
+\alpha = \frac{1}{2 \max \{ (Y - y)^2, (-Y - y)^2 \}}
+\]
+
+In the worst case the difference between $x$ and $y$ is $2Y$. From that it follows:
+\[
+\alpha = \frac{1}{8 Y^2}
+\]
+\end{solution}
+\end{subquestion}
+
+\begin{subquestion}{$x \mapsto |x|^p$ on $x \in [-1, 1]$ for $p >1$.}
+\begin{solution}
+\begin{align*}
+g(x) = e^{-\alpha |x|^p} 
+\end{align*}
+Since, $g$ is not differentiable for $x = 0$, we are going analyse concavity on two intervals: $[-1, 0)$ and $(0, 1]$.
+\begin{itemize}
+\item $x \in [-1, 0)$
+\begin{align*}
+g(x) & = e^{-\alpha (-x)^p} \\
+g'(x) & = \alpha p (-x)^{p - 1} e^{-\alpha (-x)^p}  \\
+g''(x) & = - \alpha p (p - 1) (-x)^{p - 2} e^{-\alpha (-x)^p} + \alpha p (-x)^{p - 1} \alpha p (-x)^{p - 1} e^{-\alpha (-x)^p} \\
+\end{align*}
+$\Rightarrow$
+\begin{align*}
+g''(x) & \leq 0 \\
+- \alpha p (p - 1) (-x)^{p - 2} e^{-\alpha (-x)^p} + \alpha p (-x)^{p - 1} \alpha p (-x)^{p - 1} e^{-\alpha (-x)^p} & \leq 0 \\
+- (p - 1) (-x)^{-1} +  (-x)^{p - 1} \alpha p & \leq 0 \\
+(-x)^{p - 1} \alpha p & \leq \frac{p - 1}{-x}  \\
+\alpha & \leq \frac{p - 1}{p (-x) (-x)^{p - 1} }  \\
+\alpha & \leq \frac{p - 1}{p (-x)^{p} }  \\
+\end{align*}
+$\Rightarrow$
+\begin{align*}
+\alpha & = \min_{x \in [-1, 0)} \frac{p - 1}{p (-x)^{p} }  \\
+\alpha & = \frac{p - 1}{p}
+\end{align*}
+\item $x \in (0, 1]$
+\begin{align*}
+g(x) & = e^{-\alpha x^p} \\
+g'(x) & = -\alpha p x^{p - 1} e^{-\alpha x^p}  \\
+g''(x) & = - \alpha p (p - 1) x^{p - 2} e^{-\alpha x^p} + \alpha p x^{p - 1} \alpha p x^{p - 1} e^{-\alpha x^p} \\
+\end{align*}
+$\Rightarrow$
+\begin{align*}
+g''(x) & \leq 0 \\
+- \alpha p (p - 1) x^{p - 2} e^{-\alpha x^p} + \alpha p x^{p - 1} \alpha p x^{p - 1} e^{-\alpha x^p} & \leq 0 \\
+- (p - 1) x^{-1} + x^{p - 1} \alpha p & \leq 0 \\
+x^{p - 1} \alpha p & \leq \frac{p - 1}{x} \\
+\alpha & \leq \frac{p - 1}{p x x^{p - 1}} \\
+\alpha & \leq \frac{p - 1}{p x^{p}} \\
+\end{align*}
+$\Rightarrow$
+\begin{align*}
+\alpha & = \min_{x \in (0, 1]} \frac{p - 1}{p x^{p} }  \\
+\alpha & = \frac{p - 1}{p}
+\end{align*}
+\end{itemize}
+We can conclude that $g$ is $\frac{p - 1}{p}$-exp-concave on intervals $[-1, 0)$ and $(0, 1]$. Since $g$ is continuous function on $[-1 ,1]$, it is $\frac{p - 1}{p}$-exp-concave on whole $[-1, 1]$.
+\end{solution}
+\end{subquestion}
+
+\end{question}
+
+% 4th question
+\begin{question}{}
+
+\begin{subquestion}{ Let $f(w) = g( \langle w, x \rangle )$ for some fixed $x$. Show that $f$ is $\alpha$-exp-concave when $g$ is $\alpha$-exp-concave.}
+\begin{solution}
+\end{solution}
+\end{subquestion}
+
+\begin{subquestion}{Let $f(w, y) = g( \langle w, x \rangle, y)$ for some fixed $x$. Show that $f$ is $\eta$-mixable when $g$ is $\eta$-mixable.}
+\begin{solution}
+\end{solution}
+\end{subquestion}
+
+\end{question}
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
