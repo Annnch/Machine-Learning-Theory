@@ -56,11 +56,45 @@
 \maketitle
 
 % 1st question
-\begin{question}{}
+\begin{question}{\textbf{Online Newton Step for large dimension} \\ We saw that $GD$ has a $GD\sqrt{T}$ regret bound for convex loss functions, while ONS has a regret bound of order $d$ ln $T$ for exp-concave loss functions. So can it be that $GD$ is preferable for exp-concave losses in large dimensions $d > \sqrt{T}$? In this exercise you will show that this is not possible with appropriate tuning. Starting from the intermediate ONS regret bound
+\[
+R_T \leq \frac{\gamma}{2} \epsilon D^2 + \frac{d}{2 \gamma} \ln \left( 1 + \frac{TG^2}{\epsilon d} \right)
+\]
+prove that carefully tuned ONS also guarantees
+\[
+R_T \leq GD\sqrt{T}
+\]}
+\begin{solution}
+In the proof we used:
+\begin{itemize}
+\item $\ln (1 + x) \leq x$
+\item $d > \sqrt{T} \quad \Rightarrow \quad \frac{\sqrt{T}}{d} < 1 \quad \Rightarrow \quad \frac{T}{d} < \sqrt{T}$
+\item $\epsilon = \frac{G \sqrt{T}}{\gamma D}$
+\end{itemize}
+It follows:
+\begin{align*}
+R_T & \leq \frac{\gamma}{2} \epsilon D^2 + \frac{d}{2 \gamma} \ln \left( 1 + \frac{TG^2}{\epsilon d} \right) \\
+& \leq \frac{\gamma}{2} \epsilon D^2 + \frac{d}{2 \gamma} \cdot \frac{TG^2}{\epsilon d} \\
+& \leq \frac{\gamma}{2} \epsilon D^2 + \frac{\sqrt{T}}{2 \gamma} \cdot \frac{TG^2}{\epsilon d} \\
+& \leq \frac{\gamma}{2} \cdot \frac{G \sqrt{T}}{\gamma D} D^2 + \frac{\sqrt{T}}{2 \gamma} \cdot \frac{TG^2}{\frac{G \sqrt{T}}{\gamma D} d} \\
+& \leq \frac{1}{2} \cdot \frac{G \sqrt{T}}{1} D + \frac{1}{2} \cdot \frac{TG}{\frac{1}{D} d} \\
+& \leq \frac{1}{2} \cdot GD\sqrt{T} + \frac{1}{2} \cdot \frac{T}{d} GD \\
+& \leq \frac{1}{2} \cdot GD\sqrt{T} + \frac{1}{2} \cdot \sqrt{T} GD \\
+& \leq GD\sqrt{T} \\
+\end{align*}
+\end{solution}
 \end{question}
 
 % 2nd question
-\begin{question}{}
+\begin{question}{\textbf{ONS as Exponential Weights} \\ In this exercise we recover Online Newton Step as an instance of exponential weights. For simplicity, here we consider ONS without projections (the result is also true with projections). Recall that exp-concave functions $f_t$ satisfy
+\[
+f_t(u) \geq f_t(x_t) + \langle u - x_t, \nabla_t \rangle + \frac{\gamma}{2} \langle u - x_t, \nabla_t \rangle ^2.
+\]
+Now consider multivariate Gaussian prior $p_1(u) = N(0, \epsilon^{-1} I)$ and exponential weights update with learning rate $\frac{1}{\gamma}$ applied to the above quadratic lower bound:
+\[
+p_{t + 1}(u) \propto p_t(u) e^{\frac{1}{\gamma} (f_t(x_t) + \langle u - x_t, \nabla_t \rangle + \frac{\gamma}{2} \langle u - x_t, \nabla_t \rangle ^2)}.
+\]
+Show that the weights remain multivariate Gaussian, i.e. $p_t = N (\mu_t, \sum_t)$. Show that $\mu_t = x_t$ and $\sum_t = A_{t - 1}^{-1}$.}
 \end{question}
 
 % 3rd question
