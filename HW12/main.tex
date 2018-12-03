@@ -191,6 +191,11 @@ We can conclude that $g$ is $\frac{p - 1}{p}$-exp-concave on intervals $[-1, 0)$
 
 \begin{subquestion}{ Let $f(w) = g( \langle w, x \rangle )$ for some fixed $x$. Show that $f$ is $\alpha$-exp-concave when $g$ is $\alpha$-exp-concave.}
 \begin{solution}
+We have 
+\begin{align*}
+e^{-\alpha g( \langle t \textbf{w}+(1-t)\textbf{u},\textbf{x}\rangle )} &= e^{-\alpha g(t\langle \textbf{w}, \textbf{x}\rangle + (1-t) \langle \textbf{u}, \textbf{x} \rangle )}\\
+&\leq te^{-\alpha g(\langle \textbf{w}, \textbf{x}\rangle )}+(1-t)e^{-\alpha g(\langle \textbf{u},  \textbf{x}\rangle )}
+\end{align*}
 \end{solution}
 \end{subquestion}
 
