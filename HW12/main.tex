@@ -196,11 +196,16 @@ We have
 e^{-\alpha g( \langle t \textbf{w}+(1-t)\textbf{u},\textbf{x}\rangle )} &= e^{-\alpha g(t\langle \textbf{w}, \textbf{x}\rangle + (1-t) \langle \textbf{u}, \textbf{x} \rangle )}\\
 &\leq te^{-\alpha g(\langle \textbf{w}, \textbf{x}\rangle )}+(1-t)e^{-\alpha g(\langle \textbf{u},  \textbf{x}\rangle )}
 \end{align*}
+Where the inequality holds because $g$ is $\alpha$-exp-concave.
 \end{solution}
 \end{subquestion}
 
 \begin{subquestion}{Let $f(w, y) = g( \langle w, x \rangle, y)$ for some fixed $x$. Show that $f$ is $\eta$-mixable when $g$ is $\eta$-mixable.}
 \begin{solution}
+Because $g$ is $\eta$-mixable, we have that $\forall P\in \Delta _{\mathcal{A}} \exists a_P\in \mathcal{A}$ such that $\forall y\in \mathcal{Y}$:
+$$g(a_P,y)\leq - \eta \ln \mathbb{E} _{a \sim P} [ e^{-\eta g(a,y)}]$$
+Now we would like to take $b_P$ such that $\langle b_P , x \rangle = a_P$ in order to get $\forall P\in \Delta _{\mathcal{A}} \exists b_P \in \mathcal{A}$ such that $\forall y\in \mathcal{Y}$
+$$g(\langle b_P, x\rangle ,y)\leq - \eta \ln \mathbb{E} _{\langle b, x \rangle  \sim P} [ e^{-\eta g(b,y)}]$$
 \end{solution}
 \end{subquestion}
 
