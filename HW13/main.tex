@@ -71,8 +71,22 @@
 \end{solution}
 \end{subquestion}
 
-\begin{subquestion}{Show that the worst-case case regret of $\bar{p}$ is also bounded by N.}
+\begin{subquestion}{Show that the worst-case case regret of $\bar{p}$ is also bounded by $\log N$.}
 \begin{solution}
+\begin{align*}
+- \log \bar{p}(z^m) & = \sum_{i = 1}^m - \log \bar{p} (z_i | z^{i -1}) \\
+& =  - \log \bar{p} (z_1 | \epsilon) - \cdots - \log \bar{p} (z_m | z^{m -1}) \\
+& =  - (\log \bar{p} (z_1 | \epsilon) + \cdots + \log \bar{p} (z_m | z^{m -1})) \\
+& =  - \left( \log \frac{\bar{p} (z^1)}{\bar{p} (\epsilon)} + \cdots + \log  \frac{\bar{p} (z^m)}{\bar{p} (z^{m - 1})} \right) \\
+& =  - \left( \log \frac{\bar{p} (z^1)}{\bar{p} (\epsilon)} \cdot \cdots \cdot \frac{\bar{p} (z^m)}{\bar{p} (z^{m - 1})} \right) \\
+& =  - \left( \log \frac{\bar{p} (z^m)}{\bar{p} (\epsilon)} \right) \\
+& =  - \log \bar{p} (z^m) \\
+\end{align*}
+
+\begin{align*}
+- \log \bar{p}(z^m) & = \sum_{i = 1}^m - \log \bar{p} (z_i | z^{i -1}) \\
+& \geq \max_{i \in \{1, \dots, m\}} - \log \bar{p} (z_i | z^{i -1}) \\
+\end{align*}
 \end{solution}
 \end{subquestion}
 
@@ -93,6 +107,7 @@ $N = 4$ then $\Theta = \{ 0.2, 0.4, 0.6, 0.8 \}$.}
 
 \begin{subquestion}{Informally explain why, for small sample sizes m, the Shtarkov sum for $\Theta = \{ 0.47, 0.49, 0.51, 0.53 \}$ is significantly smaller than the Shtarkov sum for $\Theta = \{ 0.2, 0.4, 0.6, 0.8 \}$.}
 \begin{solution}
+Because elements of $\Theta$ are much closer to each other. 
 \end{solution}
 \end{subquestion}
 
