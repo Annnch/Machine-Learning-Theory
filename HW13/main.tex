@@ -111,7 +111,7 @@ Because elements of $\Theta$ are much closer to each other.
 \end{solution}
 \end{subquestion}
 
-\begin{subquestion}{Suppose that $P$ consists of a finite number of black-box experts, which given each history $Z_1, Z_{i-1}$ provide us a distribution on $Z_i$, which may depend on the past --- we don’t know how they come up with their predictions, we just observe they predictions they make on the sample. Explain why we’d rather use the Bayesian than the Shtarkov predictor in such a setting.}
+\begin{subquestion}{Suppose that $P$ consists of a finite number of black-box experts, which given each history $Z_1, Z_{i-1}$ provide us a distribution on $Z_i$, which may depend on the past --- we don’t know how they come up with their predictions, we just observe the predictions they make on the sample. Explain why we’d rather use the Bayesian than the Shtarkov predictor in such a setting.}
 \begin{solution}
 \end{solution}
 \end{subquestion}
@@ -119,8 +119,27 @@ Because elements of $\Theta$ are much closer to each other.
 \end{question}
 
 % 2nd question
-\begin{question}{}
+\begin{question}
+{(Uncountable $\Theta$, $[4+1/3$ pt $]$) Now consider the full Bernoulli model, $\Theta=[0,1]$, with the sum in $(1)$ repladed by an integral, for the uniform prior probability densiwty $w)\theta ):=1$ for all $\theta \in [0,1]$.
+\begin{subquestion}{For each of the follwoing statements, indicate wheter it is true or false, and prove your answer.
+\begin{enumerate}
+\item $[3+1/3 pt]$ The NML predictor $p^*$ achieves the same regret for every sequence $x^m-x_1, \dots , x_m \in \{ 0,1 \} ^m$.
+\item same as (i) with 'regret' replaced by 'cumulative loss'.
+\item the Bayesian predictor $\bar{p}$ achieves the same regret for every sequence $x^m \in \{ 0,1 \} ^m$.
+\item same as (iii) with 'regret' replaced by 'cumulative loss'.
+\item for every fixed $x^m \in \{ 0,1 \} ^m$, the NML predictor $p^*$ achieves the same regret on every $y^m$ that is a permutation of $x^m$.
+\item same as (vii) with 'regret' replaced by 'cumulative loss'.
+\item for every fixed $x^m \in \{ 0,1 \} ^m$, every $n<m$, the NML predictor $p^*$ achieves the same loss on $y_1 , \dots , y_n$, for every $y_1, \dots , y_n$ that are the initial segment of an $y_1 , \dots , y_m$ that is a permutation of $x^m$.
+\item same as (ix) but with $p^*$ replaced by $\bar{p}$.
+\end{enumerate}
+}
+\end{subquestion}
+\begin{subquestion}{
+[1 pt] Suppose we do not know in advance how many predictions we have to make, i.e. we do not know the \textit{horizon} $n$. Explain why this is a problem for prediction with the NML $p^*$ but not for prediction with $\bar{p}$.}
+\end{subquestion}
+}
 \end{question}
+
 
 \bibliographystyle{plain}
 \bibliography{references}
