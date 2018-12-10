@@ -120,15 +120,82 @@ Because elements of $\Theta$ are much closer to each other.
 
 % 2nd question
 \begin{question}
-{(Uncountable $\Theta$, $[4+1/3$ pt $]$) Now consider the full Bernoulli model, $\Theta=[0,1]$, with the sum in $(1)$ repladed by an integral, for the uniform prior probability densiwty $w)\theta ):=1$ for all $\theta \in [0,1]$.
+{(Uncountable $\Theta$, $[4+1/3$ pt $]$) Now consider the full Bernoulli model, $\Theta=[0,1]$, with the sum in $(1)$ repladed by an integral, for the uniform prior probability densiwty $w(\theta ):=1$ for all $\theta \in [0,1]$.
 \begin{subquestion}{For each of the follwoing statements, indicate wheter it is true or false, and prove your answer.
 \begin{enumerate}
+% 1
 \item $[3+1/3 pt]$ The NML predictor $p^*$ achieves the same regret for every sequence $x^m-x_1, \dots , x_m \in \{ 0,1 \} ^m$.
+\begin{solution}
+True. \\
+\[
+p_n^*(x^n) = \frac{\sup_{\theta \in \Theta} \theta_n(x^n)}{\sum_{z^n \in Z^n} \sup_{\theta \in \Theta} \theta_n(z^n)}
+\]
+\begin{align*}
+\hat{L}(x^n) - \inf_{\theta \in \Theta} L_\theta (x^n) & = \log \frac{\sup_{\theta \in \Theta} \theta_n(x^n)}{p_n^* (x^n)} \\
+& = \log \sum_{z^n \in Z^n} \sup_{\theta \in \Theta} \theta_n (z^n) \\ 
+& \Rightarrow \text{independant of $x^n$} \\
+& \Rightarrow \text{regret is the same for $\forall x^n$}
+\end{align*}
+\end{solution}
+% 2
 \item same as (i) with 'regret' replaced by 'cumulative loss'.
+\begin{solution}
+False. \\
+\[
+p_n^*(x^n) = \frac{\sup_{\theta \in \Theta} \theta_n(x^n)}{\sum_{z^n \in Z^n} \sup_{\theta \in \Theta} \theta_n(z^n)}
+\]
+\begin{align*}
+\hat{L}(x^n) & = \log \frac{1}{p_n^* (x^n)} \\
+& = \log \frac{\sum_{z^n \in Z^n} \sup_{\theta \in \Theta} \theta_n (z^n)}{\sup_{\theta \in \Theta} \theta_n(x^n)} \\ 
+& \Rightarrow \text{idependant on $x^n$} \\
+& \Rightarrow \text{cumulative loss is not the same for $\forall x^n$}
+\end{align*}
+\end{solution}
+% 3
 \item the Bayesian predictor $\bar{p}$ achieves the same regret for every sequence $x^m \in \{ 0,1 \} ^m$.
+\begin{solution}
+False. \\
+\[
+\bar{p}_n(x^n) = \int w(\theta) p_\theta (x^n) \; d\theta = \int p_\theta (x^n) \; d\theta 
+\]
+\begin{align*}
+\hat{L}(x^n) - \inf_{\theta \in \Theta} L_\theta (x^n) & = \log \frac{\sup_{\theta \in \Theta} \theta_n(x^n)}{\bar{p}_n (x^n)} \\
+& = \log \frac{\sup_{\theta \in \Theta} \theta_n(x^n)}{\int p_\theta (x^n) \; d\theta } \\
+& \Rightarrow \text{dependant on $x^n$} \\
+& \Rightarrow \text{regret is the not the same for $\forall x^n$}
+\end{align*}
+\end{solution}
+% 4
 \item same as (iii) with 'regret' replaced by 'cumulative loss'.
+\begin{solution}
+???. \\
+\[
+\bar{p}_n(x^n) = \int w(\theta) p_\theta (x^n) \; d\theta = \int p_\theta (x^n) \; d\theta 
+\]
+\begin{align*}
+\hat{L}(x^n) & = \log \frac{1}{\bar{p}_n (x^n)} \\
+& = \log \frac{1}{\int p_\theta (x^n) \; d\theta} \\
+& \Rightarrow  \\
+& \Rightarrow 
+\end{align*}
+\end{solution}
+% 5
 \item for every fixed $x^m \in \{ 0,1 \} ^m$, the NML predictor $p^*$ achieves the same regret on every $y^m$ that is a permutation of $x^m$.
+\begin{solution}
+True. \\
+Since the regret is the same for every $x^n$, it is also the same for the permutation of $x^n$.
+\end{solution}
+% 6
 \item same as (vii) with 'regret' replaced by 'cumulative loss'.
+\begin{solution}
+True.
+\begin{align*}
+\hat{L}(x^n) & = \log \frac{1}{p_n^* (x^n)} \\
+& = \log \frac{\sum_{z^n \in Z^n} \sup_{\theta \in \Theta} \theta_n (z^n)}{\sup_{\theta \in \Theta} \theta_n(x^n)} \\ 
+& \Rightarrow \sup_{\theta \in \Theta} \theta_n(x^n) \text{ is independant on the order of the elements of $x^n$} \\
+& \Rightarrow \text{cumulative loss is the same for every permutation of $x^n$}
+\end{align*}
+\end{solution}
 \item for every fixed $x^m \in \{ 0,1 \} ^m$, every $n<m$, the NML predictor $p^*$ achieves the same loss on $y_1 , \dots , y_n$, for every $y_1, \dots , y_n$ that are the initial segment of an $y_1 , \dots , y_m$ that is a permutation of $x^m$.
 \item same as (ix) but with $p^*$ replaced by $\bar{p}$.
 \end{enumerate}
