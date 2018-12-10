@@ -120,8 +120,8 @@ Because elements of $\Theta$ are much closer to each other.
 
 % 2nd question
 \begin{question}
-{(Uncountable $\Theta$, $[4+1/3$ pt $]$) Now consider the full Bernoulli model, $\Theta=[0,1]$, with the sum in $(1)$ repladed by an integral, for the uniform prior probability densiwty $w(\theta ):=1$ for all $\theta \in [0,1]$.
-\begin{subquestion}{For each of the follwoing statements, indicate wheter it is true or false, and prove your answer.
+{(Uncountable $\Theta$, $[4+1/3$ pt $]$) Now consider the full Bernoulli model, $\Theta=[0,1]$, with the sum in $(1)$ repladed by an integral, for the uniform prior probability densiwty $w(\theta ):=1$ for all $\theta \in [0,1]$.}
+\begin{subquestion}{For each of the follwoing statements, indicate wheter it is true or false, and prove your answer.}
 \begin{enumerate}
 % 1
 \item $[3+1/3 pt]$ The NML predictor $p^*$ achieves the same regret for every sequence $x^m-x_1, \dots , x_m \in \{ 0,1 \} ^m$.
@@ -215,12 +215,15 @@ False.
 $\int p_\theta (y^n) \; d\theta$ can be different for every $y^n$, therefore the loss is not the same for every $y^n$.
 \end{solution}
 \end{enumerate}
-}
+
 \end{subquestion}
 \begin{subquestion}{
 [1 pt] Suppose we do not know in advance how many predictions we have to make, i.e. we do not know the \textit{horizon} $n$. Explain why this is a problem for prediction with the NML $p^*$ but not for prediction with $\bar{p}$.}
+\begin{solution}
+Prediction with NML $p^*$ contains a part $\sum_{z^n \in Z^n} \sup_{\theta \in \Theta} \theta_n (z^n)$ which is hard do compute.
+\end{solution}
 \end{subquestion}
-}
+
 \end{question}
 
 
