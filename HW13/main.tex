@@ -168,15 +168,15 @@ False. \\
 % 4
 \item same as (iii) with 'regret' replaced by 'cumulative loss'.
 \begin{solution}
-???. \\
+False. \\
 \[
 \bar{p}_n(x^n) = \int w(\theta) p_\theta (x^n) \; d\theta = \int p_\theta (x^n) \; d\theta 
 \]
 \begin{align*}
 \hat{L}(x^n) & = \log \frac{1}{\bar{p}_n (x^n)} \\
 & = \log \frac{1}{\int p_\theta (x^n) \; d\theta} \\
-& \Rightarrow  \\
-& \Rightarrow 
+& \Rightarrow \text{dependant on } x^n \\
+& \Rightarrow \text{not the same for } \forall x^n
 \end{align*}
 \end{solution}
 % 5
@@ -196,8 +196,16 @@ True.
 & \Rightarrow \text{cumulative loss is the same for every permutation of $x^n$}
 \end{align*}
 \end{solution}
+% 7
 \item for every fixed $x^m \in \{ 0,1 \} ^m$, every $n<m$, the NML predictor $p^*$ achieves the same loss on $y_1 , \dots , y_n$, for every $y_1, \dots , y_n$ that are the initial segment of an $y_1 , \dots , y_m$ that is a permutation of $x^m$.
+\begin{solution}
+False.
+\end{solution}
+% 8
 \item same as (ix) but with $p^*$ replaced by $\bar{p}$.
+\begin{solution}
+True.
+\end{solution}
 \end{enumerate}
 }
 \end{subquestion}
