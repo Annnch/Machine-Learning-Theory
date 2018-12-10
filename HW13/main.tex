@@ -147,7 +147,7 @@ p_n^*(x^n) = \frac{\sup_{\theta \in \Theta} \theta_n(x^n)}{\sum_{z^n \in Z^n} \s
 \begin{align*}
 \hat{L}(x^n) & = \log \frac{1}{p_n^* (x^n)} \\
 & = \log \frac{\sum_{z^n \in Z^n} \sup_{\theta \in \Theta} \theta_n (z^n)}{\sup_{\theta \in \Theta} \theta_n(x^n)} \\ 
-& \Rightarrow \text{idependant on $x^n$} \\
+& \Rightarrow \text{dependant on $x^n$} \\
 & \Rightarrow \text{cumulative loss is not the same for $\forall x^n$}
 \end{align*}
 \end{solution}
@@ -200,11 +200,19 @@ True.
 \item for every fixed $x^m \in \{ 0,1 \} ^m$, every $n<m$, the NML predictor $p^*$ achieves the same loss on $y_1 , \dots , y_n$, for every $y_1, \dots , y_n$ that are the initial segment of an $y_1 , \dots , y_m$ that is a permutation of $x^m$.
 \begin{solution}
 False.
+\begin{align*}
+\hat{L}(y^n) = \log \frac{\sum_{z^n \in Z^n} \sup_{\theta \in \Theta} \theta_n (z^n)}{\sup_{\theta \in \Theta} \theta_n(y^n)} \\ 
+\end{align*}
+$\sup_{\theta \in \Theta} \theta_n(y^n)$ can be different for every $y^n$, therefore the loss is not the same for every $y^n$.
 \end{solution}
 % 8
 \item same as (ix) but with $p^*$ replaced by $\bar{p}$.
 \begin{solution}
-True.
+False.
+\begin{align*}
+\hat{L}(y^n) = \log \frac{1}{\int p_\theta (y^n) \; d\theta} \\
+\end{align*}
+$\int p_\theta (y^n) \; d\theta$ can be different for every $y^n$, therefore the loss is not the same for every $y^n$.
 \end{solution}
 \end{enumerate}
 }
