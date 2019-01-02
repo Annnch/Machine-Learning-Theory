@@ -1,0 +1,188 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{MLT Homework 14}
+% \author{Ana Borovac \\ Jonas Haslbeck \\ Bas Haver} % I'll be coming back :-)
+\author{Ana Borovac  \\ Bas Haver}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{mathtools}
+
+\usepackage{url}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand{\Hy}{\mathcal{H}}
+\newcommand{\VC}{\text{VCdim}}
+\newcommand{\sign}{\text{sign}}
+
+\newcounter{counterquestion}
+\newenvironment{question}[1]
+{
+\stepcounter{counterquestion}
+\section*{Question \thecounterquestion}
+\emph{#1} 
+} 
+{
+}
+
+\newcounter{countersubquestion}[counterquestion]
+\newenvironment{subquestion}[1]
+{
+\stepcounter{countersubquestion}
+\subsection*{Subquestion \thecounterquestion .\thecountersubquestion}
+\emph{#1} 
+} 
+{
+}
+
+\newenvironment{solution}
+{
+\subsubsection*{Solution}
+} 
+{
+}
+
+
+\begin{document}
+
+\maketitle
+
+% 1st question
+\begin{question}{}
+\begin{solution}
+\end{solution}
+\end{question}
+
+% 2nd question
+\begin{question}{Prove that the function h given in Equation (10.5) equals the piece-wise constant function defined according to the same thresholds as $h$.}
+\begin{solution}
+We would like to prove that is holds if $x \in (\theta_{k -1}, \theta_k]$, then $h(x) = (-1)^k = g(x)$.
+\begin{align*}
+h(x) & = \sign \left( \sum_{t = 1}^{T} w_t \sign(x - \theta_{t - 1}) \right) \\
+& = \sign ( \frac{1}{2} \sign(x - \theta_0) + (-1)^2 \sign(x - \theta_1) + \\
+& \quad + \cdots + \\
+& \quad (-1)^k \sign(x - \theta_{k-1}) + (-1)^{k + 1} \sign(x - \theta_k) + \\
+& \quad + \cdots + \\
+& \quad + (-1)^T \sign(x - \theta_{T-1}) )
+\end{align*}
+Since $x \in (\theta_{k -1}, \theta_k]$, it holds:
+\[
+\sign(x - \theta_j) =
+\begin{cases}
+1; & j \in \{ 0, \dots, k \} \\
+- 1; & j \in \{ k + 1, \dots, T \}
+\end{cases}
+\]
+It follows:
+\begin{align*}
+h(x) & = \sign ( \frac{1}{2} + (-1)^2 + \\
+& \quad + \cdots + \\
+& \quad (-1)^k + (-1)^{k + 1} (-1) + \\
+& \quad + \cdots + \\
+& \quad + (-1)^T (-1) ) \\
+& = \sign \left( \frac{1}{2} + (-1)^2 + \cdots + (-1)^k + (-1)^{k + 2} + \cdots + (-1)^{T + 1} \right) \\
+& = \sign \left( \frac{1}{2} + \sum_{i = 2}^{T + 1} (-1)^i - (-1)^{k + 1} \right) \\
+& = \sign \left( \frac{1}{2} + \sum_{i = 2}^{T + 1} (-1)^i + (-1)^{k} \right) \\
+& = \sign
+\begin{cases}
+\frac{1}{2} + 1 + (-1)^{k}; & T \text{ is odd} \\
+\frac{1}{2} - 1 + (-1)^{k}; & T \text{ is even}
+\end{cases} \\
+& = \sign
+\begin{cases}
+\frac{3}{2} + (-1)^{k}; & T \text{ is odd} \\
+- \frac{1}{2} + (-1)^{k}; & T \text{ is even}
+\end{cases} \\
+& = \sign
+\begin{cases}
+\frac{3}{2} + (-1); & T \text{ is odd}, k \text{ is odd} \\
+\frac{3}{2} + 1; & T \text{ is odd}, k \text{ is even} \\
+- \frac{1}{2} + (-1); & T \text{ is even}, k \text{ is odd} \\
+- \frac{1}{2} + 1; & T \text{ is even}, k \text{ is even}
+\end{cases} \\
+& = \sign
+\begin{cases}
+- \frac{1}{2}; & T \text{ is odd}, k \text{ is odd} \\
+\frac{5}{2}; & T \text{ is odd}, k \text{ is even} \\
+- \frac{3}{2}; & T \text{ is even}, k \text{ is odd} \\
+\frac{1}{2}; & T \text{ is even}, k \text{ is even}
+\end{cases} \\
+& = 
+\begin{cases}
+-1; & k \text{ is odd} \\
+1; & k \text{ is even}
+\end{cases} \\
+& = (-1)^k
+\end{align*}
+\end{solution}
+\end{question}
+
+% 3rd question
+\begin{question}{We have informally argued that the AdaBoost algorithm uses the weighting
+mechanism to “force” the weak learner to focus on the problematic examples in the next iteration. In this question we will find some rigorous justification for this argument. \\ Show that the error of ht w.r.t.\ the distribution $D^{(t+1)}$ is exactly $1/2$. That is, show that for every $t \in [T]$ 
+\[
+\sum_{i = 1}^m D_i^{(t + 1)} \mathbbm{1}_{[y_i \neq h_t(x_i)]} = \frac{1}{2}
+\]}
+\begin{solution}
+From definition of $D_i^{(t + 1)}$:
+\begin{align*}
+\sum_{i = 1}^m D_i^{(t + 1)} \mathbbm{1}_{[y_i \neq h_t(x_i)]} & = \frac{\sum_{i = 1}^m D_i^{(t)}e^{-w_t y_i h_t(x_i)} \mathbbm{1}_{[y_i \neq h_t(x_i)]}}{\sum_{j = 1}^{m} D_j^{(t)} e^{-w_t y_j h_t(x_j)}} \\
+& = \frac{\sum_{i = 1}^m D_i^{(t)}e^{-w_t y_i h_t(x_i)} \mathbbm{1}_{[y_i \neq h_t(x_i)]}}{\sum_{j = 1}^{m} D_j^{(t)} e^{-w_t y_j h_t(x_j)}\mathbbm{1}_{[y_i \neq h_t(x_i)]} + \sum_{j = 1}^{m} D_j^{(t)} e^{-w_t y_j h_t(x_j)}\mathbbm{1}_{[y_i = h_t(x_i)]}}
+\end{align*}
+Now, we are going to use:
+\begin{align*}
+y_i = h_t(x_i) & \quad \Rightarrow \quad y_i h_t(x_i) = 1 \\
+y_i \neq h_t(x_i) & \quad \Rightarrow \quad y_i h_t(x_i) = -1
+\end{align*}
+It follows:
+\begin{align*}
+& = \frac{\sum_{i = 1}^m D_i^{(t)}e^{-w_t y_i h_t(x_i)} \mathbbm{1}_{[y_i \neq h_t(x_i)]}}{\sum_{j = 1}^{m} D_j^{(t)} e^{-w_t y_j h_t(x_j)}\mathbbm{1}_{[y_i \neq h_t(x_i)]} + \sum_{j = 1}^{m} D_j^{(t)} e^{-w_t y_j h_t(x_j)}\mathbbm{1}_{[y_i = h_t(x_i)]}} \\
+& = \frac{e^{w_t} \sum_{i = 1}^m D_i^{(t)} \mathbbm{1}_{[y_i \neq h_t(x_i)]}}{e^{w_t} \sum_{j = 1}^{m} D_j^{(t)} \mathbbm{1}_{[y_i \neq h_t(x_i)]} + e^{-w_t} \sum_{j = 1}^{m} D_j^{(t)} \mathbbm{1}_{[y_i = h_t(x_i)]}} \\
+& = \frac{e^{w_t} \epsilon_t}{e^{w_t}\epsilon_t + e^{-w_t}(1 - \epsilon_t)}; \quad \epsilon_t = \sum_{i = 1}^m D_i^{(t)} \mathbbm{1}_{[y_i \neq h_t(x_i)]} \\
+& = \frac{\epsilon_t}{\epsilon_t + e^{-2w_t}(1 - \epsilon_t)} \\
+& = \frac{\epsilon_t}{\epsilon_t + e^{-2 \frac{1}{2} \log \left( \frac{1}{\epsilon_t} - 1 \right)}(1 - \epsilon_t)}; \quad w_t = \frac{1}{2} \log \left( \frac{1}{\epsilon_t} - 1 \right) \\
+& = \frac{\epsilon_t}{\epsilon_t + \frac{\epsilon_t}{1 - \epsilon_t}(1 - \epsilon_t)} \\
+& = \frac{\epsilon_t}{\epsilon_t + \epsilon_t} \\
+& = \frac{1}{2}
+\end{align*} 
+\end{solution}
+\end{question}
+
+% 4th question
+\begin{question}{}
+\begin{solution}
+\end{solution}
+\end{question}
+
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
