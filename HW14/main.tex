@@ -59,6 +59,21 @@
 % 1st question
 \begin{question}{}
 \begin{solution}
+% https://www.cs.huji.ac.il/~shais/Lectures2014/lecture4.pdf
+We are going to use the hint, so fist divide samples into $k$ chunks $S_1, \dots, S_k$, each of size $m_\Hy(\epsilon)$. Now, we would like to prove:
+\[
+P( \forall i \in \{ 1, \dots, k \}: L_D(A(S_i)) > \min_{h \in \Hy} L_D(h) + \epsilon) \leq \delta_0^k
+\]
+We know that for each $S_i$ it holds:
+\[
+P(L_D(A(S_i)) > \min_{h \in \Hy} L_D(h) + \epsilon) \leq \delta_0
+\]
+Therefore:
+\begin{align*}
+& P( \forall i \in \{ 1, \dots, k \}: L_D(A(S_i)) > \min_{h \in \Hy} L_D(h) + \epsilon) = \\
+& = \prod_{i = 1}^k P(L_D(A(S_i)) > \min_{h \in \Hy} L_D(h) + \epsilon)  \\
+& \leq \delta_0^k
+\end{align*}
 \end{solution}
 \end{question}
 
