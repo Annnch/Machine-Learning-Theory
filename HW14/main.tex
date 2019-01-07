@@ -57,23 +57,16 @@
 \maketitle
 
 % 1st question
-\begin{question}{}
+\begin{question}{\textbf{Boosting the Confidence:} Let A be an algorithm that guarantees the following: There exists some constant $\delta _0 \in (0,1)$ and a function $m_{\mathcal{H}}:(0,1)\to \mathbb{N}$ such that for every $\epsilon \in (0,1)$, if $m\geq m_{\mathcal{H}}(\epsilon )$ then for every distribution $\mathcal{D}$ it holds that with probability of at least $1-\delta _0$, $L_{\mathcal{D}}(A(S))\leq \min _{h \in \mathcal{H}} L_{\mathcal{D}}(h)+\epsilon$.\\
+Suggest a procedure that relies on A and learns $\mathcal{H}$ in the usual agnostic PAC learning model and has a sample complexity of \[ m_{\mathcal{H}}(\epsilon, \delta) \leq k m_{\mathcal{H}}(\epsilon/2) + \left\lceil \frac{8 \log(4k/\delta)}{\epsilon^2} \right\rceil, \]
+where \[ k = \left\lceil \log \left( \frac{1}{2} \delta \right) / \log(\delta_0) \right\rceil. \]
+\textit{Hint:} Divide the data into $k+1$ chunks, where each of the first $k$ chunks is of size $m_{\mathcal{H}}(\epsilon/2 )$ examples. Train the first $k$ chunks using A. Argue that the probability that for all of these chunks we have $L_{\mathcal{D}}(A(S))>\min _{h \in \mathcal{H}}L_{\mathcal{D}}(h)+\epsilon/2$ is at most $\delta _0 ^k \leq \delta /2$.\\
+Finally, use the last chunk to choose from the $k$ hypotheses that A generated from the $k$ chunks (by relying on Corollary 4.6).}
 \begin{solution}
-% https://www.cs.huji.ac.il/~shais/Lectures2014/lecture4.pdf
-We are going to use the hint, so fist divide samples into $k$ chunks $S_1, \dots, S_k$, each of size $m_\Hy(\epsilon)$. Now, we would like to prove:
-\[
-P( \forall i \in \{ 1, \dots, k \}: L_D(A(S_i)) > \min_{h \in \Hy} L_D(h) + \epsilon) \leq \delta_0^k
-\]
-We know that for each $S_i$ it holds:
-\[
-P(L_D(A(S_i)) > \min_{h \in \Hy} L_D(h) + \epsilon) \leq \delta_0
-\]
-Therefore:
-\begin{align*}
-& P( \forall i \in \{ 1, \dots, k \}: L_D(A(S_i)) > \min_{h \in \Hy} L_D(h) + \epsilon) = \\
-& = \prod_{i = 1}^k P(L_D(A(S_i)) > \min_{h \in \Hy} L_D(h) + \epsilon)  \\
-& \leq \delta_0^k
-\end{align*}
+As suggested by the hint, we divide the data into $k+1$ chunks, where each of the first $k$ chunks is of size $m_{\mathcal{H}}(\epsilon/2 )$. We nog apply algorithm A on the first $k$ chunks. For every of the first $k$ chunks we have that algorithm A guarantees that $L_{\mathcal{D}}(A(S))> \min _{h \in \mathcal{H}} L_{\mathcal{D}}(h)+\epsilon/2$ with probability at most $\delta _0$ when we have at least $m_{\mathcal{H}}$ data. Therefore the probability that this holds for all of these chunks is at most $\delta _0 ^k=\delta _0 ^{\lceil \log (\frac{1}{2}\delta ) / \log (\delta _0 ) \rceil} \leq \delta_0 ^{\log _{\delta _0 }(\frac{1}{2}\delta )} = \frac{1}{2}\delta$.\\
+Now by Corollary 4.6 we have $$m_{\mathcal{H}}(\epsilon/2 , \delta /2) \leq m_{\mathcal{H}}^{UC}(\epsilon /4, \delta /2 ) \leq \lceil \frac{2\log 4|\mathcal{H}|/\delta}{(\frac{1}{2}\epsilon )^2}\rceil.$$
+Now when choosing from the outputted hypotheses as obtained from the first $k$ chunks, we have $|\mathcal{H}|=k$, so we obtain $$m_{\mathcal{H}}(\epsilon/2 , \delta /2) \leq \left\lceil \frac{8 \log(4k/\delta)}{\epsilon^2} \right\rceil.$$
+Since the error made in the first $k$ chunks now is $\epsilon /2$ as well as in the last chunk, we can conclude that the procedure has a sample complexity of \[ m_{\mathcal{H}}(\epsilon, \delta) \leq k m_{\mathcal{H}}(\epsilon/2) + \left\lceil \frac{8 \log(4k/\delta)}{\epsilon^2} \right\rceil. \]
 \end{solution}
 \end{question}
 
@@ -83,7 +76,7 @@ Therefore:
 We would like to prove that is holds if $x \in (\theta_{k -1}, \theta_k]$, then $h(x) = (-1)^k = g(x)$.
 \begin{align*}
 h(x) & = \sign \left( \sum_{t = 1}^{T} w_t \sign(x - \theta_{t - 1}) \right) \\
-& = \sign ( \frac{1}{2} \sign(x - \theta_0) + (-1)^2 \sign(x - \theta_1) + \\
+& = \sign ( -\frac{1}{2} \sign(x - \theta_0) + (-1)^2 \sign(x - \theta_1) + \\
 & \quad + \cdots + \\
 & \quad (-1)^k \sign(x - \theta_{k-1}) + (-1)^{k + 1} \sign(x - \theta_k) + \\
 & \quad + \cdots + \\
@@ -99,35 +92,35 @@ Since $x \in (\theta_{k -1}, \theta_k]$, it holds:
 \]
 It follows:
 \begin{align*}
-h(x) & = \sign ( \frac{1}{2} + (-1)^2 + \\
+h(x) & = \sign ( -\frac{1}{2} + (-1)^2 + \\
 & \quad + \cdots + \\
 & \quad (-1)^k + (-1)^{k + 1} (-1) + \\
 & \quad + \cdots + \\
 & \quad + (-1)^T (-1) ) \\
-& = \sign \left( \frac{1}{2} + (-1)^2 + \cdots + (-1)^k + (-1)^{k + 2} + \cdots + (-1)^{T + 1} \right) \\
-& = \sign \left( \frac{1}{2} + \sum_{i = 2}^{T + 1} (-1)^i - (-1)^{k + 1} \right) \\
-& = \sign \left( \frac{1}{2} + \sum_{i = 2}^{T + 1} (-1)^i + (-1)^{k} \right) \\
+& = \sign \left( -\frac{1}{2} + (-1)^2 + \cdots + (-1)^k + (-1)^{k + 2} + \cdots + (-1)^{T + 1} \right) \\
+& = \sign \left( -\frac{1}{2} + \sum_{i = 2}^{T + 1} (-1)^i - (-1)^{k + 1} \right) \\
+& = \sign \left( -\frac{1}{2} + \sum_{i = 2}^{T + 1} (-1)^i + (-1)^{k} \right) \\
 & = \sign
 \begin{cases}
-\frac{1}{2} + 1 + (-1)^{k}; & T \text{ is odd} \\
-\frac{1}{2} - 1 + (-1)^{k}; & T \text{ is even}
+-\frac{1}{2} + 1 + (-1)^{k}; & T \text{ is odd} \\
+-\frac{1}{2} + 0 + (-1)^{k}; & T \text{ is even}
 \end{cases} \\
 & = \sign
 \begin{cases}
-\frac{3}{2} + (-1)^{k}; & T \text{ is odd} \\
+\frac{1}{2} + (-1)^{k}; & T \text{ is odd} \\
 - \frac{1}{2} + (-1)^{k}; & T \text{ is even}
 \end{cases} \\
 & = \sign
 \begin{cases}
-\frac{3}{2} + (-1); & T \text{ is odd}, k \text{ is odd} \\
-\frac{3}{2} + 1; & T \text{ is odd}, k \text{ is even} \\
+\frac{1}{2} + (-1); & T \text{ is odd}, k \text{ is odd} \\
+\frac{1}{2} + 1; & T \text{ is odd}, k \text{ is even} \\
 - \frac{1}{2} + (-1); & T \text{ is even}, k \text{ is odd} \\
 - \frac{1}{2} + 1; & T \text{ is even}, k \text{ is even}
 \end{cases} \\
 & = \sign
 \begin{cases}
 - \frac{1}{2}; & T \text{ is odd}, k \text{ is odd} \\
-\frac{5}{2}; & T \text{ is odd}, k \text{ is even} \\
+\frac{3}{2}; & T \text{ is odd}, k \text{ is even} \\
 - \frac{3}{2}; & T \text{ is even}, k \text{ is odd} \\
 \frac{1}{2}; & T \text{ is even}, k \text{ is even}
 \end{cases} \\
@@ -173,31 +166,55 @@ It follows:
 \end{question}
 
 % 4th question
-\begin{question}{}
+\begin{question}{In this exercise we discuss the VC-dimension of classes of the form $L(B, T)$.
+We proved an upper bound of $O(dT log(dT))$, where $d = \VC(B)$. Here we
+wish to prove an almost matching lower bound. However, that will not be the
+case for all classes $B$.}
+
+\begin{subquestion}{Note that for every class $B$ and every number $T\geq 1$, $\VC(B) \leq \VC(L(B, T))$. Find a class $B$ for which $\VC(B) = \VC(L(B, T))$
+for every $T \geq 1$.}
 \begin{solution}
+$L(B, T)$ is by definition:
+\[
+L(B, T) = \{ x \mapsto  \sign \left( \sum_{t = 1}^T w_t h_t \right) : w_t \in \mathbb{R}, h_t \in B \}
+\]
+If $B$ equals to:
+\[
+B = \{ h_1, h_{-1} \}; \quad h_1(x) = 1,\ h_{-1}(x) = -1\  \forall x 
+\]
+Then it's VC-dimension equals to 1 (we can not label two points differently with $h_1$ or $h_{-1}$). In this case functions in $L(B, T)$ do not really depend on the input $x$. With different $w_t$ we can get $1$ or $-1$ for every $x$. Therefore, we again can not label two points differently and VC-dimension of $L(B, T)$ is also 1.
 \end{solution}
+\end{subquestion}
+
+\begin{subquestion}{Let $B_d$ be the class of decision stumps over $\mathbb{R}^d$. Prove that $\lfloor \log(d) \rfloor \leq \VC(B_d) \leq 16 + 2 \log(d)$.}
+\begin{solution}
+We can write $B_d = \{x \mapsto \sign(\theta - x_i) \cdot b : \theta \in \mathbb{R}, i \in [d], b \in \{+1, -1\}\}$ as:
+\[
+B_d = \cup_{i = 1}^d B_i
+\]
+where $B_i = \{x \mapsto \sign(\theta - x_i) \cdot b : \theta \in \mathbb{R}, b \in \{+1, -1\}\}$.
+$\VC(B_i) = 2$, therefore (from exercise 6.11):
+\[
+\VC(\cup_{i = 1}^d B_i) \leq 4 \cdot 2 \log(2 \cdot 2) + 2\log(d) = 16 + 2 \log(d)
+\]
+
+For the lower bound, we follow the hint and assume $d = 2^k$. Let $A$ be a $k \times d$ matrix whose columns are all the $d$ binary vectors in $\{+1, -1\}^k$. The rows of $A$ form a set of $k$ vectors in $\mathbb{R}^d$. Show that this set is shattered by decision stumps over $\mathbb{R}^d$. If columns represent all of $2^k$ possible labelings for $k$ vectors, the following functions prove that a set of $k$ vectors can be shattered:
+\[
+x \mapsto \sign(- x_i) \cdot (-1) \quad \Rightarrow \quad x \mapsto \sign(x_i) 
+\]
+Therefor the lower bound equals to:
+\[
+\lfloor \log(d) \rfloor \leq \VC(B_d)
+\]
+\end{solution}
+\end{subquestion}
+
+\begin{subquestion}{Let $T \geq 1$ be any integer. Prove that $\VC(L(Bd, T)) \geq 0{,}5 T \log(d)$.}
+\end{subquestion}
+
 \end{question}
 
 
 \bibliographystyle{plain}
 \bibliography{references}
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
